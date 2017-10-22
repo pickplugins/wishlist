@@ -1,0 +1,111 @@
+@charset "utf-8";
+/* CSS Document */
+
+ 
+.single_wishlist {
+    float: left;
+    position: relative;
+    width: 232px;
+    height: 228px;
+    margin: 0 20px 10px 0;
+}
+.single_wishlist::before {
+    background-color: #e3e3e3;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 216px;
+    height: 192px;
+    border: 4px solid #fff;
+    border-bottom: 60px solid #fff;
+    outline: 1px #e3e3e3 solid;
+    box-sizing: border-box;
+    z-index: 1;
+    top: 0;
+    left: 1px;
+    transition: all ease 0.4s 0s;
+}
+.single_wishlist::after {
+    background-color: #e3e3e3;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 216px;
+    height: 192px;
+    border: 4px solid #fff;
+    border-bottom: 60px solid #fff;
+    outline: 1px #e3e3e3 solid;
+    box-sizing: border-box;
+    z-index: 2;
+    top: 7px;
+    left: 8px;
+    transition: all ease 0.4s 0s;
+}
+
+.single_wishlist a.single_wishlist_inside {
+    background-color: #fff;
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 13px;
+    left: 14px;
+    width: 218px;
+    height: 194px;
+    padding: 4px;
+    border: 1px #e3e3e3 solid;
+    box-shadow: 0 5px 8px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    color: #797979;
+    text-decoration: none;
+}
+
+
+.single_wishlist:hover a.single_wishlist_inside{
+    box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.14);
+
+}
+.single_wishlist:hover::before{transform: rotate(10deg);}
+.single_wishlist:hover::after{transform: rotate(5deg);}
+
+
+.single_wishlist .single_wishlist_img {
+background-color: #e3e3e3;
+    display: block;
+    width: 208px;
+    height: 128px;
+    overflow: hidden;
+    text-align: center;
+    color: #9c9c9c;
+    font-size: 125px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.single_wishlist a.single_wishlist_inside h3 {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+    color: #464646;
+    padding: 9px 6px 0 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    margin: 0;
+}
+.single_wishlist a.single_wishlist_inside small {
+    font-size: 14px;
+    line-height: 16px;
+    color: #464646;
+    padding: 0 6px;
+}
+
+
+
+.pickplugins_wl_wishlist_single .pickplugins_wl_wishlist_status {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+

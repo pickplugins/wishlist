@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+
+.single-wishlist{}
+
+.single-wishlist .wishlist-title{}
+
+
+
+.single-wishlist .wishlist-breadcrumb {
+    font-size: 13px;
+    display: block;
+}
+.single-wishlist .wishlist-breadcrumb .breadcrumb-item {
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+}
+.single-wishlist .wishlist-breadcrumb .breadcrumb-separator{}
+
+.single-wishlist .wishlist-description {
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
