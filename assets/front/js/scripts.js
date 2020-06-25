@@ -1,6 +1,116 @@
 jQuery(document).ready(function($) {
 	
 	
+	// Wishlist Copy //
+	// ===== //
+	
+	$(document).on('click', ".pickplugins_wl_button_copy", function() {
+		
+		wishlist_id = $(this).attr( 'wishlist_id' );
+		
+		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
+		
+		__HTML__ = $(this).html();
+		$(this).html("Copying...");
+		
+		$.ajax(
+			{
+		type: 'POST',
+		context: this,
+		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		data: {
+			"action"		: "pickplugins_wl_ajax_wishlist_copy",
+			"wishlist_id" 	: wishlist_id,
+		},
+		success: function( data ) {
+			
+			$(this).html( __HTML__ );
+			window.location.replace( data );
+		}
+			});
+		
+	})
+	
+	
+	
+	// Share Wishlist //
+	// ===== //
+	
+	
+	
+	
+	
+	// Vote Action //
+	// ===== //
+	$(document).on('click', ".wl_vote_confirm", function() {
+		
+		if( $(this).hasClass('wl_vote_up') ) vote_type = "vote_up";
+		else if( $(this).hasClass('wl_vote_down') ) vote_type = "vote_down";
+		else vote_type = "";
+		
+		user_id 	= $(this).parent().attr( 'user_id' );
+		wishlist_id = $(this).parent().attr( 'wishlist_id' );
+		
+		if( typeof user_id === "undefined" || user_id.length == 0 ) return;
+		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
+		if( vote_type.length == 0 ) return;
+		
+		$.ajax(
+			{
+		type: 'POST',
+		context: this,
+		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		data: {
+			"action"		: "pickplugins_wl_ajax_update_vote",
+			"wishlist_id" 	: wishlist_id,
+			"vote_type"		: vote_type,
+		},
+		success: function(response) {
+			
+			data = JSON.parse( response );
+			
+			$(this).parent().find('.wl_vote_up_count').html( data['vote_up'] );
+			$(this).parent().find('.wl_vote_down_count').html( data['vote_down'] );
+		}
+			});
+	})
+	
+	
+	
+	// Update wishlist views //
+	// ===== //
+
+	$(document).on('pickplugins_wl_set_views', function(event, wishlist_id) {
+		
+		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 || wishlist_id == 0 ) return; 
+		
+		pickplugins_wl_views_counted 	= localStorage.getItem( 'pickplugins_wl_views_counted' );
+		views_counted_array 			= JSON.parse( pickplugins_wl_views_counted );
+		
+		if( typeof views_counted_array === "undefined" || views_counted_array == null ) views_counted_array = [];
+		if( views_counted_array.indexOf( wishlist_id ) !== -1 ) return;
+		
+		$.ajax(
+			{
+		type: 'POST',
+		context: this,
+		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		data: {
+			"action"		: "pickplugins_wl_ajax_set_views",
+			"wishlist_id" 	: wishlist_id,
+		},
+		success: function(data) {
+			
+			console.log( data );
+			
+			views_counted_array.push( wishlist_id );
+			localStorage.setItem( 'pickplugins_wl_views_counted',  JSON.stringify( views_counted_array ) );
+		}
+			});
+	})
+	
+	
+	
 	// Popup Delete Screen //
 	// ===== //
 
@@ -30,13 +140,18 @@ jQuery(document).ready(function($) {
 			});
 	})
 	
+	
+	
 	$(document).on('click', ".pickplugins_wl_editing .pickplugins_wl_button_delete", function() {
 		$('.pickplugins_wl_popup_delete').fadeIn();
 	})
 	
+	
+	
 	$(document).on('click', ".pickplugins_wl_popup_delete .pickplugins_wl_popup_cancel", function() {
 		$('.pickplugins_wl_popup_delete').fadeOut();
 	})
+	
 	
 	
 	// Popup Edit Screen //
@@ -48,12 +163,13 @@ jQuery(document).ready(function($) {
 		wishlist_title 	= $('.pickplugins_wl_popup_edit .pickplugins_wl_wishlist_title').val();
 		wishlist_sd 	= $('.pickplugins_wl_popup_edit .pickplugins_wl_wishlist_sd').val();
 		wishlist_status = $('.pickplugins_wl_popup_edit .pickplugins_wl_wishlist_status').val();
+		wishlist_tags 	= $('.pickplugins_wl_popup_edit .pickplugins_wl_wishlist_tags').val();
 		
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
 		if( typeof wishlist_title === "undefined" || wishlist_title.length == 0 ) return;
 		
 		__HTML__ = $(this).html();
-		$(this).html("<span class='dashicons dashicons-admin-generic dashicons-spin'></span> Saving...");
+		$(this).html("<i class='fa fa-cog fa-spin' ></i> Saving...");
 		
 		$.ajax(
 			{
@@ -67,24 +183,28 @@ jQuery(document).ready(function($) {
 			"wishlist_title"		: wishlist_title,
 			"wishlist_sd"			: wishlist_sd,
 			"wishlist_status"		: wishlist_status,
+			"wishlist_tags"			: wishlist_tags,
 		},
 		success: function(data) {
-			if( data == 'updated' ) location.reload();
+			
+			if( data.length != 0 )  window.location.replace( data );
 		}
 			});
 	})
 	
+	
+	
 	$(document).on('click', ".pickplugins_wl_editing .pickplugins_wl_button_edit", function() {
 		$('.pickplugins_wl_popup_edit').fadeIn();
 	})
+	
+	
 	
 	$(document).on('click', ".pickplugins_wl_popup_edit .pickplugins_wl_popup_cancel", function() {
 		$('.pickplugins_wl_popup_edit').fadeOut();
 	})
 	
 	
-
-
 	
 	// Saved in Wishlist from Top Heart Icon Item //
 	// ===== //
@@ -97,7 +217,11 @@ jQuery(document).ready(function($) {
 		
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
-		
+
+		$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
+		//$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
+
+
 		$.ajax(
 			{
 		type: 'POST',
@@ -109,20 +233,31 @@ jQuery(document).ready(function($) {
 			"item_id" 	: item_id,
 			"wishlist_id" 	: wishlist_id,
 		},
-		success: function(data) {
-			
-			console.log( data );
-			
-			if( data == 'removed' ) {
+		success: function(response) {
+			var data = JSON.parse( response );
+
+			status = data['status'];
+			count = data['count'];
+
+			//console.log( status );
+			//console.log( count );
+
+			$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-heart' ></i>");
+			$(this).parent().children('.pickplugins_wl_item_count').text(count);
+
+
+			if( status == 'removed' ) {
 				
 				$( '.pickplugins_wl_wishlist_save_' + item_id ).removeClass( 'pickplugins_wl_saved' );
 				$(this).removeClass( 'pickplugins_wl_saved' );
+
 			}
 			
-			if( data == 'added' ) {
+			if( status == 'added' ) {
 				
 				$( '.pickplugins_wl_wishlist_save_' + item_id ).addClass( 'pickplugins_wl_saved' );
 				$(this).addClass( 'pickplugins_wl_saved' );
+
 			}
 			
 		}
@@ -145,7 +280,10 @@ jQuery(document).ready(function($) {
 		
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
-		
+
+		//$(this).children('i').toggleClass('fa-cog fa-heart');
+		$(this).children('i').toggleClass('fa-pulse');
+
 		
 		$.ajax(
 			{
@@ -158,9 +296,20 @@ jQuery(document).ready(function($) {
 			"item_id" 	: item_id,
 			"wishlist_id" 	: wishlist_id,
 		},
-		success: function(data) {
-			
-			if( data == 'removed' ) {
+		success: function(response) {
+
+			var data = JSON.parse( response );
+
+			status = data['status'];
+			count = data['count'];
+
+			console.log(count);
+
+			$(this).parent().parent().parent().children('.pickplugins_wl_item_count').text(count);
+			//$(this).children('i').toggleClass('fa-heart fa-cog');
+			$(this).children('i').toggleClass('fa-pulse');
+
+			if( status == 'removed' ) {
 				
 				$(this).removeClass( 'pickplugins_wl_saved' );
 				pickplugins_wl_stll_saved = false;
@@ -173,7 +322,7 @@ jQuery(document).ready(function($) {
 				
 			}
 			
-			if( data == 'added' ) {
+			if( status == 'added' ) {
 				
 				$( '.pickplugins_wl_wishlist_save_' + item_id ).addClass( 'pickplugins_wl_saved' );
 				$(this).addClass( 'pickplugins_wl_saved' );
@@ -198,7 +347,7 @@ jQuery(document).ready(function($) {
 		if( typeof wishlist_name === "undefined" || wishlist_name.length == 0 ) return;
 
 		__HTML__ = $(this).html();
-		$(this).html("<span class='dashicons dashicons-admin-generic dashicons-spin'></span> Saving...");
+		$(this).html("<i class='fa fa-cog fa-spin' ></i> Saving...");
 
 		$.ajax(
 			{
@@ -258,11 +407,15 @@ jQuery(document).ready(function($) {
 	// ===== //
 	$(document).on('click', ".pickplugins_wl_wishlist_buttons .pickplugins_wl_wishlist_menu .pickplugins_wl_wishlist_menu_icon", function() {
 
-		$('.pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items').fadeOut();
+		console.log('hello');
+
+		$(this).html("<i class='fa fa-cog fa-spin' ></i>");
+
+		//$('.pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items').fadeOut();
 		
 		item_id = $(this).parent().find( '.pickplugins_wl_menu_items' ).attr( 'item_id' );
 		
-		$(this).parent().find('.pickplugins_wl_menu_items').html( "<li class='pickplugins_wl_menu_item'><span class='dashicons dashicons-admin-generic dashicons-spin'></span> Loading</li>" );
+		$(this).parent().find('.pickplugins_wl_menu_items').html( "<li class='pickplugins_wl_menu_item'><i class='fa fa-cog fa-spin' ></i> Loading</li>" );
 
 		$.ajax(
 			{
@@ -274,6 +427,8 @@ jQuery(document).ready(function($) {
 			"item_id" 	: item_id,
 		},
 		success: function(data) {
+
+			$(this).html("<i class='fa fa-bars' ></i>");
 
 			$(this).parent().find('.pickplugins_wl_menu_items').html( data );
 			$(this).parent().find('.pickplugins_wl_menu_items').fadeIn('fast');

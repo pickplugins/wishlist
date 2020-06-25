@@ -1,10 +1,10 @@
-=== WooCommerce Wishlist  ===
+=== Wishlist  ===
 	Contributors: pickplugins
 	Donate link: http://pickplugins.com
 	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, Bookmark, Favorites, WP Wishlist, Product Wishlist
 	Requires at least: 3.8
-	Tested up to: 4.8
-	Stable tag: 1.0.2
+	Tested up to: 5.4
+	Stable tag: 1.0.5
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,9 +17,12 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 
 ### Wishlist by http://pickplugins.com
 
+* [Buy Premium &raquo;](https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org)
 * [Support &raquo;](http://www.pickplugins.com/questions/?ref=wordpress.org)
+* [Documentation &raquo;](https://pickplugins.com/documentation/wishlist/?ref=wordpress.org)
 
-<strong>Features</strong>
+
+**Features**
 
 * Any post type support.
 * Ready WooCommerce support
@@ -29,35 +32,50 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 * User can edit wishlist.
 * User can delete wishlist.
 * Pagination support.
+* Total wishlisted count by post id.
+
+
+**Pro features**
+
+* Wishlist search.
+* Single wishlist view count.
+* Single wishlist vote count.
+* Single wishlist social share.
+* Copy to duplicate others user wishlist.
+* Wishlist search via shortcode.
 
 
 
-
-<strong>Wishlist button</strong>
+**Wishlist button**
 
 `[wishlist_button id="123"]`
 
 * Where id is post id or product id.
 
-
-<strong>Wish list archive</strong>
+**Wish list archive**
 
 `[wishlist_archive]`
 
 * Support pagination.
 
-<strong>Wishlist page</strong>
+**Wishlist page**
 
 `[wishlist_single id="123"]`
 
 * where id is list id.
 
 
-<strong>Wishlisted count by post id</strong>
+**Wishlisted count by post id**
 
 `[wishlist_count_by_post id="1234"]`
 
 * id is post id.
+
+
+**Search Wishlist**
+
+`[wishlist_search]`
+
 
 
 
@@ -78,6 +96,20 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 
 
 == Changelog ==
+
+	= 1.0.5 =
+    * 2020-04-22 add - added translation file
+
+	= 1.0.4 =
+    * 08/11/2017 add - loading icon added when click on love icon.
+    * 08/11/2017 add - loading icon added when click on menu icon.
+    * 08/11/2017 add - ajax load wishlist count.
+
+
+	= 1.0.3 =
+    * 08/11/2017 add - wishlist single page permalink changed.
+    * 08/11/2017 add - wishlist button style color, font size added.
+
 
 	= 1.0.2 =
     * 14/10/2017 add - font awesome icons added.

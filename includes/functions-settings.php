@@ -10,50 +10,60 @@ if ( ! defined('ABSPATH')) exit;  // if direct access
 
 $pickplugins_wl_settings_options = array(
 
-	'page_nav' => __( 'Options', 'woo-wishlist' ) . " <span class='dashicons dashicons-admin-tools'></span>",
+	'page_nav' => __( 'Options', 'wishlist' ),
 	'page_settings' => array(
 		
 		'pick_section_options'	=> array(
-			'title' 			=> 	__('Options','woo-wishlist'),
-			'description' 		=> __('Some basic options here.','woo-wishlist'),
+			'title' 			=> 	__('Options','wishlist'),
+			'description' 		=> __('Some basic options here.','wishlist'),
 			'options' => array(
 				array(
 					'id'		=> 'pickplugins_wl_wishlist_page',
-					'title'		=> __('Wishlist page','woo-wishlist'),
-					'details'	=> __('Users will able to view their wishlists','woo-wishlist')." Use shortcode <code>[wishlist_archive]</code> on that page",
+					'title'		=> __('Wishlist page','wishlist'),
+					'details'	=> __('Users will able to view their wishlists','wishlist')." Use shortcode <code>[wishlist_archive]</code> on that page",
 					'type'		=> 'select',
 					'args'		=> pickplugins_wl_get_wishlist_pages(),
 				),
 				array(
 					'id'		=> 'pickplugins_wl_enable_wc_shop',
-					'title'		=> __('Display on shop page','woo-wishlist'),
-					'details'	=> __('Display wishlist button on WooCommerce shop page automatically.','woo-wishlist'),
+					'title'		=> __('Display on shop page','wishlist'),
+					'details'	=> __('Display wishlist button on WooCommerce shop page automatically.','wishlist'),
 					'type'		=> 'select',
 					'args'		=> array('yes'=>'Yes','no'=>'No'),
 				),
 
 				array(
-					'id'		=> 'pickplugins_wl_wc_shop_under',
-					'title'		=> __('Display shop page under','woo-wishlist'),
-					'details'	=> __('Display wishlist button on shop page under following element.','woo-wishlist'),
+					'id'		=> 'pickplugins_wl_wc_shop_on',
+					'title'		=> __('Display shop page on','wishlist'),
+					'details'	=> __('Display wishlist button on shop page ','wishlist'),
 					'type'		=> 'select',
-					'args'		=> array('title'=>'Title','price'=>'Price', 'cart'=>'Cart button'),
+					'args'		=> array(
+						'before_addtocart' 	=> __('Before Add to Cart', 'wishlist'),
+						'after_addtocart'	=> __('After Add to Cart', 'wishlist'),
+					),
 				),
-
 				array(
 					'id'		=> 'pickplugins_wl_enable_wc_product',
-					'title'		=> __('Display on product page','woo-wishlist'),
-					'details'	=> __('Display wishlist button on WooCommerce product page automatically.','woo-wishlist'),
+					'title'		=> __('Display on product page','wishlist'),
+					'details'	=> __('Display wishlist button on WooCommerce product page automatically.','wishlist'),
 					'type'		=> 'select',
 					'args'		=> array('yes'=>'Yes','no'=>'No'),
 				),
 
 				array(
 					'id'		=> 'pickplugins_wl_wc_product_under',
-					'title'		=> __('Display product page under','woo-wishlist'),
-					'details'	=> __('Display wishlist button on product page under following element.','woo-wishlist'),
+					'title'		=> __('Display on product page under','wishlist'),
+					'details'	=> __('Display wishlist button on product page under following element.','wishlist'),
 					'type'		=> 'select',
-					'args'		=> array('title'=>'Title','price'=>'Price', 'cart'=>'Cart button'),
+					'args'		=> array(
+						'title' 		=> __('Title', 'wishlist'),
+						'ratings'		=> __('Ratings', 'wishlist'),
+						'price'			=> __('Price', 'wishlist'),
+						'excerpt'		=> __('Excerpt', 'wishlist'),
+						'meta'			=> __('Meta', 'wishlist'),
+						'sharing'		=> __('Sharing', 'wishlist'),
+						'add_to_cart'	=> __('Add to Cart', 'wishlist'),
+					),
 				),
 
 
@@ -65,28 +75,28 @@ $pickplugins_wl_settings_options = array(
 
 
 		'pick_section_breadcrumb' => array(
-			'title' 			=> 	__('Breadcrumb','woo-wishlist'),
-			'description' 		=> __('Wishlist single page breadcrumb options.','woo-wishlist'),
+			'title' 			=> 	__('Breadcrumb','wishlist'),
+			'description' 		=> __('Wishlist single page breadcrumb options.','wishlist'),
 			'options' => array(
 				array(
 					'id'		=> 'pickplugins_wl_breadcrumb_enable',
-					'title'		=> __('Display breadcrumb','woo-wishlist'),
-					'details'	=> __('Display breadcrumb on wishlist single page.','woo-wishlist'),
+					'title'		=> __('Display breadcrumb','wishlist'),
+					'details'	=> __('Display breadcrumb on wishlist single page.','wishlist'),
 					'type'		=> 'select',
 					'args'		=> array('yes'=>'Yes','no'=>'No'),
 				),
 				array(
 					'id'		=> 'pickplugins_wl_breadcrumb_home_text',
-					'title'		=> __('Custom text for "Home"','woo-wishlist'),
-					'details'	=> __('You can change default text for "Home" on breadcrumb.','woo-wishlist'),
+					'title'		=> __('Custom text for "Home"','wishlist'),
+					'details'	=> __('You can change default text for "Home" on breadcrumb.','wishlist'),
 					'type'		=> 'text',
-					'placeholder' => __('Home','woo-wishlist'),
+					'placeholder' => __('Home','wishlist'),
 				),
 
 				array(
 					'id'		=> 'pickplugins_wl_breadcrumb_text_color',
-					'title'		=> __('Breadcrumb text color','woo-wishlist'),
-					'details'	=> __('Please choose a color for breadcrumb text.','woo-wishlist'),
+					'title'		=> __('Breadcrumb text color','wishlist'),
+					'details'	=> __('Please choose a color for breadcrumb text.','wishlist'),
 					'type'		=> 'colorpicker',
 
 				),
@@ -98,30 +108,30 @@ $pickplugins_wl_settings_options = array(
 
 
 		'pick_section_pagination' => array(
-			'title' 			=> 	__('Pagination','woo-wishlist'),
-			'description' 		=> __('Update your pagination settings','woo-wishlist'),
+			'title' 			=> 	__('Pagination','wishlist'),
+			'description' 		=> __('Update your pagination settings','wishlist'),
 			'options' => array(
 				array(
 					'id'		=> 'pickplugins_wl_list_per_page',
-					'title'		=> __('Wishlist per page','woo-wishlist'),
-					'details'	=> __('How many wishlists will show per page?','woo-wishlist'),
+					'title'		=> __('Wishlist per page','wishlist'),
+					'details'	=> __('How many wishlists will show per page?','wishlist'),
 					'type'		=> 'number',
-					'placeholder' => __('10','woo-wishlist'),
+					'placeholder' => __('10','wishlist'),
 				),
 				array(
 					'id'		=> 'pickplugins_wl_list_items_per_page',
-					'title'		=> __('Wishlist items per page','woo-wishlist'),
-					'details'	=> __('How many items (post, products) will show per page?','woo-wishlist'),
+					'title'		=> __('Wishlist items per page','wishlist'),
+					'details'	=> __('How many items (post, products) will show per page?','wishlist'),
 					'type'		=> 'number',
-					'placeholder' => __('10','woo-wishlist'),
+					'placeholder' => __('10','wishlist'),
 				),
 			)
 		),
 
 
 		'pick_section_tags' => array(
-			'title' 			=> 	__('Wishlist Tags','woo-wishlist'),
-			'description' 		=> __('Update wishlist tags options','woo-wishlist'),
+			'title' 			=> 	__('Wishlist Tags','wishlist'),
+			'description' 		=> __('Update wishlist tags options','wishlist'),
 			'options' => array(
 				array(
 					'id'		=> 'pickplugins_wl_enable_tags',
@@ -141,50 +151,6 @@ $pickplugins_wl_settings_options = array(
 		),
 
 
-		'pick_section_view' => array(
-			'title' 			=> 	__('Wishlist views, vote and share','woo-wishlist'),
-			'description' 		=> __('Options for view count and stats','woo-wishlist'),
-			'options' => array(
-				array(
-					'id'		=> 'pickplugins_wl_views_enable',
-					'title'		=> __('Enable view count for Wishlist','woo-wishlist'),
-					'details'	=> __('Do you want to enable view count for wishlist page','woo-wishlist'),
-					'type'		=> 'select',
-					'args'		=> array('yes'=>'Yes','no'=>'No'),
-				),
-				array(
-					'id'		=> 'pickplugins_wl_views_display',
-					'title'		=> __('Display view count on wishlist page','woo-wishlist'),
-					'details'	=> __('Please choose if you want to dispaly total view count on wishlist page.','woo-wishlist'),
-					'type'		=> 'select',
-					'args'		=> array('yes'=>'Yes','no'=>'No'),
-				),
-
-				array(
-					'id'		=> 'pickplugins_wl_vote_enable',
-					'title'		=> __('Enable vote count for wishlist','woo-wishlist'),
-					'details'	=> __('Do you want to enable vote count for wishlist page','woo-wishlist'),
-					'type'		=> 'select',
-					'args'		=> array('yes'=>'Yes','no'=>'No'),
-				),
-
-				array(
-					'id'		=> 'pickplugins_wl_vote_share',
-					'title'		=> __('Enable social share for wishlist','woo-wishlist'),
-					'details'	=> __('Do you want to enable social share for wishlist page','woo-wishlist'),
-					'type'		=> 'select',
-					'args'		=> array('yes'=>'Yes','no'=>'No'),
-				),
-
-
-
-			)
-		),
-
-
-
-
-
 
 	),
 	
@@ -194,9 +160,47 @@ $pickplugins_wl_settings_options = array(
 
 
 
+$pickplugins_wl_settings_style = array(
+
+	'page_nav' => __( 'Style', 'woo-wishlist' ),
+	'page_settings' => array(
+
+		'pick_section_button_style'	=> array(
+			'title' 			=> 	__('Wishlist button style','woo-wishlist'),
+			'description' 		=> __('Change the colors of heart icon.','woo-wishlist'),
+			'options' => array(
+				array(
+					'id'		=> 'pickplugins_wl_button_font_size',
+					'title'		=> __('Wishlist button font size','woo-wishlist'),
+					'details'	=> __('This font size will apply on both menu icon and wishlist button','woo-wishlist'),
+					'type'		=> 'number',
+				),
+				array(
+					'id'		=> 'pickplugins_wl_button_color_normal',
+					'title'		=> __('Wishlist button color - Normal','woo-wishlist'),
+					'details'	=> __('When the item is not listed to any wishlist','woo-wishlist'),
+					'type'		=> 'colorpicker',
+				),
+				array(
+					'id'		=> 'pickplugins_wl_button_color_active',
+					'title'		=> __('Wishlist button color - Acive','woo-wishlist'),
+					'details'	=> __('When the item is listed to any wishlist','woo-wishlist'),
+					'type'		=> 'colorpicker',
+				),
+			)
+		),
+
+	),
+
+);
+
+
+
+
+
 $pickplugins_wl_settings_help = array(
 
-	'page_nav' => __( 'Help', 'woo-wishlist' ) . " <span class='dashicons dashicons-editor-help'></span>",
+	'page_nav' => __( 'Help', 'woo-wishlist' ),
 	'page_settings' => array(
 
 		'pick_section_options'	=> array(
@@ -220,14 +224,6 @@ $pickplugins_wl_settings_help = array(
 
 
 
-
-
-
-
-
-
-
-
 $args = array(
 	'add_in_menu' => true, 															// true, false
 	'menu_type' => 'submenu', 														// main, submenu
@@ -239,6 +235,7 @@ $args = array(
 	'parent_slug' => "edit.php?post_type=wishlist",									// Parent Slug for submenu
 	'pages' => array(
 		'pickplugins_wl_settings_options' => $pickplugins_wl_settings_options,
+		'pickplugins_wl_settings_style' => $pickplugins_wl_settings_style,
 		'pickplugins_wl_settings_help' => $pickplugins_wl_settings_help,
 	),
 );
@@ -257,4 +254,13 @@ function pickplugins_wl_get_wishlist_pages(){
 	
 	return $pages_array;
 }
+
+function pickplugins_wl_get_share_platforms(){
+	
+	$platforms = array();
+	foreach( pickplugins_wl_get_social_platforms() as $key => $platform ) $platforms[ $key ] = $platform['title'];
+	return $platforms;
+}
+
+
 

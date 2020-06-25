@@ -17,9 +17,12 @@ add_action( 'pickplugins_wl_loop_single_item_main', 'pickplugins_wl_loop_single_
 
 function pickplugins_wl_loop_single_item_woo_add_to_cart( $item_id ){
 	
-	if( get_post_type( $item_id ) != 'product' ) return;
+	if( get_post_type( $item_id ) == 'product' ) echo do_shortcode("[add_to_cart id='$item_id']");
 	
-	echo do_shortcode("[add_to_cart id='$item_id']");
+	if( class_exists( 'Easy_Digital_Downloads' ) && get_post_type( $item_id ) == 'download' ) {
+		
+		echo edd_get_purchase_link( array( 'download_id' => $item_id ) ); 
+	}
 }
 
 function pickplugins_wl_loop_single_item_title( $item_id ){

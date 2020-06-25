@@ -15,7 +15,7 @@
     display: block;
     position: absolute;
     width: 216px;
-    height: 192px;
+    height: 200px;
     border: 4px solid #fff;
     border-bottom: 60px solid #fff;
     outline: 1px #e3e3e3 solid;
@@ -31,7 +31,7 @@
     display: block;
     position: absolute;
     width: 216px;
-    height: 192px;
+    height: 200px;
     border: 4px solid #fff;
     border-bottom: 60px solid #fff;
     outline: 1px #e3e3e3 solid;
@@ -50,7 +50,7 @@
     top: 13px;
     left: 14px;
     width: 218px;
-    height: 194px;
+    height: 202px;
     padding: 4px;
     border: 1px #e3e3e3 solid;
     box-shadow: 0 5px 8px rgba(0,0,0,0.06);
@@ -86,7 +86,7 @@ background-color: #e3e3e3;
     line-height: 22px;
     font-weight: 700;
     color: #464646;
-    padding: 9px 6px 0 6px;
+    padding: 9px 6px 5px 6px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -99,6 +99,13 @@ background-color: #e3e3e3;
     line-height: 16px;
     color: #464646;
     padding: 0 6px;
+}
+
+
+
+.single_wishlist a.single_wishlist_inside .createdby {
+	color: #229ebf;
+    margin: 0 5px;
 }
 
 
