@@ -48,6 +48,98 @@ function wishlist_settings_content_general(){
 
 
 
+add_action('wishlist_settings_content_archives', 'wishlist_settings_content_archives');
+
+function wishlist_settings_content_archives(){
+    $settings_tabs_field = new settings_tabs_field();
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $pagination_per_page = isset($wishlist_settings['archives']['pagination_per_page']) ? $wishlist_settings['archives']['pagination_per_page'] : '10';
+    $pagination_font_size = isset($wishlist_settings['archives']['pagination_font_size']) ? $wishlist_settings['archives']['pagination_font_size'] : '';
+    $pagination_color_idle = isset($wishlist_settings['archives']['pagination_color_idle']) ? $wishlist_settings['archives']['pagination_color_idle'] : '';
+    $pagination_color_active = isset($wishlist_settings['archives']['pagination_color_active']) ? $wishlist_settings['archives']['pagination_color_active'] : '';
+
+
+    //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
+
+    ?>
+    <div class="section">
+        <div class="section-title"><?php echo __('Archives', 'post-grid'); ?></div>
+        <p class="description section-description"><?php echo __('Choose wishlist archives options.', 'post-grid'); ?></p>
+
+        <?php
+
+
+        $args = array(
+            'id'		=> 'pagination_per_page',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Item per page','post-grid'),
+            'details'	=> __('Set custom number of wislists per page.','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $pagination_per_page,
+            'default'		=> '',
+            'placeholder' => __('10','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'pagination_font_size',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Pagination font size','post-grid'),
+            'details'	=> __('Set pagination font size.','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $pagination_font_size,
+            'default'		=> '12px',
+            'placeholder'		=> '12px',
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'pagination_color_idle',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Pagination color - Normal','post-grid'),
+            'details'	=> __('Choose custom color for pagination idle stat.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color_idle,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'pagination_color_active',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Pagination color - Active','post-grid'),
+            'details'	=> __('Choose custom color for pagination on active stat.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color_active,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        ?>
+
+    </div>
+
+    <?php
+
+
+
+
+
+}
+
+
 
 
 
@@ -66,11 +158,17 @@ function wishlist_settings_content_wishlist_page(){
     $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : 'yes';
     $tags_display = isset($wishlist_settings['wishlist_page']['tags_display']) ? $wishlist_settings['wishlist_page']['tags_display'] : 'yes';
 
+    $pagination_per_page = isset($wishlist_settings['wishlist_page']['pagination_per_page']) ? $wishlist_settings['wishlist_page']['pagination_per_page'] : '10';
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
+    $pagination_font_size = isset($wishlist_settings['wishlist_page']['pagination_font_size']) ? $wishlist_settings['wishlist_page']['pagination_font_size'] : '';
+    $pagination_color_idle = isset($wishlist_settings['wishlist_page']['pagination_color_idle']) ? $wishlist_settings['wishlist_page']['pagination_color_idle'] : '';
+    $pagination_color_active = isset($wishlist_settings['wishlist_page']['pagination_color_active']) ? $wishlist_settings['wishlist_page']['pagination_color_active'] : '';
+
+
 
     ?>
     <div class="section">
-        <div class="section-title"><?php echo __('General', 'post-grid'); ?></div>
+        <div class="section-title"><?php echo __('Breadcrumb', 'post-grid'); ?></div>
         <p class="description section-description"><?php echo __('Choose some general options.', 'post-grid'); ?></p>
 
         <?php
@@ -114,8 +212,14 @@ function wishlist_settings_content_wishlist_page(){
 
         $settings_tabs_field->generate_field($args);
 
+        ?>
 
+    </div>
+    <div class="section">
+        <div class="section-title"><?php echo __('Tags', 'post-grid'); ?></div>
+        <p class="description section-description"><?php echo __('Choose some tags options.', 'post-grid'); ?></p>
 
+        <?php
         $args = array(
             'id'		=> 'tags_enable',
             'parent'		=> 'wishlist_settings[wishlist_page]',
@@ -143,10 +247,68 @@ function wishlist_settings_content_wishlist_page(){
 
         $settings_tabs_field->generate_field($args);
 
+    ?>
+
+    </div>
+    <div class="section">
+        <div class="section-title"><?php echo __('Pagination', 'post-grid'); ?></div>
+        <p class="description section-description"><?php echo __('Choose some pagination options.', 'post-grid'); ?></p>
+
+        <?php
+        $args = array(
+            'id'		=> 'pagination_per_page',
+            'parent'		=> 'wishlist_settings[wishlist_page]',
+            'title'		=> __('Item per page','post-grid'),
+            'details'	=> __('Set custom number of item/post per page.','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $pagination_per_page,
+            'default'		=> '',
+            'placeholder' => __('10','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
 
 
+        $args = array(
+            'id'		=> 'pagination_font_size',
+            'parent'		=> 'wishlist_settings[wishlist_page]',
+            'title'		=> __('Wishlist button font size','post-grid'),
+            'details'	=> __('Set wishlist button font size.','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $pagination_font_size,
+            'default'		=> '12px',
+            'placeholder'		=> '12px',
+
+        );
+
+        $settings_tabs_field->generate_field($args);
 
 
+        $args = array(
+            'id'		=> 'pagination_color_idle',
+            'parent'		=> 'wishlist_settings[wishlist_page]',
+            'title'		=> __('Pagination color - Normal','post-grid'),
+            'details'	=> __('Choose custom color for pagination idle stat.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color_idle,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'pagination_color_active',
+            'parent'		=> 'wishlist_settings[wishlist_page]',
+            'title'		=> __('Pagination color - Active','post-grid'),
+            'details'	=> __('Choose custom color for pagination on active stat.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color_active,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
 
 
         ?>

@@ -13,24 +13,32 @@ $wishlist_settings_tab[] = array(
     'active' => ($current_tab == 'general') ? true : false,
 );
 
+
+$wishlist_settings_tab[] = array(
+    'id' => 'archives',
+    'title' => sprintf(__('%s Archives','wishlist'),'<i class="fas fa-list-ul"></i>'),
+    'priority' => 5,
+    'active' => ($current_tab == 'archives') ? true : false,
+);
+
 $wishlist_settings_tab[] = array(
     'id' => 'wishlist_page',
     'title' => sprintf(__('%s Wishlist page','wishlist'),'<i class="fas fa-list-ul"></i>'),
-    'priority' => 1,
+    'priority' => 10,
     'active' => ($current_tab == 'wishlist_page') ? true : false,
 );
 
 $wishlist_settings_tab[] = array(
     'id' => 'woocommerce',
     'title' => sprintf(__('%s WooCommerce','wishlist'),'<i class="fas fa-list-ul"></i>'),
-    'priority' => 1,
+    'priority' => 15,
     'active' => ($current_tab == 'woo') ? true : false,
 );
 
 $wishlist_settings_tab[] = array(
     'id' => 'style',
     'title' => sprintf(__('%s Style','wishlist'),'<i class="fas fa-list-ul"></i>'),
-    'priority' => 1,
+    'priority' => 20,
     'active' => ($current_tab == 'woo') ? true : false,
 );
 
