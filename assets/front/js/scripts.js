@@ -205,21 +205,21 @@ jQuery(document).ready(function($) {
 	})
 	
 	
-	
+
 	// Saved in Wishlist from Top Heart Icon Item //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_wishlist_buttons .pickplugins_wl_wishlist_save", function() {
-		
-		pickplugins_wl_action = $(this).hasClass( 'pickplugins_wl_saved' ) ? 'remove_from_wishlist' : 'add_in_wishlist';
-		
+	$(document).on('click', ".wishlist-button-wrap .wishlist_save", function() {
+
+		pickplugins_wl_action = $(this).hasClass( 'wishlist_saved' ) ? 'remove_from_wishlist' : 'add_in_wishlist';
+
 		item_id = $(this).parent().attr( 'item_id' );
 		wishlist_id = $(this).attr( 'wishlist_id' );
-		
+
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
 
-		$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
-		//$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
+		$(this).children('.wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
+		//$(this).children('.wishlist_save_icon').html("<i class='fa fa-cog fa-spin' ></i>");
 
 
 		$.ajax(
@@ -242,49 +242,49 @@ jQuery(document).ready(function($) {
 			//console.log( status );
 			//console.log( count );
 
-			$(this).children('.pickplugins_wl_wishlist_save_icon').html("<i class='fa fa-heart' ></i>");
-			$(this).parent().children('.pickplugins_wl_item_count').text(count);
+			$(this).children('.wishlist_save_icon').html("<i class='fa fa-heart' ></i>");
+			$(this).parent().children('.wishlist_count').text(count);
 
 
 			if( status == 'removed' ) {
-				
-				$( '.pickplugins_wl_wishlist_save_' + item_id ).removeClass( 'pickplugins_wl_saved' );
-				$(this).removeClass( 'pickplugins_wl_saved' );
+
+				$( '.wishlist_save_' + item_id ).removeClass( 'wishlist_saved' );
+				$(this).removeClass( 'wishlist_saved' );
 
 			}
-			
+
 			if( status == 'added' ) {
-				
-				$( '.pickplugins_wl_wishlist_save_' + item_id ).addClass( 'pickplugins_wl_saved' );
-				$(this).addClass( 'pickplugins_wl_saved' );
+
+				$( '.wishlist_save_' + item_id ).addClass( 'wishlist_saved' );
+				$(this).addClass( 'wishlist_saved' );
 
 			}
-			
+
 		}
 			});
-			
+
 	})
-	
-	
-	
+
+
+
 	// Saved in Wishlist from Menu Item //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items .pickplugins_wl_menu_item", function() {
-		
-		if( $(this).hasClass( 'pickplugins_wl_add_new' ) ) return;
-		
-		pickplugins_wl_action = $(this).hasClass( 'pickplugins_wl_saved' ) ? 'remove_from_wishlist' : 'add_in_wishlist';
-		
+	$(document).on('click', ".wishlist-button-wrap .menu_items .menu_item", function() {
+
+		if( $(this).hasClass( 'add_new' ) ) return;
+
+		pickplugins_wl_action = $(this).hasClass( 'wishlist_saved' ) ? 'remove_from_wishlist' : 'add_in_wishlist';
+
 		item_id = $(this).parent().attr( 'item_id' );
 		wishlist_id = $(this).attr( 'wishlist' );
-		
+
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
 
 		//$(this).children('i').toggleClass('fa-cog fa-heart');
 		$(this).children('i').toggleClass('fa-pulse');
 
-		
+
 		$.ajax(
 			{
 		type: 'POST',
@@ -305,43 +305,43 @@ jQuery(document).ready(function($) {
 
 			console.log(count);
 
-			$(this).parent().parent().parent().children('.pickplugins_wl_item_count').text(count);
+			$(this).parent().parent().parent().children('.wishlist_count').text(count);
 			//$(this).children('i').toggleClass('fa-heart fa-cog');
 			$(this).children('i').toggleClass('fa-pulse');
 
 			if( status == 'removed' ) {
-				
-				$(this).removeClass( 'pickplugins_wl_saved' );
+
+				$(this).removeClass( 'wishlist_saved' );
 				pickplugins_wl_stll_saved = false;
-				
-				$(this).parent().find('.pickplugins_wl_menu_item').each(function( index ) {
-					if( $( this ).hasClass('pickplugins_wl_saved') ) pickplugins_wl_stll_saved = true;
+
+				$(this).parent().find('.menu_item').each(function( index ) {
+					if( $( this ).hasClass('wishlist_saved') ) pickplugins_wl_stll_saved = true;
 				});
 
-				if( ! pickplugins_wl_stll_saved ) $( '.pickplugins_wl_wishlist_save_' + item_id ).removeClass( 'pickplugins_wl_saved' );
-				
+				if( ! pickplugins_wl_stll_saved ) $( '.wishlist_save_' + item_id ).removeClass( 'wishlist_saved' );
+
 			}
-			
+
 			if( status == 'added' ) {
-				
-				$( '.pickplugins_wl_wishlist_save_' + item_id ).addClass( 'pickplugins_wl_saved' );
-				$(this).addClass( 'pickplugins_wl_saved' );
+
+				$( '.wishlist_save_' + item_id ).addClass( 'wishlist_saved' );
+				$(this).addClass( 'wishlist_saved' );
 			}
-			
+
 		}
 			});
 
-		
+
 	})
-	
+
 	
 	
 	// Create Wishlist from Popup and Saved from there //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_quick_add_wishlist_container .pickplugins_wl_button_save", function() {
+	$(document).on('click', ".wishlist-create-wrap .wishlist-create-save", function() {
 
-		wishlist_name 	= $('.pickplugins_wl_quick_add_wishlist_container .wishlist_name').val();
-		item_id 		= $('.pickplugins_wl_quick_add_wishlist_container .item_id').val();
+		wishlist_name 	= $('.wishlist-create-wrap .wishlist_name').val();
+		item_id 		= $('.wishlist-create-wrap .item_id').val();
 
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 		if( typeof wishlist_name === "undefined" || wishlist_name.length == 0 ) return;
@@ -365,11 +365,11 @@ jQuery(document).ready(function($) {
 			
 			if( data.length == 0 ){
 				
-				$( '.pickplugins_wl_wishlist_save_' + item_id ).addClass( 'pickplugins_wl_saved' );
+				$( '.wishlist_save_' + item_id ).addClass( 'wishlist_saved' );
 			
 				$(this).html( __HTML__ );
-				$('.pickplugins_wl_quick_add_wishlist_container').fadeOut();
-                $('.pickplugins_wl_quick_add_wishlist_container .wishlist_name').val("");
+				$('.wishlist-create-wrap').fadeOut();
+                $('.wishlist-create-wrap .wishlist_name').val("");
 			}
 		}
 			});
@@ -377,45 +377,45 @@ jQuery(document).ready(function($) {
 	})
 
 	
-	
+
 	// Close Wishlist creation popup box //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_quick_add_wishlist_container .pickplugins_wl_button_cancel", function() {
+	$(document).on('click', ".wishlist-create-wrap .wishlist-create-cancel", function() {
 
-		$('.pickplugins_wl_quick_add_wishlist_container .item_id').val("");
-		$('.pickplugins_wl_quick_add_wishlist_container').fadeOut();
+		$('.wishlist-create-wrap .item_id').val("");
+		$('.wishlist-create-wrap').fadeOut();
 	})
 
 	
 	
 	// Clicked on Add new wishlist from Menu items //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items .pickplugins_wl_add_new", function() {
+	$(document).on('click', ".wishlist-button-wrap .menu_items .add_new", function() {
 
 		item_id = $(this).parent().attr( 'item_id' );
 
 		if( typeof item_id === "undefined" || item_id.length == 0 ) return;
 
-		$('.pickplugins_wl_quick_add_wishlist_container .item_id').val( item_id );
-		$('.pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items').fadeOut();
-		$('.pickplugins_wl_quick_add_wishlist_container').fadeIn();
+		$('.wishlist-create-wrap .item_id').val( item_id );
+		$('.wishlist-button-wrap .menu_items').fadeOut();
+		$('.wishlist-create-wrap').fadeIn();
 	})
 
 
 
 	// Clicked on Menu Icon //
 	// ===== //
-	$(document).on('click', ".pickplugins_wl_wishlist_buttons .pickplugins_wl_wishlist_menu .pickplugins_wl_wishlist_menu_icon", function() {
+	$(document).on('click', ".wishlist-button-wrap .wishlist_button_menu .wishlist_button_menu_icon", function() {
 
 		console.log('hello');
 
 		$(this).html("<i class='fa fa-cog fa-spin' ></i>");
 
-		//$('.pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items').fadeOut();
-		
-		item_id = $(this).parent().find( '.pickplugins_wl_menu_items' ).attr( 'item_id' );
-		
-		$(this).parent().find('.pickplugins_wl_menu_items').html( "<li class='pickplugins_wl_menu_item'><i class='fa fa-cog fa-spin' ></i> Loading</li>" );
+		//$('.wishlist-button-wrap .menu_items').fadeOut();
+
+		item_id = $(this).parent().find( '.menu_items' ).attr( 'item_id' );
+
+		$(this).parent().find('.menu_items').html( "<li class='menu_item'><i class='fa fa-cog fa-spin' ></i> Loading</li>" );
 
 		$.ajax(
 			{
@@ -430,8 +430,8 @@ jQuery(document).ready(function($) {
 
 			$(this).html("<i class='fa fa-bars' ></i>");
 
-			$(this).parent().find('.pickplugins_wl_menu_items').html( data );
-			$(this).parent().find('.pickplugins_wl_menu_items').fadeIn('fast');
+			$(this).parent().find('.menu_items').html( data );
+			$(this).parent().find('.menu_items').fadeIn('fast');
 		}
 			});
 	})
@@ -442,11 +442,11 @@ jQuery(document).ready(function($) {
 	// ===== //
 	$(document).click(function( e ) {
 
-		if( $.inArray( 'pickplugins_wl_wishlist_menu_icon', e.target.classList ) !== -1 ) return;
-		if ( e.target.id != 'pickplugins_wl_menu_items' && !$('#pickplugins_wl_menu_items').find(e.target).length) {
+		if( $.inArray( 'wishlist_button_menu_icon', e.target.classList ) !== -1 ) return;
+		if ( e.target.id != 'menu_items' && !$('#menu_items').find(e.target).length) {
 
-			if( $.inArray( 'pickplugins_wl_menu_item', e.target.classList ) !== -1 ) return;
-			$('.pickplugins_wl_wishlist_buttons .pickplugins_wl_menu_items').fadeOut();
+			if( $.inArray( 'menu_item', e.target.classList ) !== -1 ) return;
+			$('.wishlist-button-wrap .menu_items').fadeOut();
 		}
 	});
 

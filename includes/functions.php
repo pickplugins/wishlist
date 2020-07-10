@@ -115,20 +115,24 @@ add_action( 'init', 'pickplugins_wl_show_wishlist_section' );
 
 function pickplugins_wl_wishlist_buttons_html(){
 
-	echo "
-	<div class='pickplugins_wl_quick_add_wishlist_container'>
-		<div class='pickplugins_wl_quick_add_wishlist'>
 
-			<h2 class='pickplugins_wl_quick_add_title'>".__('Name your new wishlist', 'wishlist' )."</h2><br>
-			
-			<input type='text' class='wishlist_name' placeholder='".__( 'Wishlist Name', 'wishlist' )."'>
-			<input type='hidden' class='item_id' value=''><br>
-		
-			<div class='pickplugins_wl_button pickplugins_wl_button_cancel'>".__( 'Cancel', 'wishlist' )."</div>
-			<div class='pickplugins_wl_button pickplugins_wl_button_save'>".__( 'Create Wishlist and Save', 'wishlist' )."</div><br>
-	
-		</div>
-	</div>";
+    ?>
+    <div class='wishlist-create-wrap'>
+        <div class='wishlist-create'>
+
+            <h2 class='wishlist-create-title'><?php echo __('Create your wishlist', 'wishlist' ); ?></h2>
+
+            <div>
+                <input type='text' class='wishlist_name' placeholder='<?php echo __( 'Wishlist Name', 'wishlist' ); ?>'>
+                <input type='hidden' class='item_id' value=''>
+            </div>
+
+            <div class='wl-button wishlist-create-cancel'><?php echo __( 'Cancel', 'wishlist' ); ?></div>
+            <div class='wl-button wishlist-create-save'><?php echo __( 'Create Wishlist', 'wishlist' ); ?></div>
+
+        </div>
+    </div>
+    <?php
 	
 }
 add_action( 'wp_footer', 'pickplugins_wl_wishlist_buttons_html' );

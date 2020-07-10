@@ -29,7 +29,12 @@ class pickplugins_wl_Shortcodes {
 		if( $wishlist_id == 0 ) return;
 		
 		ob_start();
-		include( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single.php');
+		//include( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single.php');
+
+        do_action('wishlist_single', $atts);
+
+        wp_enqueue_style('single-wishlist');
+
 		return ob_get_clean();
 	}
 	
@@ -41,20 +46,44 @@ class pickplugins_wl_Shortcodes {
 		include( wishlist_plugin_dir . 'templates/wishlist-display.php');
 		return ob_get_clean();
 	}
-	
+
+
+
+	/*
+	 * Wishlist Button
+	 *
+	 * */
+
 	public function wishlist_button_display( $atts ) {
 		
 		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '' ), $atts);
-		
+
+		$atts = apply_filters('wishlist_button_atts', $atts);
+
 		$item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
-		$show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
-		
-		if( $item_id == 0 ) return;
-		
+        $show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
+
+		if(empty($item_id)) return;
+
+
+        wp_enqueue_style('hint.css');
+
+
 		ob_start();
-		include( wishlist_plugin_dir . 'templates/wishlist-add.php');
+
+		do_action('wishlist_button', $atts);
+        wp_enqueue_style('wishlist-button');
 		return ob_get_clean();
 	}
+
+
+
+
+
+
+
+
+
 
 
 	public function wishlist_count_by_post_display( $atts ) {
