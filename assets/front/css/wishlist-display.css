@@ -110,7 +110,7 @@ background-color: #e3e3e3;
 
 
 
-.pickplugins_wl_wishlist_single .pickplugins_wl_wishlist_status {
+.single-wishlist .wishlist_status {
     font-size: 14px;
     font-weight: normal;
     font-style: italic;

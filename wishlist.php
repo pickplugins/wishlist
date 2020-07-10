@@ -42,18 +42,20 @@ class PickpluginsWishList{
 
 	public function _activation() {
 
-		$pickplugins_wl_default_wishlist_id = get_option( 'pickplugins_wl_default_wishlist_id' );
-		
-		if( empty( $pickplugins_wl_default_wishlist_id ) ) :
+	    $wishlist_settings = get_option('wishlist_settings');
+	    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
+		if( empty( $default_wishlist_id ) ) :
 			
-			$nepickplugins_wl_wishlist_ID = wp_insert_post( array(
+			$wishlist_ID = wp_insert_post( array(
 				'post_title' 	=> __('Products I Love', 'wishlist'),
 				'slug' 			=> 'products-i-love',
 				'post_type' 	=> 'wishlist',
 				'post_status' 	=> 'publish',
 			) );
 			
-			update_option( 'pickplugins_wl_default_wishlist_id', $nepickplugins_wl_wishlist_ID );
+			update_option( 'wishlist_settings', array('default_wishlist_id' => $wishlist_ID) );
 			
 		endif;
 		
@@ -87,9 +89,14 @@ class PickpluginsWishList{
 		require_once( wishlist_plugin_dir . 'includes/functions-settings.php');
         require_once( wishlist_plugin_dir . 'includes/settings-hook.php');
 
-		require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hooks.php');
+		//require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hooks.php');
+        require_once( wishlist_plugin_dir . 'templates/wishlist-button/wishlist-button-hook.php');
+        require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hook.php');
+        require_once( wishlist_plugin_dir . 'templates/wishlist-archive/wishlist-archive-hook.php');
 
-	}
+
+
+    }
 	
 	public function loading_script() {
 	
@@ -134,12 +141,17 @@ class PickpluginsWishList{
 		wp_enqueue_script('pickplugins_wl_front_js', plugins_url( '/assets/front/js/scripts.js' , __FILE__ ) , array( 'jquery' ));
 		wp_localize_script( 'pickplugins_wl_front_js', 'pickplugins_wl_ajax', array( 'pickplugins_wl_ajaxurl' => admin_url( 'admin-ajax.php')));
 
-		wp_enqueue_style('single-wishlist', wishlist_plugin_url.'assets/front/css/single-wishlist.css');
+        wp_register_style('single-wishlist', wishlist_plugin_url.'assets/front/css/single-wishlist.css');
 
 		wp_enqueue_style('pickplugins_wl_style', wishlist_plugin_url.'assets/front/css/style.css');
 		wp_enqueue_style('font-awesome.min.css', wishlist_plugin_url.'assets/front/css/font-awesome.min.css');
 
-	}
+        wp_register_style('hint.css', wishlist_plugin_url.'assets/front/css/hint.min.css');
+        wp_register_style('wishlist-button', wishlist_plugin_url.'assets/front/css/wishlist-button.css');
+
+
+
+    }
 
 	public function _admin_scripts(){
 

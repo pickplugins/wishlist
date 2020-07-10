@@ -155,7 +155,7 @@ function pickplugins_wl_ajax_update_wishlist(){
 	}
 
 
-	echo "<li class='pickplugins_wl_menu_item pickplugins_wl_add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
+	echo "<li class='menu_item add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
 	
 	die();
 }
@@ -176,8 +176,8 @@ function pickplugins_wl_ajax_get_wishlist_menu_items(){
 	$total_items 		= " (". count( pickplugins_wl_get_wishlisted_items( $default_list_id, -1, 1, true ) ) .")";
 	
 	if( !empty( $default_list_id ) && in_array( $default_list_id, $wishlisted_array ) )
-		echo "<li class='pickplugins_wl_menu_item pickplugins_wl_saved' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
-	else echo "<li class='pickplugins_wl_menu_item' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
+		echo "<li class='menu_item wishlist_saved' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
+	else echo "<li class='menu_item' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
 	
 	$wishlist_array = get_posts( array(
 		'post_type' => 'wishlist',
@@ -191,12 +191,12 @@ function pickplugins_wl_ajax_get_wishlist_menu_items(){
 	$total_items = " (". count( pickplugins_wl_get_wishlisted_items( $list->ID, -1, 1, true ) ) .")";
 	
 	if( $wishlisted_array && in_array( $list->ID, $wishlisted_array ) )
-		echo "<li class='pickplugins_wl_menu_item pickplugins_wl_saved' wishlist='{$list->ID}'><i class='fa fa-heart' aria-hidden='true'></i> {$list->post_title} $total_items</li>";
-	else echo "<li class='pickplugins_wl_menu_item' wishlist='{$list->ID}'><i class='fa fa-heart' aria-hidden='true'></i> {$list->post_title} $total_items</li>";
+		echo "<li class='menu_item wishlist_saved' wishlist='{$list->ID}'><i class='fa fa-heart' aria-hidden='true'></i> {$list->post_title} $total_items</li>";
+	else echo "<li class='menu_item' wishlist='{$list->ID}'><i class='fa fa-heart' aria-hidden='true'></i> {$list->post_title} $total_items</li>";
 
 	endforeach;
 
-	echo "<li class='pickplugins_wl_menu_item pickplugins_wl_add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
+	echo "<li class='menu_item add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
 	
 	die();
 }
