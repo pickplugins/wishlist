@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document */
+
+ 
+.wishlist-items  {
+
+}
+
+.wishlist-items .wl-single-item {
+    display: inline-block;
+    width: 220px;
+    margin: 15px;
+    vertical-align: top;
+}
+
+.wishlist-items .wl-single-item .wl-thumb span{
+	background-color: #e3e3e3;
+    display: block;
+    width: 220px;
+    height: 150px;
+    overflow: hidden;
+    text-align: center;
+    color: #9c9c9c;
+    font-size: 125px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.wishlist-items .wl-single-item .wl-title{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0 0;
+    display: inherit;
+}
+
+
+.wishlist-items .wl-single-item .wl-title{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0 0;
+    display: inherit;
+}
+
+
+
+/* WooCommerece Design */
+.wishlist-items .wl-single-item .add_to_cart_inline {
+    border: none !important;
+    padding: 0 !important;
+    margin: 10px 0;
+}
+.wishlist-items .wl-single-item .add_to_cart_inline .add_to_cart_button {
+    margin: 10px 0;
+    display: table;
+}
