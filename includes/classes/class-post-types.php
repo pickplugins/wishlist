@@ -15,7 +15,12 @@ class PICKPLUGINS_WL_Post_types{
 	}
 	
 	public function pickplugins_wl_posttype_wishlist(){
-		
+
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : '';
+
+
 		// if ( post_type_exists( "wishlist" ) ) return;
 
 		$singular  = __( 'Wishlist', 'wishlist' );
@@ -60,7 +65,7 @@ class PICKPLUGINS_WL_Post_types{
 			) )
 		); 
 		
-		if( get_option( 'pickplugins_wl_enable_tags' ) == 'no' ) return;
+		if( $tags_enable == 'no' ) return;
 		
 		$singular  = __( 'Wishlist Tag', 'wishlist' );
 		$plural    = __( 'Wishlist Tags', 'wishlist' );

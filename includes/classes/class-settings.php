@@ -27,3 +27,5 @@ class class_wishlist_settings{
 }
 	
 new class_wishlist_settings();
+
+

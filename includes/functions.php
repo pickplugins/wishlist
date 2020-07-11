@@ -73,10 +73,20 @@ function pickplugins_wl_show_wishlist_section(){
 	
 	/* Shop page settings */
 	/* ===== === ===== */
-	
-	if( get_option( 'pickplugins_wl_enable_wc_shop' ) != "no" ):
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $woocommerce = isset($wishlist_settings['woocommerce']) ? $wishlist_settings['woocommerce'] : array();
+    $on_shop = isset($woocommerce['on_shop']) ? $woocommerce['on_shop'] : 'yes';
+    $on_shop_position = isset($woocommerce['on_shop_position']) ? $woocommerce['on_shop_position'] : 'after_addtocart';
+
+    $on_product = isset($woocommerce['on_product']) ? $woocommerce['on_product'] : 'yes';
+    $on_product_position = isset($woocommerce['on_product_position']) ? $woocommerce['on_product_position'] : 'title';
+
+
+	if( $on_shop != "no" ):
 		
-		if( get_option( 'pickplugins_wl_wc_shop_on' ) == 'before_addtocart' ) $priority = 5;
+		if( $on_shop_position == 'before_addtocart' ) $priority = 5;
 		else $priority = 15;	
 		
 		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_wishlist', $priority );
@@ -86,21 +96,19 @@ function pickplugins_wl_show_wishlist_section(){
 	/* Product single page settings */
 	/* ===== === ===== */
 	
-	if( get_option( 'pickplugins_wl_enable_wc_product' ) != "no" ):
+	if( $on_product != "no" ):
 			
 		
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 		add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 12 );
-		
-		$pickplugins_wl_wc_product_under = get_option( 'pickplugins_wl_wc_product_under' );
-		
-		if( $pickplugins_wl_wc_product_under == 'title' ) $priority = 6;
-		elseif( $pickplugins_wl_wc_product_under == 'ratings' ) $priority = 10;
-		elseif( $pickplugins_wl_wc_product_under == 'price' ) $priority = 15;
-		elseif( $pickplugins_wl_wc_product_under == 'excerpt' ) $priority = 20;
-		elseif( $pickplugins_wl_wc_product_under == 'meta' ) $priority = 40;
-		elseif( $pickplugins_wl_wc_product_under == 'add_to_cart' ) $priority = 30;
-		elseif( $pickplugins_wl_wc_product_under == 'sharing' ) $priority = 50;
+
+		if( $on_product_position == 'title' ) $priority = 6;
+		elseif( $on_product_position == 'ratings' ) $priority = 10;
+		elseif( $on_product_position == 'price' ) $priority = 15;
+		elseif( $on_product_position == 'excerpt' ) $priority = 20;
+		elseif( $on_product_position == 'meta' ) $priority = 40;
+		elseif( $on_product_position == 'add_to_cart' ) $priority = 30;
+		elseif( $on_product_position == 'sharing' ) $priority = 50;
 		else $priority = 15;	
 		
 		add_action( 'woocommerce_single_product_summary', 'woocommerce_template_loop_product_wishlist', $priority );
@@ -135,7 +143,7 @@ function pickplugins_wl_wishlist_buttons_html(){
     <?php
 	
 }
-add_action( 'wp_footer', 'pickplugins_wl_wishlist_buttons_html' );
+//add_action( 'wp_footer', 'pickplugins_wl_wishlist_buttons_html' );
 
 
 
@@ -301,9 +309,14 @@ function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
 	if( $wishlist_id == 0 ) return "";
 	
 	$html = "";
-	
-	$wishlist_page 		= get_option( 'pickplugins_wl_wishlist_page' );
-	$wishlist_page_url 	= ! empty( $wishlist_page ) ? get_the_permalink( $wishlist_page ) : get_home_url();
+
+    $wishlist_settings = get_option('wishlist_settings');
+    $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
+
+	$wishlist_page_url 	= ! empty( $archive_page_id ) ? get_the_permalink( $archive_page_id ) : get_home_url();
 	
 	$wishlisted_items 	= pickplugins_wl_get_wishlisted_items( $wishlist_id );
 	$total_items		= count( $wishlisted_items );
@@ -346,7 +359,16 @@ add_action( 'wp_insert_post', 'pickplugins_wl_update_post_status_function', 10, 
 
 
 
+function pickplugins_wl_get_wishlist_pages(){
 
+    $pages_array = array( '' => __( 'Select Page', 'woo-wishlist' ) );
+
+    foreach( get_pages() as $page ):
+        $pages_array[ $page->ID ] = $page->post_title;
+    endforeach;
+
+    return $pages_array;
+}
 
 
 

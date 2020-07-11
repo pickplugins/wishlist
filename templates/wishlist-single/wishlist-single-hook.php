@@ -119,13 +119,22 @@ add_action('wishlist_single_main','wishlist_bredcrumb_display');
 
 function wishlist_bredcrumb_display(){
 
-    $pickplugins_wl_wishlist_page = get_option( 'pickplugins_wl_wishlist_page' );
 
-    $home_text = get_option( 'pickplugins_wl_breadcrumb_home_text' );
-    $home_text = empty( $home_text ) ? __('Home', 'wishlist') : $home_text;
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $wishlist_page = isset($wishlist_settings['wishlist_page']) ? $wishlist_settings['wishlist_page'] : array();
+    $breadcrumb_enable = isset($wishlist_page['breadcrumb_enable']) ? $wishlist_page['breadcrumb_enable'] : 'yes';
+    $breadcrumb_home_text = isset($wishlist_page['breadcrumb_home_text']) ? $wishlist_page['breadcrumb_home_text'] : '';
+    $breadcrumb_text_color = isset($wishlist_page['breadcrumb_text_color']) ? $wishlist_page['breadcrumb_text_color'] : '';
+
+    $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+
+
+
+
+    $home_text = !empty( $breadcrumb_home_text ) ? $breadcrumb_home_text : __('Home', 'wishlist');
     $home_text = apply_filters( 'wishlist_bredcrumb_home_text', $home_text );
 
-    $breadcrumb_enable =  get_option( 'pickplugins_wl_breadcrumb_enable' );
     ?>
     <!-- Bredcrumb -->
 
@@ -134,12 +143,11 @@ function wishlist_bredcrumb_display(){
         <div class="wishlist-breadcrumb">
             <a class="breadcrumb-item" href="<?php echo get_bloginfo('url'); ?>"><i class="fa fa-home"></i> <?php echo $home_text; ?></a>
             <span class="breadcrumb-separator"><i class="fa fa-long-arrow-right"></i> </span>
-            <a class="breadcrumb-item" href="<?php echo get_permalink($pickplugins_wl_wishlist_page); ?>"><?php echo get_the_title($pickplugins_wl_wishlist_page); ?></a>
+            <a class="breadcrumb-item" href="<?php echo get_permalink($archive_page_id); ?>"><?php echo get_the_title($archive_page_id); ?></a>
             <span class="breadcrumb-separator"><i class="fa fa-long-arrow-right"></i> </span>
             <a class="breadcrumb-item" href="#"><?php echo get_the_title(); ?></a>
         </div>
 
-        <?php $breadcrumb_text_color = get_option( 'pickplugins_wl_breadcrumb_text_color' ); ?>
         <?php echo ! empty( $breadcrumb_text_color ) ? "<style>.wishlist-breadcrumb a{ color: {$breadcrumb_text_color} !important; }</style>" : ""; ?>
 
     <?php endif; ?>
@@ -185,14 +193,18 @@ function wishlist_tags_display(){
 add_action('wishlist_single_main','wishlist_editing_display');
 
 function wishlist_editing_display(){
+
+    $wishlist_settings = get_option('wishlist_settings');
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
     $wishlist_id = get_the_id();
     $current_user_id 		= get_current_user_id();
-    $pickplugins_wl_default_wishlist_id = get_option( 'pickplugins_wl_default_wishlist_id' );
 
     ?>
     <!-- Editing Buttons -->
 
-    <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $pickplugins_wl_default_wishlist_id != $wishlist_id ) : ?>
+    <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $default_wishlist_id != $wishlist_id ) : ?>
 
         <div class="wishlist_editing">
             <div class="button button_delete"><i class="fa fa-trash" aria-hidden="true"></i> <?php echo __("Delete", 'wishlist' ); ?></div>
@@ -240,6 +252,13 @@ add_action('wishlist_single_main','wishlist_edit_form_display');
 
 function wishlist_edit_form_display(){
 
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : '';
+
+
+
+
     $wishlist_id = get_the_id();
     $wishlist_status = get_post_meta( $wishlist_id, 'wishlist_status', true );
     if( empty( $wishlist_status ) ) $wishlist_status = "public";
@@ -286,7 +305,7 @@ function wishlist_edit_form_display(){
 
             </div>
 
-            <?php if( get_option( 'pickplugins_wl_enable_tags' ) != 'no' ) : ?>
+            <?php if( $tags_enable != 'no' ) : ?>
 
                 <div class='popup_section'>
                     <h5 class="section_title"><?php echo __('Tags - Comma separated', 'wishlist'); ?></h5>

@@ -22,15 +22,21 @@ if( isset( $_GET['list'] ) ) {
 if ( get_query_var('paged') ) { $paged = get_query_var('paged');} 
 elseif ( get_query_var('page') ) { $paged = get_query_var('page'); } 
 else { $paged = 1; }
-	
+
+$wishlist_settings = get_option('wishlist_settings');
+
+$archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+$default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
 $pickplugins_wl_list_per_page = get_option( 'pickplugins_wl_list_per_page' );
 if( empty( $pickplugins_wl_list_per_page ) ) $pickplugins_wl_list_per_page = 10;
 
-$pickplugins_wl_default_wishlist_id = get_option( 'pickplugins_wl_default_wishlist_id' );
-$pickplugins_wl_wishlist_page 		= get_option( 'pickplugins_wl_wishlist_page' );
 
-if( empty( $pickplugins_wl_wishlist_page ) ) $pickplugins_wl_wishlist_page = get_the_ID();
-	
+
+
+
+
 ?>
 
 <div class="pickplugins_wl_wishlist_display pick">
@@ -46,14 +52,14 @@ if( empty( $pickplugins_wl_wishlist_page ) ) $pickplugins_wl_wishlist_page = get
 	
 
 	<?php 
-	if( !empty( $pickplugins_wl_default_wishlist_id ) ) 
-	echo pickplugins_wl_get_single_wishlist_html( $pickplugins_wl_default_wishlist_id );
+	if( !empty( $default_wishlist_id ) )
+	echo pickplugins_wl_get_single_wishlist_html( $default_wishlist_id );
 	
 	$Wishlist_Query = new WP_Query( array (
 		'post_type' 	=> 'wishlist',
 		'post_status' 	=> array( 'publish' ),
 		'author' 		=> $current_user_id,
-        'post__not_in' 	=> array( $pickplugins_wl_default_wishlist_id ),
+        'post__not_in' 	=> array( $default_wishlist_id ),
 		'posts_per_page'=> $pickplugins_wl_list_per_page,
 		'paged' 		=> $paged,
 	) );

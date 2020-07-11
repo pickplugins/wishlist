@@ -45,8 +45,12 @@ class Wishlist_Column{
 	
 			
 	public function add_display_post_states( $post_states, $post ){
-		
-		if ( get_option( 'pickplugins_wl_wishlist_page' ) == $post->ID ) {
+
+        $wishlist_settings = get_option('wishlist_settings');
+        $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+
+
+		if ( $archive_page_id == $post->ID ) {
 			
 			$post_states['wishlist_page'] = __( 'Wishlist page', 'wishlist' );
 		}
@@ -55,34 +59,31 @@ class Wishlist_Column{
 	}
 	
 	public function wishlist_row_actions( $actions ) {
-		
-		if( get_post_type() === 'wishlist' && get_option( 'pickplugins_wl_default_wishlist_id' ) == get_the_ID() ) {
+
+        $wishlist_settings = get_option('wishlist_settings');
+        $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
+
+		if( get_post_type() === 'wishlist' && $default_wishlist_id == get_the_ID() ) {
 			unset( $actions['trash'] );
 			unset( $actions['delete'] );
 		}
 
 		
-	/*
-	 *
-	 *
-	$wishlist_page 	= get_option( 'pickplugins_wl_wishlist_page' );
-	$item_url		= basename( get_permalink() );
-	$item_slug		= basename( parse_url($item_url, PHP_URL_PATH) );
 
-	if( ! empty( $wishlist_page ) ) $single_url = get_the_permalink( $wishlist_page ) . "?list=$item_slug";
-	else $single_url = get_home_url();
-
-	$actions['view'] = sprintf( "<a href='%s' rel='bookmark' aria-label='%s'>%s</a>", $single_url, get_the_title(), __('View', 'wishlist') );
-	 *
-	 * */
 		
 		return $actions;
 	}
 	
 	public function remove_user_cap( $allcaps, $cap, $args ) {
-		
-		if( ! isset( $args[2] ) ) return $allcaps;
-		if( get_option( 'pickplugins_wl_default_wishlist_id' ) == $args[2] ) {
+
+        $wishlist_settings = get_option('wishlist_settings');
+        $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
+        if( ! isset( $args[2] ) ) return $allcaps;
+		if( $default_wishlist_id == $args[2] ) {
 		
 			$allcaps['delete_others_posts'] = false;
 			$allcaps['delete_posts'] = false;

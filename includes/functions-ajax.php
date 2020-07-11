@@ -32,13 +32,16 @@ function pickplugins_wl_ajax_wishlist_copy(){
 	
 		pickplugins_wl_add_to_wishlist( $nepickplugins_wl_wishlist_ID, $item->post_id );
 	}
-	
-	$wishlist_page 	= get_option( 'pickplugins_wl_wishlist_page' );
-	$item_url		= basename( get_permalink( $nepickplugins_wl_wishlist_ID ) );	
+
+    $wishlist_settings = get_option('wishlist_settings');
+    $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+
+
+	$item_url		= basename( get_permalink( $nepickplugins_wl_wishlist_ID ) );
 	$item_slug		= basename( parse_url($item_url, PHP_URL_PATH) );
 	
-	if( ! empty( $wishlist_page ) ) $single_url = get_the_permalink( $nepickplugins_wl_wishlist_ID );
-	else $single_url = $wishlist_page;
+	if( ! empty( $archive_page_id ) ) $single_url = get_the_permalink( $nepickplugins_wl_wishlist_ID );
+	else $single_url = $archive_page_id;
 		
 	echo $single_url;
 	
@@ -110,15 +113,18 @@ function pickplugins_wl_ajax_update_wishlist(){
 	$wishlist_sd			= isset( $_POST['wishlist_sd'] ) ? sanitize_text_field( $_POST['wishlist_sd'] ) : "";
 	$wishlist_status		= isset( $_POST['wishlist_status'] ) ? sanitize_text_field( $_POST['wishlist_status'] ) : "public";
 	$wishlist_tags			= isset( $_POST['wishlist_tags'] ) ? sanitize_text_field( $_POST['wishlist_tags'] ) : "";
-	
+
+    $wishlist_settings = get_option('wishlist_settings');
+    $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+
 	
 	if( $pickplugins_wl_action === "delete" ){
-		
-		$pickplugins_wl_wishlist_page = get_option( 'pickplugins_wl_wishlist_page' );
-		
+
+
+
 		wp_delete_post( $wishlist_id, true );
 		
-		echo get_the_permalink( $pickplugins_wl_wishlist_page );
+		echo get_the_permalink( $wishlist_settings );
 		die();
 	}
 	
@@ -139,8 +145,7 @@ function pickplugins_wl_ajax_update_wishlist(){
 		
 		update_post_meta( $wishlist_id, 'wishlist_status', $wishlist_status );
 		
-		$wishlist_page 	= get_option( 'pickplugins_wl_wishlist_page' );
-		$item_url		= basename( get_permalink( $wishlist_id ) );	
+		$item_url		= basename( get_permalink( $wishlist_id ) );
 		$item_slug		= basename( parse_url($item_url, PHP_URL_PATH) );
 	
 		//if( ! empty( $wishlist_page ) ) $single_url = get_the_permalink( $wishlist_page ) . "?list=$item_slug";
@@ -156,6 +161,26 @@ function pickplugins_wl_ajax_update_wishlist(){
 
 
 	echo "<li class='menu_item add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
+    ?>
+    <li class='menu_item create'>
+        <div class='wishlist-create-wrap'>
+            <div class='wishlist-create'>
+
+                <h2 class='wishlist-create-title'><?php echo __('Create your wishlist', 'wishlist' ); ?></h2>
+
+                <div>
+                    <input type='text' class='wishlist_name' placeholder='<?php echo __( 'Wishlist Name', 'wishlist' ); ?>'>
+                    <input type='hidden' class='item_id' value=''>
+                </div>
+
+                <div class='wl-button wishlist-create-cancel'><?php echo __( 'Cancel', 'wishlist' ); ?></div>
+                <div class='wl-button wishlist-create-save'><?php echo __( 'Create Wishlist', 'wishlist' ); ?></div>
+
+            </div>
+        </div>
+    </li>
+    <?php
+
 	
 	die();
 }
@@ -197,6 +222,24 @@ function pickplugins_wl_ajax_get_wishlist_menu_items(){
 	endforeach;
 
 	echo "<li class='menu_item add_new'><i class='fa fa-plus'></i> ".__('Add New', 'wishlist')."</li>";
+    ?>
+    <li class='menu_item create'>
+        <div class='wishlist-create-wrap'>
+            <div class='wishlist-create'>
+                <div>
+                    <input type='text' class='wishlist_name' placeholder='<?php echo __( 'Wishlist Name', 'wishlist' ); ?>'>
+                    <input type='hidden' class='item_id' value=''>
+                </div>
+
+                <div class='wl-button wishlist-create-cancel'><?php echo __( 'Cancel', 'wishlist' ); ?></div>
+                <div class='wl-button wishlist-create-save'><?php echo __( 'Create Wishlist', 'wishlist' ); ?></div>
+
+            </div>
+        </div>
+    </li>
+    <?php
+
+
 	
 	die();
 }

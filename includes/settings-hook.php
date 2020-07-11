@@ -55,6 +55,8 @@ function wishlist_settings_content_archives(){
 
     $wishlist_settings = get_option('wishlist_settings');
 
+    $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
+
     $pagination_per_page = isset($wishlist_settings['archives']['pagination_per_page']) ? $wishlist_settings['archives']['pagination_per_page'] : '10';
     $pagination_font_size = isset($wishlist_settings['archives']['pagination_font_size']) ? $wishlist_settings['archives']['pagination_font_size'] : '';
     $pagination_color_idle = isset($wishlist_settings['archives']['pagination_color_idle']) ? $wishlist_settings['archives']['pagination_color_idle'] : '';
@@ -70,6 +72,18 @@ function wishlist_settings_content_archives(){
 
         <?php
 
+        $args = array(
+            'id'		=> 'page_id',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Wishlist archive page','post-grid'),
+            'details'	=> __('Users will able to view their wishlist\'s Use shortcode [wishlist_archive] on that page.','post-grid'),
+            'type'		=> 'select',
+            'value'		=> $archive_page_id,
+            'default'		=> '',
+            'args'		=> pickplugins_wl_get_wishlist_pages(),
+        );
+
+        $settings_tabs_field->generate_field($args);
 
         $args = array(
             'id'		=> 'pagination_per_page',

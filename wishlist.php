@@ -86,7 +86,7 @@ class PickpluginsWishList{
 		
 		require_once( wishlist_plugin_dir . 'includes/functions.php');
 		require_once( wishlist_plugin_dir . 'includes/functions-ajax.php');
-		require_once( wishlist_plugin_dir . 'includes/functions-settings.php');
+		//require_once( wishlist_plugin_dir . 'includes/functions-settings.php');
         require_once( wishlist_plugin_dir . 'includes/settings-hook.php');
 
 		//require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hooks.php');
@@ -109,7 +109,6 @@ class PickpluginsWishList{
 	
 	public function declare_classes() {
 		
-		require_once( wishlist_plugin_dir . 'includes/classes/class-pick-settings.php');
 
 		require_once( wishlist_plugin_dir . 'includes/classes/class-post-types.php');
 		require_once( wishlist_plugin_dir . 'includes/classes/class-shortcodes.php');
