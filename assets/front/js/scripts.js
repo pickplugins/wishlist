@@ -442,18 +442,10 @@ jQuery(document).ready(function($) {
 			});
 	})
 
-	$(document).on('blur', ".wishlist_button_menu ", function() {
-
-		console.log('blur');
+	$(document).on('mouseleave', ".wishlist-button-wrap ", function() {
+		
+		$('.wishlist-button-wrap .menu_items').fadeOut();
 	})
-
-	document.getElementsByClassName("wishlist_button_menu").onblur = function() {
-		alert('blur');
-	}
-
-	$('.wishlist-button-wrap').blur(function(){
-		$(this).hide();
-	});
 
 	// Close Menu of wishlists while clicking outside anywhere //
 	// ===== //
