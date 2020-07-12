@@ -76,7 +76,7 @@ function wishlist_settings_content_archives(){
             'id'		=> 'page_id',
             'parent'		=> 'wishlist_settings[archives]',
             'title'		=> __('Wishlist archive page','post-grid'),
-            'details'	=> __('Users will able to view their wishlist\'s Use shortcode [wishlist_archive] on that page.','post-grid'),
+            'details'	=> __('Users will able to view their wishlist\'s Use shortcode <code>[wishlist_archive]</code> on that page.','post-grid'),
             'type'		=> 'select',
             'value'		=> $archive_page_id,
             'default'		=> '',

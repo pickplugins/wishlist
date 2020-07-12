@@ -96,6 +96,8 @@ class PickpluginsWishList{
         require_once( wishlist_plugin_dir . 'templates/wishlist-archive/wishlist-archive-hook.php');
 
 
+        require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
+
 
 
     }

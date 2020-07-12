@@ -28,12 +28,7 @@ $wishlist_settings_tab[] = array(
     'active' => ($current_tab == 'wishlist_page') ? true : false,
 );
 
-$wishlist_settings_tab[] = array(
-    'id' => 'woocommerce',
-    'title' => sprintf(__('%s WooCommerce','wishlist'),'<i class="fas fa-cart-plus"></i>'),
-    'priority' => 15,
-    'active' => ($current_tab == 'woo') ? true : false,
-);
+
 
 $wishlist_settings_tab[] = array(
     'id' => 'style',
