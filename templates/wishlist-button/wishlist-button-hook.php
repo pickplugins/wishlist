@@ -8,6 +8,7 @@ function wishlist_button_wrap($atts){
 
     $item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
     $show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
+    $show_menu = isset( $atts['show_menu'] ) ? $atts['show_menu'] : '';
 
     $wishlist_settings = get_option('wishlist_settings');
 
@@ -27,14 +28,12 @@ function wishlist_button_wrap($atts){
         <?php if( is_user_logged_in() ) :
 
             ?>
-
-            <div class="wishlist_button_menu hint--top" aria-label="<?php echo apply_filters( 'wishlist_menu_label', __( 'Save in...', 'wishlist' ) ); ?>">
-
-                <span class="wishlist_button_menu_icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
-                <ul id='menu_items' class='menu_items' item_id="<?php echo $item_id; ?>"></ul>
-
-            </div>
-
+            <?php if($show_menu == 'yes'): ?>
+                <div class="wishlist_button_menu hint--top" aria-label="<?php echo apply_filters( 'wishlist_menu_label', __( 'Save in...', 'wishlist' ) ); ?>">
+                    <span class="wishlist_button_menu_icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                    <ul id='menu_items' class='menu_items' item_id="<?php echo $item_id; ?>"></ul>
+                </div>
+            <?php endif; ?>
             <?php
             if( $wishlisted_array ) {
 

@@ -9,6 +9,7 @@ function wishlist_settings_content_general(){
     $wishlist_settings = get_option('wishlist_settings');
 
     $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'none';
+    $post_types_display = isset($wishlist_settings['post_types_display']) ? $wishlist_settings['post_types_display'] : array();
 
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
 
@@ -18,6 +19,185 @@ function wishlist_settings_content_general(){
         <p class="description section-description"><?php echo __('Choose some general options.', 'post-grid'); ?></p>
 
         <?php
+
+
+
+
+
+
+        ob_start();
+
+
+        ?>
+        <div class="templates_editor expandable">
+            <?php
+
+            $post_types = array('post'=>'Post', 'page' => 'Page');
+
+
+            if(!empty($post_types))
+                foreach($post_types as $post_type => $post_name){
+
+
+
+                    $content_position = isset($post_types_display[$post_type]['content_position']) ? $post_types_display[$post_type]['content_position'] : '';
+                    $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : '';
+                    $description = isset($post_types_display[$post_type]['description']) ? $post_types_display[$post_type]['description'] : '';
+                    $excerpt_position = isset($post_types_display[$post_type]['excerpt_position']) ? $post_types_display[$post_type]['excerpt_position'] : '';
+                    $icon = isset($post_types_display[$post_type]['icon']) ? $post_types_display[$post_type]['icon'] : '';
+                    $show_count = isset($post_types_display[$post_type]['show_count']) ? $post_types_display[$post_type]['show_count'] : '';
+                    $show_menu = isset($post_types_display[$post_type]['show_menu']) ? $post_types_display[$post_type]['show_menu'] : '';
+
+
+
+                    //echo '<pre>'.var_export($enable).'</pre>';
+
+                    ?>
+                    <div class="item template <?php echo $post_type; ?>">
+                        <div class="header">
+                        <span title="<?php echo __('Click to expand', 'job-board-manager'); ?>" class="expand ">
+                            <i class="fa fa-expand"></i>
+                            <i class="fa fa-compress"></i>
+                        </span>
+
+                            <?php
+                            if($enable =='yes'):
+                                ?>
+                                <span title="<?php echo __('Enable', 'job-board-manager'); ?>" class="is-enable ">
+                            <i class="fa fa-check-square"></i>
+                            </span>
+                            <?php
+                            else:
+                                ?>
+                                <span title="<?php echo __('Disabled', 'job-board-manager'); ?>" class="is-enable ">
+                            <i class="fa fa-times-circle"></i>
+                            </span>
+                            <?php
+                            endif;
+                            ?>
+
+
+                            <?php echo $post_name; ?>
+                        </div>
+                        <input type="hidden" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][name]" value="<?php echo $post_type; ?>" />
+                        <div class="options">
+                            <div class="description"><?php echo $description; ?></div><br/><br/>
+
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Enable?', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <select name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][enable]" >
+                                        <option <?php echo selected($enable,'yes'); ?> value="yes" ><?php echo __('Yes', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($enable,'no'); ?>  value="no" ><?php echo __('No', 'job-board-manager'); ?></option>
+                                    </select>
+                                    <p class="description"><?php echo __('Enable or disable this email notification.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Content position?', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <select name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][content_position]">
+                                        <option <?php echo selected($content_position,'none'); ?>  value="none" ><?php echo __('None', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($content_position,'before'); ?> value="before" ><?php echo __('Before', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($content_position,'after'); ?>  value="after" ><?php echo __('After', 'job-board-manager'); ?></option>
+
+                                    </select>
+                                    <p class="description"><?php echo __('Choose wishlist position on content.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Excerpt position?', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <select name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][excerpt_position]">
+                                        <option <?php echo selected($excerpt_position,'none'); ?>  value="none" ><?php echo __('None', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($excerpt_position,'before'); ?> value="before" ><?php echo __('Before', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($excerpt_position,'after'); ?>  value="after" ><?php echo __('After', 'job-board-manager'); ?></option>
+
+                                    </select>
+                                    <p class="description"><?php echo __('Choose wishlist position on excerpt.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Icon', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon]" value="<?php echo esc_attr($icon); ?>"/>
+
+                                    <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="fas fa-heart">&lt;/i></code>.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Show count?', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <select name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][show_count]" >
+                                        <option <?php echo selected($show_count,'yes'); ?> value="yes" ><?php echo __('Yes', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($show_count,'no'); ?>  value="no" ><?php echo __('No', 'job-board-manager'); ?></option>
+                                    </select>
+                                    <p class="description"><?php echo __('Enable or disable this email notification.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Show menu?', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <select name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][show_menu]" >
+                                        <option <?php echo selected($show_menu,'yes'); ?> value="yes" ><?php echo __('Yes', 'job-board-manager'); ?></option>
+                                        <option <?php echo selected($show_menu,'no'); ?>  value="no" ><?php echo __('No', 'job-board-manager'); ?></option>
+                                    </select>
+                                    <p class="description"><?php echo __('Enable or disable this email notification.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <?php
+
+                }
+
+
+            ?>
+
+
+        </div>
+        <?php
+
+
+        $html = ob_get_clean();
+
+
+
+
+        $args = array(
+            'id'		=> 'job_bm_email_templates',
+            //'parent'		=> '',
+            'title'		=> __('Post types display','job-board-manager'),
+            'details'	=> __('Display automatically wishlist under following post types.','job-board-manager'),
+            'type'		=> 'custom_html',
+            //'multiple'		=> true,
+            'html'		=> $html,
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $args = array(
             'id'		=> 'font_aw_version',

@@ -51,12 +51,14 @@ class pickplugins_wl_Shortcodes {
 
 	public function wishlist_button_display( $atts ) {
 		
-		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '' ), $atts);
+		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', ), $atts);
 
 		$atts = apply_filters('wishlist_button_atts', $atts);
 
 		$item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
         $show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
+        $show_menu = isset( $atts['show_menu'] ) ? $atts['show_menu'] : '';
+
 
 		if(empty($item_id)) return;
 

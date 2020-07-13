@@ -1,10 +1,117 @@
 <?php
-/*
-* @Author 		pickplugins
-* Copyright: 	pickplugins.com
-*/
+
 
 if ( ! defined('ABSPATH')) exit;  // if direct access 
+
+
+
+add_action('the_content', 'wishlist_display_on_content');
+
+function wishlist_display_on_content($content){
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $post_types_display = isset($wishlist_settings['post_types_display']) ? $wishlist_settings['post_types_display'] : array();
+
+    global $post;
+    $posttype = isset($post->post_type) ? $post->post_type : '';
+    $enable = isset($post_types_display[$posttype]['enable']) ? $post_types_display[$posttype]['enable'] : 'no';
+
+    if($enable == 'yes'){
+
+        $content_position = isset($post_types_display[$posttype]['content_position']) ? $post_types_display[$posttype]['content_position'] : 'none';
+        $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : 'yes';
+        $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : 'yes';
+        $html = '';
+
+        if($content_position == 'before'){
+
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'"]');
+            $html .= $content;
+
+        }elseif ($content_position == 'after'){
+
+            $html .= $content;
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'"]');
+
+        }else{
+
+            $html .= $content;
+
+        }
+
+        return $html;
+
+    }else{
+        return $content;
+    }
+
+    //var_dump($post_types_display);
+
+}
+
+
+
+
+add_action('the_excerpt', 'wishlist_display_on_excerpt');
+
+function wishlist_display_on_excerpt($excerpt){
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $post_types_display = isset($wishlist_settings['post_types_display']) ? $wishlist_settings['post_types_display'] : array();
+
+    global $post;
+    $posttype = isset($post->post_type) ? $post->post_type : '';
+    $enable = isset($post_types_display[$posttype]['enable']) ? $post_types_display[$posttype]['enable'] : 'no';
+
+    if($enable == 'yes'){
+
+        $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : 'none';
+        $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : 'yes';
+        $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : 'yes';
+        $html = '';
+
+        if($excerpt_position == 'before'){
+
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"]');
+            $html .= $excerpt;
+
+        }elseif ($excerpt_position == 'after'){
+
+            $html .= $excerpt;
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"]');
+
+        }else{
+
+            $html .= $excerpt;
+
+        }
+
+        return $html;
+
+    }else{
+        return $excerpt;
+    }
+
+    //var_dump($post_types_display);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // EDD Integration Start //
 function pickplugins_wl_edd_download_after_price_function(){
