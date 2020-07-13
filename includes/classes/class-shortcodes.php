@@ -51,14 +51,17 @@ class pickplugins_wl_Shortcodes {
 
 	public function wishlist_button_display( $atts ) {
 		
-		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', ), $atts);
+		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', 'icon' => '',   ), $atts);
 
 		$atts = apply_filters('wishlist_button_atts', $atts);
 
-		$item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
-        $show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
-        $show_menu = isset( $atts['show_menu'] ) ? $atts['show_menu'] : '';
 
+
+		$item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
+
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
 
 		if(empty($item_id)) return;
 
@@ -69,7 +72,17 @@ class pickplugins_wl_Shortcodes {
 		ob_start();
 
 		do_action('wishlist_button', $atts);
-        wp_enqueue_style('wishlist-button');
+        wp_enqueue_style('wishlist_button_css');
+
+        if($font_aw_version == 'v_5'){
+
+            wp_enqueue_style('font-awesome-5');
+        }elseif ($font_aw_version == 'v_4'){
+            wp_enqueue_style('font-awesome-4');
+        }
+
+        wp_enqueue_script('wishlist_button_js');
+
 		return ob_get_clean();
 	}
 

@@ -44,7 +44,11 @@ function wishlist_settings_content_general(){
                     $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : '';
                     $description = isset($post_types_display[$post_type]['description']) ? $post_types_display[$post_type]['description'] : '';
                     $excerpt_position = isset($post_types_display[$post_type]['excerpt_position']) ? $post_types_display[$post_type]['excerpt_position'] : '';
-                    $icon = isset($post_types_display[$post_type]['icon']) ? $post_types_display[$post_type]['icon'] : '';
+                    $icon_active = isset($post_types_display[$post_type]['icon_active']) ? $post_types_display[$post_type]['icon_active'] : '';
+                    $icon_inactive = isset($post_types_display[$post_type]['icon_inactive']) ? $post_types_display[$post_type]['icon_inactive'] : '';
+                    $icon_loading = isset($post_types_display[$post_type]['icon_loading']) ? $post_types_display[$post_type]['icon_loading'] : '';
+
+
                     $show_count = isset($post_types_display[$post_type]['show_count']) ? $post_types_display[$post_type]['show_count'] : '';
                     $show_menu = isset($post_types_display[$post_type]['show_menu']) ? $post_types_display[$post_type]['show_menu'] : '';
 
@@ -124,13 +128,34 @@ function wishlist_settings_content_general(){
                             </div>
 
                             <div class="setting-field">
-                                <div class="field-lable"><?php echo __('Icon', 'job-board-manager'); ?></div>
+                                <div class="field-lable"><?php echo __('Active Icon', 'job-board-manager'); ?></div>
                                 <div class="field-input">
-                                    <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon]" value="<?php echo esc_attr($icon); ?>"/>
+                                    <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon_active]" value="<?php echo esc_attr($icon_active); ?>"/>
 
                                     <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="fas fa-heart">&lt;/i></code>.', 'job-board-manager'); ?></p>
                                 </div>
                             </div>
+
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Inactive icon', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon_inactive]" value="<?php echo esc_attr($icon_inactive); ?>"/>
+
+                                    <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="far fa-heart">&lt;/i></code>.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+                            <div class="setting-field">
+                                <div class="field-lable"><?php echo __('Loading icon', 'job-board-manager'); ?></div>
+                                <div class="field-input">
+                                    <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon_loading]" value="<?php echo esc_attr($icon_loading); ?>"/>
+
+                                    <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="fas fa-spinner">&lt;/i></code>.', 'job-board-manager'); ?></p>
+                                </div>
+                            </div>
+
+
 
                             <div class="setting-field">
                                 <div class="field-lable"><?php echo __('Show count?', 'job-board-manager'); ?></div>

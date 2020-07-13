@@ -19,20 +19,24 @@ function wishlist_display_on_content($content){
 
     if($enable == 'yes'){
 
-        $content_position = isset($post_types_display[$posttype]['content_position']) ? $post_types_display[$posttype]['content_position'] : 'none';
-        $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : 'yes';
-        $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : 'yes';
+        $content_position = isset($post_types_display[$posttype]['content_position']) ? $post_types_display[$posttype]['content_position'] : '';
+        $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : '';
+        $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : '';
+        $icon = isset($post_types_display[$posttype]['icon']) ? $post_types_display[$posttype]['icon'] : '';
+
+        //echo '<pre>'.var_export($icon, true).'</pre>';
+
         $html = '';
 
         if($content_position == 'before'){
 
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon="'.esc_attr($icon).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"  ]');
             $html .= $content;
 
         }elseif ($content_position == 'after'){
 
             $html .= $content;
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon="'.esc_attr($icon).'"  show_menu="'.$show_menu.'" show_count="'.$show_count.'" ]');
 
         }else{
 
@@ -70,17 +74,19 @@ function wishlist_display_on_excerpt($excerpt){
         $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : 'none';
         $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : 'yes';
         $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : 'yes';
+        $icon = isset($post_types_display[$posttype]['icon']) ? $post_types_display[$posttype]['icon'] : 'yes';
+
         $html = '';
 
         if($excerpt_position == 'before'){
 
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'" icon="'.$icon.'"]');
             $html .= $excerpt;
 
         }elseif ($excerpt_position == 'after'){
 
             $html .= $excerpt;
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'" icon="'.$icon.'"]');
 
         }else{
 
@@ -117,7 +123,7 @@ function wishlist_display_on_excerpt($excerpt){
 function pickplugins_wl_edd_download_after_price_function(){
 	
 	$item_id = get_the_ID();
-	echo do_shortcode( "[wishlist_button id=$item_id]" );
+	echo do_shortcode( "[wishlist_button id=$item_id show_menu=yes show_count=yes]" );
 }
 add_action( 'edd_download_after_content', 'pickplugins_wl_edd_download_after_price_function' );
 
@@ -172,7 +178,7 @@ function pickplugins_wl_get_social_platforms(){
 function woocommerce_template_loop_product_wishlist( $item_id = 0 ){
 	
 	if( $item_id == 0 ) $item_id = get_the_ID();
-	echo do_shortcode( "[wishlist_button id=$item_id show_count=yes]" );
+	echo do_shortcode( "[wishlist_button id=$item_id show_count=yes show_menu=yes ]" );
 }
 
 

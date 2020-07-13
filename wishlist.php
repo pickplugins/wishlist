@@ -42,7 +42,13 @@ class PickpluginsWishList{
 
 	public function _activation() {
 
-	    $wishlist_settings = get_option('wishlist_settings');
+        $wishlist_settings = get_option('wishlist_settings');
+
+	    if(empty($wishlist_settings)){
+            wishlist_settings_migrate();
+        }
+
+
 	    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
 
 
@@ -97,6 +103,7 @@ class PickpluginsWishList{
 
 
         require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
+        require_once( wishlist_plugin_dir . 'includes/functions-migrate.php');
 
 
 
@@ -141,18 +148,22 @@ class PickpluginsWishList{
 		wp_enqueue_script('jquery');
 		wp_enqueue_style('dashicons');
 
-		wp_enqueue_script('pickplugins_wl_front_js', plugins_url( '/assets/front/js/scripts.js' , __FILE__ ) , array( 'jquery' ));
-		wp_localize_script( 'pickplugins_wl_front_js', 'pickplugins_wl_ajax', array( 'pickplugins_wl_ajaxurl' => admin_url( 'admin-ajax.php')));
+//		wp_enqueue_script('pickplugins_wl_front_js', plugins_url( '/assets/front/js/scripts.js' , __FILE__ ) , array( 'jquery' ));
+//		wp_localize_script( 'pickplugins_wl_front_js', 'pickplugins_wl_ajax', array( 'pickplugins_wl_ajaxurl' => admin_url( 'admin-ajax.php')));
 
         wp_register_style('single-wishlist', wishlist_plugin_url.'assets/front/css/single-wishlist.css');
 
 		wp_enqueue_style('pickplugins_wl_style', wishlist_plugin_url.'assets/front/css/style.css');
-		wp_enqueue_style('font-awesome.min.css', wishlist_plugin_url.'assets/front/css/font-awesome.min.css');
+		//wp_enqueue_style('font-awesome.min.css', wishlist_plugin_url.'assets/front/css/font-awesome.min.css');
 
         wp_register_style('hint.css', wishlist_plugin_url.'assets/front/css/hint.min.css');
-        wp_register_style('wishlist-button', wishlist_plugin_url.'assets/front/css/wishlist-button.css');
+        wp_register_style('wishlist_button_css', wishlist_plugin_url.'assets/front/css/wishlist-button.css');
+        wp_register_script('wishlist_button_js', plugins_url( '/assets/front/js/wishlist-button.js' , __FILE__ ) , array( 'jquery' ));
+        wp_localize_script( 'wishlist_button_js', 'wishlist_button_js', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
 
 
+        wp_register_style('font-awesome-4', wishlist_plugin_url.'assets/global/css/font-awesome-4.css');
+        wp_register_style('font-awesome-5', wishlist_plugin_url.'assets/global/css/font-awesome-5.css');
 
     }
 

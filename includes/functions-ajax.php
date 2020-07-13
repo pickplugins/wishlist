@@ -205,7 +205,7 @@ function pickplugins_wl_ajax_get_wishlist_menu_items(){
 		'post_type' => 'wishlist',
 		'author' => $current_user_id,
 		'post__not_in' => array( $default_list_id ),
-		'posts_per_page' => 5,
+		'posts_per_page' => -1,
 	) );
 		
 	foreach( $wishlist_array as $list ):
@@ -284,23 +284,31 @@ add_action('wp_ajax_nopriv_pickplugins_wl_ajax_add_remove_item_on_wishlist', 'pi
 
 
 function pickplugins_wl_ajax_create_save_wishlist(){
-	
+
+    $responses = array();
+
 	$wishlist_name 	= isset( $_POST['wishlist_name'] ) ? sanitize_text_field($_POST['wishlist_name']) : "";
 	$item_id 	= isset( $_POST['item_id'] ) ? sanitize_text_field($_POST['item_id']) : "";
 	
 	if( is_user_logged_in() ){
 		
-		$nepickplugins_wl_wishlist_ID = wp_insert_post( array(
+		$wishlist_ID = wp_insert_post( array(
 			'post_title' 	=> $wishlist_name,
 			'post_type' 	=> 'wishlist',
 			'post_status' 	=> 'publish',
 			'author' 		=> get_current_user_id(),
 		) );
 
-		update_post_meta( $nepickplugins_wl_wishlist_ID, 'wishlist_status', 'public' );
-		pickplugins_wl_add_to_wishlist( $nepickplugins_wl_wishlist_ID, $item_id );
+		update_post_meta( $wishlist_ID, 'wishlist_status', 'public' );
+		pickplugins_wl_add_to_wishlist( $wishlist_ID, $item_id );
+
+        $responses['wishlist_id'] = $wishlist_ID;
 
 	}
+
+
+
+	echo json_encode($responses);
 	
 	die();
 }
