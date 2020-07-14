@@ -2,7 +2,7 @@
 /* CSS Document */
 
 
-@import url("wishlist-display.css");
+
 @import url("wishlist-single-display.css");
 @import url("wishlist-item-loop.css");
 
@@ -159,27 +159,6 @@
 
 
 
-
-/* Pick Paginate Start */
-
-.pick .paginate {
-	clear: both;
-	margin: 30px 0;
-	text-align: center;
-}
-.pick .paginate .page-numbers {
-    background: #b6b6b6 none repeat scroll 0 0;
-    margin: 0 2px;
-    padding: 9px 15px;
-    text-decoration: none;
-    color: #fff;
-}
-.pick .paginate .current{
-	background: #ddd none repeat scroll 0 0;
-}
-.pick .paginate .pre {}
-.pick .paginate .next {}
-/* Paginate End */
 
 
 

@@ -3,9 +3,9 @@
 Plugin Name: Wishlist
 Plugin URI: https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org
 Description: Add wish-list feature to your WooCommerce product or any post types.
-Version: 1.0.5
+Version: 1.0.7
 WC requires at least: 3.0.0
-WC tested up to: 4.0
+WC tested up to: 4.2
 Text Domain: wishlist
 Author: PickPlugins
 Author URI: http://pickplugins.com
@@ -28,7 +28,8 @@ class PickpluginsWishList{
 		
 		register_activation_hook( __FILE__, array( $this, '_activation' ) );
         add_action( 'plugins_loaded', array( $this, '_textdomain' ));
-	}
+
+    }
 
     public function _textdomain() {
 
@@ -38,6 +39,7 @@ class PickpluginsWishList{
 
         load_plugin_textdomain( 'wishlist', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
     }
+
 
 
 	public function _activation() {
@@ -50,6 +52,7 @@ class PickpluginsWishList{
 
 
 	    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+        $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
 
 
 		if( empty( $default_wishlist_id ) ) :
@@ -64,7 +67,26 @@ class PickpluginsWishList{
 			update_option( 'wishlist_settings', array('default_wishlist_id' => $wishlist_ID) );
 			
 		endif;
-		
+
+        if( empty( $archive_page_id ) ) :
+
+            $page_id = wp_insert_post( array(
+                'post_title' 	=> __('Wishlist archive', 'wishlist'),
+                'slug' 			=> 'wishlist-archive',
+                'post_type' 	=> 'page',
+                'post_status' 	=> 'publish',
+                'post_content' 	=> '[wishlist_archive]',
+            ) );
+
+            $wishlist_settings['archives']['page_id'] = $page_id;
+
+            update_option('wishlist_settings', $wishlist_settings);
+
+        endif;
+
+
+
+
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();
 		
@@ -104,6 +126,7 @@ class PickpluginsWishList{
 
         require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
         require_once( wishlist_plugin_dir . 'includes/functions-migrate.php');
+        //require_once( wishlist_plugin_dir . 'includes/functions-welcome.php');
 
 
 
@@ -161,9 +184,14 @@ class PickpluginsWishList{
         wp_register_script('wishlist_button_js', plugins_url( '/assets/front/js/wishlist-button.js' , __FILE__ ) , array( 'jquery' ));
         wp_localize_script( 'wishlist_button_js', 'wishlist_button_js', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
 
+        wp_register_style('wishlist-archive', wishlist_plugin_url.'assets/front/css/wishlist-archive.css');
+
 
         wp_register_style('font-awesome-4', wishlist_plugin_url.'assets/global/css/font-awesome-4.css');
         wp_register_style('font-awesome-5', wishlist_plugin_url.'assets/global/css/font-awesome-5.css');
+
+
+
 
     }
 
@@ -179,7 +207,6 @@ class PickpluginsWishList{
 
         wp_register_style('settings-tabs', wishlist_plugin_url.'assets/settings-tabs/settings-tabs.css');
         wp_register_script('settings-tabs', wishlist_plugin_url.'assets/settings-tabs/settings-tabs.js'  , array( 'jquery' ));
-
 
 
 		wp_enqueue_script('pickplugins_wl_admin_js', plugins_url( '/assets/admin/js/scripts.js' , __FILE__ ) , array( 'jquery' ));

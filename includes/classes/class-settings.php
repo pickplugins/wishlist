@@ -16,6 +16,7 @@ class class_wishlist_settings{
         add_submenu_page('edit.php?post_type=wishlist', __('Settings', 'post-grid'), __('Settings', 'post-grid'), 'manage_options', 'settings', array( $this, 'settings' ));
 
 
+
     }
 
 	public function settings(){

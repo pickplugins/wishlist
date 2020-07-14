@@ -8,8 +8,11 @@ function wishlist_settings_content_general(){
 
     $wishlist_settings = get_option('wishlist_settings');
 
+    //delete_option('wishlist_settings');
+
     $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'none';
     $post_types_display = isset($wishlist_settings['post_types_display']) ? $wishlist_settings['post_types_display'] : array();
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
 
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
 
@@ -237,6 +240,22 @@ function wishlist_settings_content_general(){
 
         $settings_tabs_field->generate_field($args);
 
+
+        $args = array(
+            'id'		=> 'default_wishlist_id',
+            'parent'		=> 'wishlist_settings',
+            'title'		=> __('default wishlist id','post-grid'),
+            'details'	=> __('Set custom number of wislists per page.','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $default_wishlist_id,
+            'default'		=> '',
+            'placeholder' => __('3','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
         ?>
 
     </div>
@@ -267,6 +286,7 @@ function wishlist_settings_content_archives(){
     $pagination_color_idle = isset($wishlist_settings['archives']['pagination_color_idle']) ? $wishlist_settings['archives']['pagination_color_idle'] : '';
     $pagination_color_active = isset($wishlist_settings['archives']['pagination_color_active']) ? $wishlist_settings['archives']['pagination_color_active'] : '';
 
+    $pagination_color = isset($wishlist_settings['archives']['pagination_color']) ? $wishlist_settings['archives']['pagination_color'] : '';
 
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
 
@@ -323,7 +343,7 @@ function wishlist_settings_content_archives(){
         $args = array(
             'id'		=> 'pagination_color_idle',
             'parent'		=> 'wishlist_settings[archives]',
-            'title'		=> __('Pagination color - Normal','post-grid'),
+            'title'		=> __('Background color - Normal','post-grid'),
             'details'	=> __('Choose custom color for pagination idle stat.','post-grid'),
             'type'		=> 'colorpicker',
             'value'		=> $pagination_color_idle,
@@ -336,10 +356,23 @@ function wishlist_settings_content_archives(){
         $args = array(
             'id'		=> 'pagination_color_active',
             'parent'		=> 'wishlist_settings[archives]',
-            'title'		=> __('Pagination color - Active','post-grid'),
-            'details'	=> __('Choose custom color for pagination on active stat.','post-grid'),
+            'title'		=> __('Background color - Active','post-grid'),
+            'details'	=> __('Choose custom background color for pagination on active stat.','post-grid'),
             'type'		=> 'colorpicker',
             'value'		=> $pagination_color_active,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'pagination_color',
+            'parent'		=> 'wishlist_settings[archives]',
+            'title'		=> __('Text color','post-grid'),
+            'details'	=> __('Choose custom text color for pagination.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color,
             'default'		=> '',
         );
 
@@ -382,6 +415,7 @@ function wishlist_settings_content_wishlist_page(){
     $pagination_font_size = isset($wishlist_settings['wishlist_page']['pagination_font_size']) ? $wishlist_settings['wishlist_page']['pagination_font_size'] : '';
     $pagination_color_idle = isset($wishlist_settings['wishlist_page']['pagination_color_idle']) ? $wishlist_settings['wishlist_page']['pagination_color_idle'] : '';
     $pagination_color_active = isset($wishlist_settings['wishlist_page']['pagination_color_active']) ? $wishlist_settings['wishlist_page']['pagination_color_active'] : '';
+    $pagination_color = isset($wishlist_settings['wishlist_page']['pagination_color']) ? $wishlist_settings['wishlist_page']['pagination_color'] : '';
 
 
 
@@ -529,6 +563,18 @@ function wishlist_settings_content_wishlist_page(){
 
         $settings_tabs_field->generate_field($args);
 
+        $args = array(
+            'id'		=> 'pagination_color',
+            'parent'		=> 'wishlist_settings[wishlist_page]',
+            'title'		=> __('Text color','post-grid'),
+            'details'	=> __('Choose custom text color for pagination.','post-grid'),
+            'type'		=> 'colorpicker',
+            'value'		=> $pagination_color,
+            'default'		=> '',
+        );
+
+        $settings_tabs_field->generate_field($args);
+
 
         ?>
 
@@ -627,112 +673,6 @@ function wishlist_settings_content_style(){
 }
 
 
-
-
-add_action('wishlist_settings_content_woocommerce', 'wishlist_settings_content_woocommerce');
-
-function wishlist_settings_content_woocommerce(){
-    $settings_tabs_field = new settings_tabs_field();
-
-    $wishlist_settings = get_option('wishlist_settings');
-
-    $on_shop = isset($wishlist_settings['woocommerce']['on_shop']) ? $wishlist_settings['woocommerce']['on_shop'] : 'none';
-    $on_shop_position = isset($wishlist_settings['woocommerce']['on_shop_position']) ? $wishlist_settings['woocommerce']['on_shop_position'] : 'before_addtocart';
-
-    $on_product = isset($wishlist_settings['woocommerce']['on_product']) ? $wishlist_settings['woocommerce']['on_product'] : 'none';
-    $on_product_position = isset($wishlist_settings['woocommerce']['on_product_position']) ? $wishlist_settings['woocommerce']['on_product_position'] : 'title';
-
-    ?>
-    <div class="section">
-        <div class="section-title"><?php echo __('WooCommerce Settings', 'post-grid'); ?></div>
-        <p class="description section-description"><?php echo __('Choose WooCommerce settings.', 'post-grid'); ?></p>
-
-        <?php
-
-        $args = array(
-            'id'		=> 'on_shop',
-            'parent'		=> 'wishlist_settings[woocommerce]',
-            'title'		=> __('Display on shop page','post-grid'),
-            'details'	=> __('Display wishlist button on WooCommerce shop page automatically.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $on_shop,
-            'default'		=> '',
-            'args'		=> array('yes'=>'Yes','no'=>'No'),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-        $args = array(
-            'id'		=> 'on_shop_position',
-            'parent'		=> 'wishlist_settings[woocommerce]',
-            'title'		=> __('Position on shop page','post-grid'),
-            'details'	=> __('Display wishlist button position on shop page.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $on_shop_position,
-            'default'		=> '',
-            'args'		=> array(
-                'before_addtocart' 	=> __('Before Add to Cart', 'wishlist'),
-                'after_addtocart'	=> __('After Add to Cart', 'wishlist'),
-            ),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-
-
-        $args = array(
-            'id'		=> 'on_product',
-            'parent'		=> 'wishlist_settings[woocommerce]',
-            'title'		=> __('Display on product page','post-grid'),
-            'details'	=> __('Display wishlist button on WooCommerce product page automatically.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $on_shop,
-            'default'		=> '',
-            'args'		=> array('yes'=>'Yes','no'=>'No'),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-        $args = array(
-            'id'		=> 'on_product_position',
-            'parent'		=> 'wishlist_settings[woocommerce]',
-            'title'		=> __('Position on product page','post-grid'),
-            'details'	=> __('Display wishlist button position on product page.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $on_product_position,
-            'default'		=> '',
-            'args'		=> array(
-                'title' 		=> __('Title', 'wishlist'),
-                'ratings'		=> __('Ratings', 'wishlist'),
-                'price'			=> __('Price', 'wishlist'),
-                'excerpt'		=> __('Excerpt', 'wishlist'),
-                'meta'			=> __('Meta', 'wishlist'),
-                'sharing'		=> __('Sharing', 'wishlist'),
-                'add_to_cart'	=> __('Add to Cart', 'wishlist'),
-            ),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-
-
-
-
-
-
-
-
-        ?>
-
-    </div>
-
-    <?php
-
-
-
-
-
-}
 
 
 

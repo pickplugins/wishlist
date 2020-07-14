@@ -169,69 +169,8 @@ function pickplugins_wl_get_social_platforms(){
 	) );
 }
 
-// 01723 31 38 99
 
 
-/* Add Wishlist section using Shortcode on Single Post Archive*/
-/* ===== === ===== */
-
-function woocommerce_template_loop_product_wishlist( $item_id = 0 ){
-	
-	if( $item_id == 0 ) $item_id = get_the_ID();
-	echo do_shortcode( "[wishlist_button id=$item_id show_count=yes show_menu=yes ]" );
-}
-
-
-function pickplugins_wl_show_wishlist_section(){
-	
-	/* Shop page settings */
-	/* ===== === ===== */
-
-    $wishlist_settings = get_option('wishlist_settings');
-
-    $woocommerce = isset($wishlist_settings['woocommerce']) ? $wishlist_settings['woocommerce'] : array();
-    $on_shop = isset($woocommerce['on_shop']) ? $woocommerce['on_shop'] : 'yes';
-    $on_shop_position = isset($woocommerce['on_shop_position']) ? $woocommerce['on_shop_position'] : 'after_addtocart';
-
-    $on_product = isset($woocommerce['on_product']) ? $woocommerce['on_product'] : 'yes';
-    $on_product_position = isset($woocommerce['on_product_position']) ? $woocommerce['on_product_position'] : 'title';
-
-
-	if( $on_shop != "no" ):
-		
-		if( $on_shop_position == 'before_addtocart' ) $priority = 5;
-		else $priority = 15;	
-		
-		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_wishlist', $priority );
-		
-	endif;
-	
-	/* Product single page settings */
-	/* ===== === ===== */
-	
-	if( $on_product != "no" ):
-			
-		
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-		add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 12 );
-
-		if( $on_product_position == 'title' ) $priority = 6;
-		elseif( $on_product_position == 'ratings' ) $priority = 10;
-		elseif( $on_product_position == 'price' ) $priority = 15;
-		elseif( $on_product_position == 'excerpt' ) $priority = 20;
-		elseif( $on_product_position == 'meta' ) $priority = 40;
-		elseif( $on_product_position == 'add_to_cart' ) $priority = 30;
-		elseif( $on_product_position == 'sharing' ) $priority = 50;
-		else $priority = 15;	
-		
-		add_action( 'woocommerce_single_product_summary', 'woocommerce_template_loop_product_wishlist', $priority );
-		
-	endif;
-	
-	add_action( 'pickplugins_wl_loop_single_item_main', 'woocommerce_template_loop_product_wishlist', 12 );
-
-}
-add_action( 'init', 'pickplugins_wl_show_wishlist_section' );
 
 
 function pickplugins_wl_wishlist_buttons_html(){
@@ -441,22 +380,43 @@ function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
 	$wishlist_status	= get_post_meta( get_the_ID(), 'wishlist_status', true );
 	$status_hint_text	= $wishlist_status == 'private' ? __('Private List', 'wishlist') : __('Public List', 'wishlist');
 	$status_class		= $wishlist_status == 'private' ? 'fa-lock' : 'fa-unlock-alt';
-	
-	$html .= "<div class='single_wishlist'>";
 
-	//$html .= "<a href='$wishlist_page_url?list=$item_slug' class='single_wishlist_inside'>";
-	$html .= "<a href='$wishlist_url' class='single_wishlist_inside'>";
+    ob_start();
 
-	if( $total_items > 0 ) $html .= "<span class='single_wishlist_img' style='background-image:url($bg_image_url);'></span>";
-	else $html .= "<span class='single_wishlist_img'><i class='fa fa-heart' aria-hidden='true'></i></span>";
+    ?>
+    <div class='item'>
+        <a href='<?php echo $wishlist_url; ?>' class='item_inside'>
+            <?php
 
-    $html .= sprintf("<h3>%s</h3>", get_the_title( $wishlist_id ) );
-    $html .= sprintf("<small>%s : %s</small>", __('Items', 'wishlist'), $total_items );
-	$html .= sprintf("<span class='hint--top' aria-label='%s'><span class='fa %s'></span></span>", $status_hint_text, $status_class );
-	$html .= sprintf("<span class='createdby hint--top' aria-label='%s'><i class='fa fa-user'></i> <span>%s</span></span>",
-			__('Created by', 'wishlist'), get_the_author_meta( 'display_name' ) );
-	
-	$html .= "</a></div>";
+            if( $total_items > 0 ){
+                ?>
+                <span class='item_img' style='background-image:url(<?php echo $bg_image_url; ?>);'></span>
+                <?php
+            }
+            else{
+                ?>
+                <span class='item_img'><i class='fa fa-heart' aria-hidden='true'></i></span>
+                <?php
+            }
+
+            echo sprintf("<h3>%s</h3>", get_the_title( $wishlist_id ) );
+            ?>
+            <div class="meta-items">
+                <?php
+
+
+                echo sprintf("<span>%s : %s</span>", __('Total', 'wishlist'), $total_items );
+                echo sprintf("<span class='hint--top' aria-label='%s'><span class='fa %s'></span></span>", $status_hint_text, $status_class );
+                echo sprintf("<span class='createdby hint--top' aria-label='%s'><i class='fa fa-user'></i> %s</span>",
+                    __('Created by', 'wishlist'), get_the_author_meta( 'display_name' ) )
+
+                ?>
+            </div>
+        </a>
+    </div>
+    <?php
+
+    $html = ob_get_clean();
 	
 	return $html;
 }

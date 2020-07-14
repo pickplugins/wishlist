@@ -16,7 +16,7 @@ class pickplugins_wl_Shortcodes {
 	
 	public function wishlist_single_display( $atts ) {
 		
-		$atts = shortcode_atts( array( 'id' => '' ), $atts);
+		$atts = shortcode_atts( array( 'id' => '',  ), $atts);
 		
 		$wishlist_id = isset( $atts['id'] ) ? $atts['id'] : 0;
 		
@@ -34,11 +34,27 @@ class pickplugins_wl_Shortcodes {
 	
 	public function wishlist_archive_display( $atts ) {
 		
-		$atts = shortcode_atts( array(), $atts);
-				
-		ob_start();
+		$atts = shortcode_atts( array('view_type' => 'grid', 'column' => '3', ), $atts);
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
+
+        wp_enqueue_style('wishlist-archive');
+        wp_enqueue_style('hint.css');
+
+        if($font_aw_version == 'v_5'){
+
+            wp_enqueue_style('font-awesome-5');
+        }elseif ($font_aw_version == 'v_4'){
+            wp_enqueue_style('font-awesome-4');
+        }
+
+        ob_start();
         do_action('wishlist_archive', $atts);
 		//include( wishlist_plugin_dir . 'templates/wishlist-display.php');
+
+
+
 		return ob_get_clean();
 	}
 

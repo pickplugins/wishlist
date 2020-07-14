@@ -28,7 +28,7 @@
 .wishlist-button-wrap .menu_items {
     display: none;
     position: absolute;
-    min-width: 200px;
+    min-width: 230px;
     z-index: 9999999;
     border: 1px solid #ddd;
     border-radius: 2px;
