@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 
 		}else{
 			$(this).children('.wishlist_button_menu_icon').html(icon_loading);
-
+            $(this).children('.menu_items').html('<li class="menu_item"> '+icon_loading+'</li>');
 			console.log(item_id);
 
 
