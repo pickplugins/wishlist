@@ -109,7 +109,6 @@ function pickplugins_wl_ajax_update_wishlist(){
 	$wishlist_title			= isset( $_POST['wishlist_title'] ) ? sanitize_text_field( $_POST['wishlist_title'] ) : "";
 	$wishlist_sd			= isset( $_POST['wishlist_sd'] ) ? sanitize_text_field( $_POST['wishlist_sd'] ) : "";
 	$wishlist_status		= isset( $_POST['wishlist_status'] ) ? sanitize_text_field( $_POST['wishlist_status'] ) : "public";
-	$wishlist_tags			= isset( $_POST['wishlist_tags'] ) ? sanitize_text_field( $_POST['wishlist_tags'] ) : "";
 
     $wishlist_settings = get_option('wishlist_settings');
     $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
@@ -126,12 +125,7 @@ function pickplugins_wl_ajax_update_wishlist(){
 	}
 	
 	if( $pickplugins_wl_action === "update" ){
-		
-		if( !empty( $wishlist_tags ) ) {
-			
-			$wishlist_tags_arr = explode( ",", $wishlist_tags );
-			wp_set_post_terms( $wishlist_id, $wishlist_tags_arr, 'wishlist_tags' );
-		}
+
 		
 		$ret = wp_update_post ( array(
 			'ID'           	=> $wishlist_id,

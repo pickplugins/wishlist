@@ -166,29 +166,7 @@ function wishlist_content_display(){
     <?php
 }
 
-add_action('wishlist_single_main','wishlist_tags_display');
 
-function wishlist_tags_display(){
-
-
-    ?>
-    <!-- Tags -->
-
-    <?php $wishlist_tags = wp_get_post_terms( get_the_id(), 'wishlist_tags' ) ?>
-
-    <?php if( ! is_wp_error( $wishlist_tags ) && !empty( $wishlist_tags ) ) :  ?>
-
-        <div class="wishlist-tags"><?php echo __('Tags:', 'wishlist'); ?>
-            <?php foreach( wp_get_post_terms( get_the_id(), 'wishlist_tags' ) as $tag ) : ?>
-                <a href="#" class="wishlist-tag"><?php echo $tag->name; ?> (<?php echo $tag->count; ?>), </a>
-            <?php endforeach; ?>
-        </div>
-
-    <?php endif; ?>
-
-    <!-- Tags End -->
-    <?php
-}
 
 add_action('wishlist_single_main','wishlist_editing_display');
 
@@ -254,7 +232,6 @@ function wishlist_edit_form_display(){
 
         $wishlist_settings = get_option('wishlist_settings');
 
-        $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : '';
 
 
 
@@ -263,12 +240,6 @@ function wishlist_edit_form_display(){
     $wishlist_status = get_post_meta( $wishlist_id, 'wishlist_status', true );
     if( empty( $wishlist_status ) ) $wishlist_status = "public";
 
-    $pickplugins_wl_wishlist_tags = array();
-    $wishlist_tags = wp_get_post_terms( $wishlist_id, 'wishlist_tags' );
-
-    foreach($wishlist_tags  as $term ){
-        $pickplugins_wl_wishlist_tags[] = isset($term->name) ? $term->name : '';
-    }
 
 
     ?>
@@ -305,14 +276,7 @@ function wishlist_edit_form_display(){
 
             </div>
 
-            <?php if( $tags_enable != 'no' ) : ?>
 
-                <div class='popup_section'>
-                    <h5 class="section_title"><?php echo __('Tags - Comma separated', 'wishlist'); ?></h5>
-
-                    <input type="text" class="pickplugins_wl_wishlist_tags" value="<?php echo implode( ",",$pickplugins_wl_wishlist_tags); ?>" />
-                </div>
-            <?php endif; ?>
 
             <div class="pickplugins_wl_popup_btn popup_cancel"><i class="fa fa-times" aria-hidden="true"></i> <?php echo __("Cancel", 'wishlist' ); ?></div>
 

@@ -15,7 +15,6 @@ class PICKPLUGINS_WL_Post_types{
 
         $wishlist_settings = get_option('wishlist_settings');
 
-        $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : '';
 
 
 		// if ( post_type_exists( "wishlist" ) ) return;
@@ -62,40 +61,7 @@ class PICKPLUGINS_WL_Post_types{
 			) )
 		); 
 		
-		if( $tags_enable == 'no' ) return;
-		
-		$singular  = __( 'Wishlist Tag', 'wishlist' );
-		$plural    = __( 'Wishlist Tags', 'wishlist' );
-	 
-		register_taxonomy( "wishlist_tags",
-			apply_filters( 'register_taxonomy_wishlist_tag_object_type', array( 'wishlist' ) ),
-			apply_filters( 'register_taxonomy_wishlist_tag_args', array(
-				'hierarchical' 			=> false,
-				'show_admin_column' 	=> true,					
-				'update_count_callback' => '_update_post_term_count',
-				'label' 				=> $plural,
-				'labels' => array(
-					'name'              => $plural,
-					'singular_name'     => $singular,
-					'menu_name'         => ucwords( $plural ),
-					'search_items'      => sprintf( __( 'Search %s', 'wishlist' ), $plural ),
-					'all_items'         => __(  sprintf( 'All %s',$plural   ), 'wishlist' ),
-					'parent_item'       => sprintf( __( 'Parent %s', 'wishlist' ), $singular ),
-					'parent_item_colon' => sprintf( __( 'Parent %s:', 'wishlist' ), $singular ),
-					'edit_item'         => sprintf( __( 'Edit %s', 'wishlist' ), $singular ),
-					'update_item'       => sprintf( __( 'Update %s', 'woo-wishlist' ), $singular ),
-					'add_new_item'      => sprintf( __( 'Add New %s', 'woo-wishlist' ), $singular ),
-					'new_item_name'     => sprintf( __( 'New %s Name', 'woo-wishlist' ),  $singular )
-				),
-				'show_ui' 				=> true,
-				'public' 	     		=> true,
-				'rewrite' => array(
-					'slug' => 'wishlist-tags',
-					// 'with_front' => false,
-					// 'hierarchical' => false
-				),
-			) )
-		);
+
 			
 		
 		

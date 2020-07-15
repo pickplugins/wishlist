@@ -163,8 +163,7 @@ jQuery(document).ready(function($) {
 		wishlist_title 	= $('.popup_edit .pickplugins_wl_wishlist_title').val();
 		wishlist_sd 	= $('.popup_edit .pickplugins_wl_wishlist_sd').val();
 		wishlist_status = $('.popup_edit .wishlist_status').val();
-		wishlist_tags 	= $('.popup_edit .pickplugins_wl_wishlist_tags').val();
-		
+
 		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
 		if( typeof wishlist_title === "undefined" || wishlist_title.length == 0 ) return;
 		
@@ -183,7 +182,6 @@ jQuery(document).ready(function($) {
 			"wishlist_title"		: wishlist_title,
 			"wishlist_sd"			: wishlist_sd,
 			"wishlist_status"		: wishlist_status,
-			"wishlist_tags"			: wishlist_tags,
 		},
 		success: function(data) {
 			

@@ -23,8 +23,7 @@ function wishlist_settings_migrate(){
         $pickplugins_wl_breadcrumb_text_color = get_option('pickplugins_wl_breadcrumb_text_color');
         $pickplugins_wl_list_per_page = get_option('pickplugins_wl_list_per_page');
         $pickplugins_wl_list_items_per_page = get_option('pickplugins_wl_list_items_per_page');
-        $pickplugins_wl_enable_tags = get_option('pickplugins_wl_enable_tags');
-        $pickplugins_wl_tags_display = get_option('pickplugins_wl_tags_display');
+
         $pickplugins_wl_button_font_size = get_option('pickplugins_wl_button_font_size');
         $pickplugins_wl_button_color_normal = get_option('pickplugins_wl_button_color_normal');
         $pickplugins_wl_button_color_active = get_option('pickplugins_wl_button_color_active');
@@ -43,8 +42,6 @@ function wishlist_settings_migrate(){
         $wishlist_settings['wishlist_page']['breadcrumb_home_text'] = $pickplugins_wl_breadcrumb_home_text;
         $wishlist_settings['wishlist_page']['breadcrumb_text_color'] = $pickplugins_wl_breadcrumb_text_color;
 
-        $wishlist_settings['wishlist_page']['tags_enable'] = $pickplugins_wl_enable_tags;
-        $wishlist_settings['wishlist_page']['tags_display'] = $pickplugins_wl_tags_display;
 
         $wishlist_settings['wishlist_page']['pagination_per_page'] = $pickplugins_wl_list_items_per_page;
         $wishlist_settings['wishlist_page']['pagination_font_size'] = '';

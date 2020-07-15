@@ -407,8 +407,6 @@ function wishlist_settings_content_wishlist_page(){
     $breadcrumb_home_text = isset($wishlist_settings['wishlist_page']['breadcrumb_home_text']) ? $wishlist_settings['wishlist_page']['breadcrumb_home_text'] : '';
     $breadcrumb_text_color = isset($wishlist_settings['wishlist_page']['breadcrumb_text_color']) ? $wishlist_settings['wishlist_page']['breadcrumb_text_color'] : 'yes';
 
-    $tags_enable = isset($wishlist_settings['wishlist_page']['tags_enable']) ? $wishlist_settings['wishlist_page']['tags_enable'] : 'yes';
-    $tags_display = isset($wishlist_settings['wishlist_page']['tags_display']) ? $wishlist_settings['wishlist_page']['tags_display'] : 'yes';
 
     $pagination_per_page = isset($wishlist_settings['wishlist_page']['pagination_per_page']) ? $wishlist_settings['wishlist_page']['pagination_per_page'] : '10';
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
@@ -466,41 +464,6 @@ function wishlist_settings_content_wishlist_page(){
         $settings_tabs_field->generate_field($args);
 
         ?>
-
-    </div>
-    <div class="section">
-        <div class="section-title"><?php echo __('Tags', 'post-grid'); ?></div>
-        <p class="description section-description"><?php echo __('Choose some tags options.', 'post-grid'); ?></p>
-
-        <?php
-        $args = array(
-            'id'		=> 'tags_enable',
-            'parent'		=> 'wishlist_settings[wishlist_page]',
-            'title'		=> __('Enable tags for Wishlist','post-grid'),
-            'details'	=> __('If you want to enable tagging on wishlist.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $tags_enable,
-            'default'		=> '',
-            'args'		=> array('yes'=>'Yes','no'=>'No'),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-
-        $args = array(
-            'id'		=> 'tags_display',
-            'parent'		=> 'wishlist_settings[wishlist_page]',
-            'title'		=> __('Display tags on wishlist page','post-grid'),
-            'details'	=> __('choose if you want to display tags on wishlist page.','post-grid'),
-            'type'		=> 'select',
-            'value'		=> $tags_display,
-            'default'		=> '',
-            'args'		=> array('yes'=>'Yes','no'=>'No'),
-        );
-
-        $settings_tabs_field->generate_field($args);
-
-    ?>
 
     </div>
     <div class="section">

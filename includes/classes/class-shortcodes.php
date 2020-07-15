@@ -21,13 +21,26 @@ class pickplugins_wl_Shortcodes {
 		$wishlist_id = isset( $atts['id'] ) ? $atts['id'] : 0;
 		
 		if( $wishlist_id == 0 ) return;
-		
-		ob_start();
+
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
+
+        ob_start();
 		//include( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single.php');
 
         do_action('wishlist_single', $atts);
 
         wp_enqueue_style('single-wishlist');
+
+        if($font_aw_version == 'v_5'){
+
+            wp_enqueue_style('font-awesome-5');
+        }elseif ($font_aw_version == 'v_4'){
+            wp_enqueue_style('font-awesome-4');
+        }
+
+        wp_enqueue_script('wishlist_single_js');
 
 		return ob_get_clean();
 	}
@@ -51,7 +64,6 @@ class pickplugins_wl_Shortcodes {
 
         ob_start();
         do_action('wishlist_archive', $atts);
-		//include( wishlist_plugin_dir . 'templates/wishlist-display.php');
 
 
 
