@@ -35,7 +35,8 @@ function wishlist_settings_content_general(){
         <div class="templates_editor expandable">
             <?php
 
-            $post_types = array('post'=>'Post', 'page' => 'Page');
+            //$post_types = apply_filters('wishlist_posttypes', array('post'=>'Post', 'page' => 'Page'));
+            $post_types = wishlist_posttypes_array();
 
 
             if(!empty($post_types))
@@ -43,10 +44,10 @@ function wishlist_settings_content_general(){
 
 
 
-                    $content_position = isset($post_types_display[$post_type]['content_position']) ? $post_types_display[$post_type]['content_position'] : '';
-                    $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : '';
+                    $content_position = isset($post_types_display[$post_type]['content_position']) ? $post_types_display[$post_type]['content_position'] : 'none';
+                    $enable = isset($post_types_display[$post_type]['enable']) ? $post_types_display[$post_type]['enable'] : 'no';
                     $description = isset($post_types_display[$post_type]['description']) ? $post_types_display[$post_type]['description'] : '';
-                    $excerpt_position = isset($post_types_display[$post_type]['excerpt_position']) ? $post_types_display[$post_type]['excerpt_position'] : '';
+                    $excerpt_position = isset($post_types_display[$post_type]['excerpt_position']) ? $post_types_display[$post_type]['excerpt_position'] : 'none';
                     $icon_active = isset($post_types_display[$post_type]['icon_active']) ? $post_types_display[$post_type]['icon_active'] : '';
                     $icon_inactive = isset($post_types_display[$post_type]['icon_inactive']) ? $post_types_display[$post_type]['icon_inactive'] : '';
                     $icon_loading = isset($post_types_display[$post_type]['icon_loading']) ? $post_types_display[$post_type]['icon_loading'] : '';
@@ -60,7 +61,7 @@ function wishlist_settings_content_general(){
                     //echo '<pre>'.var_export($enable).'</pre>';
 
                     ?>
-                    <div class="item template <?php echo $post_type; ?>">
+                    <div class="item template <?php //echo $post_type; ?>">
                         <div class="header">
                         <span title="<?php echo __('Click to expand', 'job-board-manager'); ?>" class="expand ">
                             <i class="fa fa-expand"></i>
