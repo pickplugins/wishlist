@@ -57,9 +57,9 @@ function wishlist_single_wrap($atts){
 
     ?>
 
-    <div class="single-wishlist pick woocommerce single-wishlist">
+    <div class="single-wishlist pick woocommerce">
 
-    <div class="pickplugins_wl_wishlist_single pick woocommerce single-wishlist">
+    <div class="pickplugins_wl_wishlist_single pick woocommerce">
 
 
         <?php
@@ -439,3 +439,39 @@ function wishlist_single_loop_end( $item_id, $wishlist_id ){
 }
 
 
+
+add_action('wishlist_single', 'wishlist_single_main_script');
+
+function wishlist_single_main_script($args){
+
+    $wishlist_id = isset($args['wishlist_id']) ? $args['wishlist_id'] : '';
+    $column = isset($atts['column']) ? $atts['column'] : '3';
+    $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $pagination_font_size = isset($wishlist_settings['wishlist_page']['pagination_font_size']) ? $wishlist_settings['wishlist_page']['pagination_font_size'] : '';
+    $pagination_color_idle = isset($wishlist_settings['wishlist_page']['pagination_color_idle']) ? $wishlist_settings['wishlist_page']['pagination_color_idle'] : '';
+    $pagination_color_active = isset($wishlist_settings['wishlist_page']['pagination_color_active']) ? $wishlist_settings['wishlist_page']['pagination_color_active'] : '';
+
+    $pagination_color = isset($wishlist_settings['wishlist_page']['pagination_color']) ? $wishlist_settings['wishlist_page']['pagination_color'] : '';
+
+
+    ?>
+
+    <style type="text/css">
+        .single-wishlist .paginate .page-numbers {
+            background: <?php echo $pagination_color_idle; ?> !important;
+            color: <?php echo $pagination_color; ?> !important;
+            font-size: <?php echo $pagination_font_size; ?> !important;
+        }
+        .single-wishlist .paginate .current, .single-wishlist .paginate .page-numbers:hover {
+            background: <?php echo $pagination_color_active; ?> !important;
+        }
+
+
+
+    </style>
+    <?php
+
+}

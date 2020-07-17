@@ -260,10 +260,34 @@
     display: table;
 }
 
-.pickplugins_wl_wishlist_single .wishlist_status {
+.single-wishlist .wishlist_status {
     font-size: 15px;
     font-weight: normal;
     display: block;
     margin: 10px 0;
     font-style: italic;
 }
+
+
+
+/* Paginate Start */
+
+.single-wishlist .paginate {
+    clear: both;
+    margin: 20px 0 0 0;
+    text-align: center;
+}
+.single-wishlist .paginate .page-numbers {
+    background: #717171 none repeat scroll 0 0;
+    margin: 5px;
+    padding: 5px 13px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+}
+.single-wishlist .paginate .current{
+    background: #ddd none repeat scroll 0 0;
+}
+
+/* Paginate End */
