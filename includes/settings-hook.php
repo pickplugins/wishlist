@@ -788,8 +788,8 @@ if(!function_exists('wishlist_settings_content_buy_pro')) {
             ?>
 
             <p><?php echo __('If you love our plugin and want more feature please consider to buy pro version.', 'post-grid'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/item/post-grid-create-awesome-grid-from-any-post-type-for-wordpress/?ref=dashobard"><?php echo __('Buy premium', 'post-grid'); ?></a>
-            <a class="button" href="http://www.pickplugins.com/demo/post-grid/?ref=dashobard"><?php echo __('See all demo', 'post-grid'); ?></a>
+            <a class="button" href="https://www.pickplugins.com/item/woocommerce-wishlist/?ref=dashobard"><?php echo __('Buy premium', 'post-grid'); ?></a>
+            <a class="button" href="http://www.pickplugins.com/demo/wishlist/?ref=dashobard"><?php echo __('See all demo', 'post-grid'); ?></a>
 
             <h2><?php echo __('See the differences','post-grid'); ?></h2>
 
@@ -859,11 +859,51 @@ if(!function_exists('wishlist_settings_content_buy_pro')) {
 
 
                 <tr>
-                    <td class="col-features"><?php echo __('Ready WooCommerce','post-grid'); ?> </td>
+                    <td class="col-features"><?php echo __('Wishlist view count','post-grid'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
+                <tr>
+                    <td class="col-features"><?php echo __('Wishlist thumb up & down vote','post-grid'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Social share on wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Copy to duplicate others user wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Total wishlisted count by post id','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php echo __('Search wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-features"><?php echo __('Wishlist button font size','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php echo __('Wishlist button custom color','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
                 <tr>
                     <th class="col-features"><?php echo __('Features','post-grid'); ?></th>
                     <th class="col-free"><?php echo __('Free','post-grid'); ?></th>
@@ -872,7 +912,7 @@ if(!function_exists('wishlist_settings_content_buy_pro')) {
                 <tr>
                     <td class="col-features"><?php echo __('Buy now','post-grid'); ?></td>
                     <td> </td>
-                    <td><a class="button" href="https://www.pickplugins.com/item/post-grid-create-awesome-grid-from-any-post-type-for-wordpress/?ref=dashobard"><?php echo __('Buy premium', 'post-grid'); ?></a></td>
+                    <td><a class="button" href="https://www.pickplugins.com/item/woocommerce-wishlist/?ref=dashobard"><?php echo __('Buy premium', 'post-grid'); ?></a></td>
                 </tr>
 
             </table>
