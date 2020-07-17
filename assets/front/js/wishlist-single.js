@@ -193,6 +193,9 @@ jQuery(document).ready(function($) {
 	
 	
 	$(document).on('click', ".wishlist_editing .button_edit", function() {
+
+	    console.log('Hello');
+
 		$('.popup_edit').fadeIn();
 	})
 	

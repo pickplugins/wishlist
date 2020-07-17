@@ -192,7 +192,7 @@ function pickplugins_wl_show_wishlist_section(){
 
     endif;
 
-    add_action( 'pickplugins_wl_loop_single_item_main', 'woocommerce_template_loop_product_wishlist', 12 );
+    add_action( 'wishlist_single_loop_main', 'woocommerce_template_loop_product_wishlist', 12 );
 
 }
 add_action( 'init', 'pickplugins_wl_show_wishlist_section' );

@@ -192,15 +192,15 @@ jQuery(document).ready(function($) {
 	
 	
 	
-	$(document).on('click', ".wishlist_editing .button_edit", function() {
-		$('.popup_edit').fadeIn();
-	})
+	// $(document).on('click', ".wishlist_editing .button_edit", function() {
+	// 	$('.popup_edit').fadeIn();
+	// })
 	
 	
 	
-	$(document).on('click', ".popup_edit .popup_cancel", function() {
-		$('.popup_edit').fadeOut();
-	})
+	// $(document).on('click', ".popup_edit .popup_cancel", function() {
+	// 	$('.popup_edit').fadeOut();
+	// })
 	
 	
 

@@ -98,23 +98,6 @@ function wishlist_single_wrap($atts){
 
 
 
-add_action('wishlist_single_main','wishlist_single_title_display');
-
-function wishlist_single_title_display(){
-
-    $wishlist_status = get_post_meta( get_the_id(), 'wishlist_status', true );
-    if( empty( $wishlist_status ) ) $wishlist_status = "public";
-
-    ?>
-    <h4 class='wishlist-title'>
-        <?php echo get_the_title( ); ?>
-
-        <span class="wishlist_status"><?php echo pickplugins_wl_get_all_status()[$wishlist_status]; ?></span>
-
-    </h4>
-    <?php
-
-}
 add_action('wishlist_single_main','wishlist_bredcrumb_display');
 
 function wishlist_bredcrumb_display(){
@@ -141,10 +124,10 @@ function wishlist_bredcrumb_display(){
     <?php if( $breadcrumb_enable == 'yes' ) : ?>
 
         <div class="wishlist-breadcrumb">
-            <a class="breadcrumb-item" href="<?php echo get_bloginfo('url'); ?>"><i class="fa fa-home"></i> <?php echo $home_text; ?></a>
-            <span class="breadcrumb-separator"><i class="fa fa-long-arrow-right"></i> </span>
+            <a class="breadcrumb-item" href="<?php echo get_bloginfo('url'); ?>"><i class="fas fa-home"></i> <?php echo $home_text; ?></a>
+            <span class="breadcrumb-separator"><i class="fas fa-angle-double-right"></i> </span>
             <a class="breadcrumb-item" href="<?php echo get_permalink($archive_page_id); ?>"><?php echo get_the_title($archive_page_id); ?></a>
-            <span class="breadcrumb-separator"><i class="fa fa-long-arrow-right"></i> </span>
+            <span class="breadcrumb-separator"><i class="fas fa-angle-double-right"></i> </span>
             <a class="breadcrumb-item" href="#"><?php echo get_the_title(); ?></a>
         </div>
 
@@ -157,12 +140,44 @@ function wishlist_bredcrumb_display(){
 
 
 }
+
+
+
+add_action('wishlist_single_main','wishlist_single_status');
+
+function wishlist_single_status(){
+
+    $wishlist_status = get_post_meta( get_the_id(), 'wishlist_status', true );
+    $wishlist_status = empty( $wishlist_status ) ? $wishlist_status : 'public';
+    $all_status = pickplugins_wl_get_all_status();
+
+
+
+    ?>
+        <span class="wishlist_status" title="<?php echo $all_status[$wishlist_status]; ?>"><?php
+        if($wishlist_status == 'public'){
+            ?><i class="fas fa-globe-americas"></i> <?php
+
+        }elseif ($wishlist_status == 'private'){
+            ?><i class="fas fa-lock"></i> <?php
+        }
+
+        echo $all_status[$wishlist_status];
+        ?></span>
+
+    <?php
+
+}
+
+
+
+
 add_action('wishlist_single_main','wishlist_content_display');
 
 function wishlist_content_display(){
 
     ?>
-    <div class="wishlist-description"><?php echo get_the_content();  ?></div>
+    <div class="wishlist-description"><?php echo wpautop(get_the_content());  ?></div>
     <?php
 }
 
@@ -317,15 +332,21 @@ function wishlist_items_display(){
 
         <p class='pick_notice pick_success'><?php echo sprintf( __("%s Item showing out of %s Items", 'wishlist' ), "<strong>".count($wishlisted_items)."</strong>", "<strong>$total_items</strong>" ); ?></p>
 
-        <?php do_action( 'pickplugins_wl_before_loop_wishlist_items', $wishlist_id ); ?>
+        <?php do_action( 'wishlist_single_before_loop', $wishlist_id ); ?>
 
         <div class="wishlist-items">
 
-            <?php foreach( $wishlisted_items as $item ) : do_action( 'pickplugins_wl_loop_single_item', $item->post_id, $wishlist_id ); endforeach; ?>
+            <?php
+
+            foreach( $wishlisted_items as $item ){
+                do_action( 'wishlist_single_loop', $item->post_id, $wishlist_id );
+            }
+
+            ?>
 
         </div>
 
-        <?php do_action( 'pickplugins_wl_after_loop_wishlist_items', $wishlist_id ); ?>
+        <?php do_action( 'wishlist_single_after_loop', $wishlist_id ); ?>
 
         <?php $big = 999999999;
         $paginate = array(
@@ -346,4 +367,75 @@ function wishlist_items_display(){
     <!-- End of Items Query -->
     <?php
 }
+
+
+add_action( 'wishlist_single_loop', 'wishlist_single_loop_start', 5, 2 );
+
+function wishlist_single_loop_start( $item_id, $wishlist_id ){
+
+	?>
+    <div class='wl-single-item' item_id='<?php echo $item_id; ?>'>
+    <?php
+
+}
+
+
+
+
+
+
+add_action( 'wishlist_single_loop', 'wishlist_single_loop_thumb', 10, 2 );
+
+
+
+function wishlist_single_loop_thumb( $item_id, $wishlist_id ){
+
+	$item_thumb_url = get_the_post_thumbnail_url( $item_id );
+
+	?>
+	<a class='wl-thumb' href='<?php echo get_the_permalink( $item_id ); ?>'>
+	    <span style='background-image: url("<?php echo $item_thumb_url; ?>");'></span>
+	</a>
+	<?php
+
+}
+
+
+add_action( 'wishlist_single_loop', 'wishlist_single_loop_title', 15, 2 );
+
+function wishlist_single_loop_title( $item_id, $wishlist_id ){
+
+    ?>
+    <a class='wl-title' href='<?php echo get_the_permalink( $item_id ); ?>'>
+        <?php echo get_the_title( $item_id ); ?>
+    </a>
+
+    <?php
+
+}
+
+
+add_action( 'wishlist_single_loop', 'wishlist_single_loop_cart', 20, 2 );
+
+function wishlist_single_loop_cart( $item_id, $wishlist_id ){
+
+	if( get_post_type( $item_id ) == 'product' ) echo do_shortcode("[add_to_cart id='$item_id']");
+
+	if( class_exists( 'Easy_Digital_Downloads' ) && get_post_type( $item_id ) == 'download' ) {
+
+		echo edd_get_purchase_link( array( 'download_id' => $item_id ) );
+	}
+}
+
+
+add_action( 'wishlist_single_loop', 'wishlist_single_loop_end', 99, 2 );
+
+function wishlist_single_loop_end( $item_id, $wishlist_id ){
+
+    ?>
+    </div>
+    <?php
+
+}
+
 

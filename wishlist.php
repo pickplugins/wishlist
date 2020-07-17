@@ -110,14 +110,11 @@ class PickpluginsWishList{
 	public function loading_functions() {
 		
 		// Templates Functions
-		require_once( wishlist_plugin_dir . 'templates/wishlist-loop-single/wishlist-loop-single-functions.php');
-		
+
 		require_once( wishlist_plugin_dir . 'includes/functions.php');
 		require_once( wishlist_plugin_dir . 'includes/functions-ajax.php');
-		//require_once( wishlist_plugin_dir . 'includes/functions-settings.php');
         require_once( wishlist_plugin_dir . 'includes/settings-hook.php');
 
-		//require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hooks.php');
         require_once( wishlist_plugin_dir . 'templates/wishlist-button/wishlist-button-hook.php');
         require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hook.php');
 
@@ -126,7 +123,6 @@ class PickpluginsWishList{
 
         require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
         require_once( wishlist_plugin_dir . 'includes/functions-migrate.php');
-        //require_once( wishlist_plugin_dir . 'includes/functions-welcome.php');
 
 
 
@@ -172,6 +168,7 @@ class PickpluginsWishList{
 		wp_enqueue_style('dashicons');
 
 
+
 //		wp_enqueue_script('pickplugins_wl_front_js', plugins_url( '/assets/front/js/scripts.js' , __FILE__ ) , array( 'jquery' ));
 //		wp_localize_script( 'pickplugins_wl_front_js', 'pickplugins_wl_ajax', array( 'pickplugins_wl_ajaxurl' => admin_url( 'admin-ajax.php')));
 
@@ -184,6 +181,8 @@ class PickpluginsWishList{
         wp_register_style('wishlist_button_css', wishlist_plugin_url.'assets/front/css/wishlist-button.css');
         wp_register_script('wishlist_button_js', plugins_url( '/assets/front/js/wishlist-button.js' , __FILE__ ) , array( 'jquery' ));
         wp_localize_script( 'wishlist_button_js', 'wishlist_button_js', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
+
+        wp_register_script('wishlist_single_js', plugins_url( '/assets/front/js/wishlist-single.js' , __FILE__ ) , array( 'jquery' ));
         wp_localize_script( 'wishlist_single_js', 'wishlist_single_js', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
 
         wp_register_style('wishlist-archive', wishlist_plugin_url.'assets/front/css/wishlist-archive.css');
