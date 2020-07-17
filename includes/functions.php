@@ -454,31 +454,16 @@ function wishlist_posttypes_array(){
 
     $post_types_all = get_post_types( '', 'names' );
     foreach ( $post_types_all as $post_type ) {
-
-
-
-
+        
         $obj = $wp_post_types[$post_type];
 
         $public = $obj->public;
-
-        //echo '<pre>'.var_export($obj, true).'</pre>';
 
         if($public == true)
         $post_types_array[$post_type] = $obj->labels->singular_name;
     }
 
 
-//    unset($post_types_array['revision']);
-//    unset($post_types_array['nav_menu_item']);
-//    unset($post_types_array['custom_css']);
-//    unset($post_types_array['oembed_cache']);
-//    unset($post_types_array['user_request']);
-//    unset($post_types_array['customize_changeset']);
-//    unset($post_types_array['wp_block']);
-//    unset($post_types_array['product_variation']);
-//    unset($post_types_array['shop_order']);
-//    unset($post_types_array['shop_order_refund']);
     unset($post_types_array['wishlist']);
 
 
