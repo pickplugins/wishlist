@@ -79,7 +79,7 @@ class pickplugins_wl_Shortcodes {
 
 	public function wishlist_button_display( $atts ) {
 		
-		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', 'icon' => '',   ), $atts);
+		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', 'icon_active' => '',   ), $atts);
 
 		$atts = apply_filters('wishlist_button_atts', $atts);
 

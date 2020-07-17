@@ -99,6 +99,11 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 
 	= 1.0.8 =
     * 2020-07-15 remove - remove wishlist tags
+    * 2020-07-17 add - Display automatically wishlist under following post types content and excerpt.
+    * 2020-07-17 fix - wishlist page pagination issue fixed.
+    * 2020-07-17 fix - help & support link issue fixed.
+
+
 
 	= 1.0.7 =
     * 2020-07-14 add - automatically created wishlist archive page on plugin activation.

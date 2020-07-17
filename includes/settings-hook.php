@@ -206,7 +206,7 @@ function wishlist_settings_content_general(){
             'id'		=> 'job_bm_email_templates',
             //'parent'		=> '',
             'title'		=> __('Post types display','job-board-manager'),
-            'details'	=> __('Display automatically wishlist under following post types.','job-board-manager'),
+            'details'	=> __('Display automatically wishlist under following post types content and excerpt.','job-board-manager'),
             'type'		=> 'custom_html',
             //'multiple'		=> true,
             'html'		=> $html,
@@ -666,22 +666,47 @@ if(!function_exists('wishlist_settings_content_help_support')) {
 
             <?php
 
+
+            ob_start();
+            ?>
+
+            <p><?php echo __('Shortcode for php file', 'related-post'); ?></p>
+            <textarea onclick="this.select()">&#60;?php echo do_shortcode( '&#91;wishlist_button show_count="yes" show_menu="yes" icon_active="" icon_inactive="" icon_loading="" &#93;' ); ?&#62;</textarea>
+            <p class="description" ><?php echo __('Shortcode inside loop by dynamic post id you can use anywhere inside loop on .php files.', 'related-post'); ?></p>
+
+            <p><?php echo __('Short-code for content', 'related-post'); ?></p>
+            <textarea onclick="this.select()">[wishlist_button id="123" show_count="yes" show_menu="yes" icon_active="" icon_inactive="" icon_loading=""]</textarea>
+
+            <p class="description"><?php echo __('Short-code inside content for fixed post id you can use anywhere inside content.', 'related-post'); ?></p>
+            <?php
+
+            $html = ob_get_clean();
+
+            $args = array(
+                'id'		=> 'shortcodes',
+                'parent'		=> 'related_post_settings',
+                'title'		=> __('Shortcodes','related-post'),
+                'details'	=> '',
+                'type'		=> 'custom_html',
+                'html'		=> $html,
+
+            );
+
+            $settings_tabs_field->generate_field($args);
+
             ob_start();
             ?>
 
             <p><?php echo __('Ask question for free on our forum and get quick reply from our expert team members.', 'post-grid'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'post-grid'); ?></a>
+            <a class="button" target="_blank" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'post-grid'); ?></a>
 
             <p><?php echo __('Read our documentation before asking your question.', 'post-grid'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/documentation/post-grid/"><?php echo __('Documentation', 'post-grid'); ?></a>
+            <a class="button" target="_blank" href="https://www.pickplugins.com/documentation/wishlist/"><?php echo __('Documentation', 'post-grid'); ?></a>
 
             <p><?php echo __('Watch video tutorials.', 'post-grid'); ?></p>
-            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94Yut5Y0MSVg1wqmqWz0UYpt"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'post-grid'); ?></a>
+            <a class="button" target="_blank" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94ZGK1xL5QtEDHlR6Flk9iDH"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'post-grid'); ?></a>
 
-            <ul>
-                <li><i class="far fa-dot-circle"></i> <a href="https://youtu.be/YVtsIbEb9zs">Latest Version 2.0.46 Overview</a></li>
 
-            </ul>
 
 
 
@@ -707,7 +732,7 @@ if(!function_exists('wishlist_settings_content_help_support')) {
 
             <p class="">We wish your 2 minutes to write your feedback about the <b>Post Grid</b> plugin. give us <span style="color: #ffae19"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></p>
 
-            <a target="_blank" href="https://wordpress.org/support/plugin/post-grid/reviews/#new-post" class="button"><i class="fab fa-wordpress"></i> Write a review</a>
+            <a target="_blank" href="https://wordpress.org/support/plugin/wishlist/reviews/#new-post" class="button"><i class="fab fa-wordpress"></i> Write a review</a>
 
 
             <?php
@@ -777,12 +802,67 @@ if(!function_exists('wishlist_settings_content_buy_pro')) {
                 </tr>
                 </thead>
 
+
                 <tr>
-                    <td colspan="3" class="col-features">
-                        <h3><?php echo __('Post Query','post-grid'); ?></h3>
-                    </td>
+                    <td class="col-features"><?php echo __('Any post type support','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
                 </tr>
 
+                <tr>
+                    <td class="col-features"><?php echo __('Ready WooCommerce','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Unlimited wishlist by any user','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php echo __('Public or private wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php echo __('User can edit wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php echo __('User can delete wishlist','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Default wishlist id','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-features"><?php echo __('Wishlist archive page','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php echo __('Breadcrumb on wishlist page','post-grid'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-features"><?php echo __('Ready WooCommerce','post-grid'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
 
                 <tr>
                     <th class="col-features"><?php echo __('Features','post-grid'); ?></th>
