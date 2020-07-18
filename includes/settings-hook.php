@@ -155,7 +155,7 @@ function wishlist_settings_content_general(){
                                 <div class="field-input">
                                     <input type="text" name="wishlist_settings[post_types_display][<?php echo $post_type; ?>][icon_loading]" value="<?php echo esc_attr($icon_loading); ?>"/>
 
-                                    <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="fas fa-spinner">&lt;/i></code>.', 'job-board-manager'); ?></p>
+                                    <p class="description"><?php echo __('Custom icon for wishlist for this post type, you can use custom HTML or font awesome icon HTML ex: <code>&lt;i class="fas fa-spinner fa-spin">&lt;/i></code>.', 'job-board-manager'); ?></p>
                                 </div>
                             </div>
 
@@ -573,6 +573,9 @@ function wishlist_settings_content_style(){
     $color_active = isset($wishlist_settings['style']['color_active']) ? $wishlist_settings['style']['color_active'] : '';
     $color_idle = isset($wishlist_settings['style']['color_idle']) ? $wishlist_settings['style']['color_idle'] : '';
 
+    $icon_active = isset($wishlist_settings['style']['icon_active']) ? $wishlist_settings['style']['icon_active'] : '';
+    $icon_inactive = isset($wishlist_settings['style']['icon_inactive']) ? $wishlist_settings['style']['icon_inactive'] : '';
+    $icon_loading = isset($wishlist_settings['style']['icon_loading']) ? $wishlist_settings['style']['icon_loading'] : '';
 
     //echo '<pre>'.var_export($wishlist_settings, true).'</pre>';
 
@@ -582,6 +585,59 @@ function wishlist_settings_content_style(){
         <p class="description section-description"><?php echo __('Choose some general options.', 'post-grid'); ?></p>
 
         <?php
+
+
+        $args = array(
+            'id'		=> 'icon_active',
+            'parent'		=> 'wishlist_settings[style]',
+            'title'		=> __('Active Icon','post-grid'),
+            'details'	=> __('Set custom active icon. ex: <code>&lt;i class="fas fa-heart">&lt;/i></code>','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $icon_active,
+            'default'		=> '',
+            'placeholder' => __('','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+        $args = array(
+            'id'		=> 'icon_inactive',
+            'parent'		=> 'wishlist_settings[style]',
+            'title'		=> __('Inactive icon','post-grid'),
+            'details'	=> __('Set custom inactive icon. ex: <code>&lt;i class="far fa-heart">&lt;/i></code>','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $icon_inactive,
+            'default'		=> '',
+            'placeholder' => __('','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+        $args = array(
+            'id'		=> 'icon_loading',
+            'parent'		=> 'wishlist_settings[style]',
+            'title'		=> __('Loading icon','post-grid'),
+            'details'	=> __('Set custom loading icon. ex: <code>&lt;i class="fas fa-spinner fa-spin">&lt;/i></code>','post-grid'),
+            'type'		=> 'text',
+            'value'		=> $icon_loading,
+            'default'		=> '',
+            'placeholder' => __('','wishlist'),
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+
+
+
+
+
+
+
+
+
 
         $args = array(
             'id'		=> 'font_size',

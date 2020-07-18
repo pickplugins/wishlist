@@ -26,6 +26,37 @@ class pickplugins_wl_Shortcodes {
 
         $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
 
+
+        if($font_aw_version == 'v_5'){
+            $separator_icon = '<i class="fas fa-angle-double-right"></i>';
+            $home_icon = '<i class="fas fa-home"></i>';
+            $trash_icon = '<i class="fas fa-trash"></i>';
+            $pencil_icon = '<i class="far fa-edit"></i>';
+            $globe_icon = '<i class="fas fa-globe-asia"></i>';
+            $lock_icon = '<i class="fas fa-lock"></i>';
+
+            wp_enqueue_style('font-awesome-5');
+        }elseif ($font_aw_version == 'v_4'){
+
+            $separator_icon = '<i class="fa fa-angle-double-right"></i>';
+            $home_icon = '<i class="fa fa-home"></i>';
+            $trash_icon = '<i class="fa fa-trash"></i>';
+            $pencil_icon = '<i class="fa fa-pencil-square-o"></i>';
+            $globe_icon = '<i class="fa fa-globe"></i>';
+            $lock_icon = '<i class="fa fa-lock"></i>';
+
+            wp_enqueue_style('font-awesome-4');
+        }
+
+        $atts['icons'] = array(
+            'separator_icon' => $separator_icon,
+            'home_icon' => $home_icon,
+            'trash_icon' => $trash_icon,
+            'pencil_icon' => $pencil_icon,
+            'globe_icon' => $globe_icon,
+            'lock_icon' => $lock_icon,
+        );
+
         ob_start();
 		//include( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single.php');
 
@@ -33,12 +64,7 @@ class pickplugins_wl_Shortcodes {
 
         wp_enqueue_style('single-wishlist');
 
-        if($font_aw_version == 'v_5'){
 
-            wp_enqueue_style('font-awesome-5');
-        }elseif ($font_aw_version == 'v_4'){
-            wp_enqueue_style('font-awesome-4');
-        }
 
         wp_enqueue_script('wishlist_single_js');
 
@@ -52,15 +78,42 @@ class pickplugins_wl_Shortcodes {
 
         $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
 
-        wp_enqueue_style('wishlist-archive');
-        wp_enqueue_style('hint.css');
-
         if($font_aw_version == 'v_5'){
+            $separator_icon = '<i class="fas fa-angle-double-right"></i>';
+            $home_icon = '<i class="fas fa-home"></i>';
+            $trash_icon = '<i class="fas fa-trash"></i>';
+            $user_icon = '<i class="fas fa-user"></i>';
+            $globe_icon = '<i class="fas fa-globe-asia"></i>';
+            $lock_icon = '<i class="fas fa-lock"></i>';
 
             wp_enqueue_style('font-awesome-5');
         }elseif ($font_aw_version == 'v_4'){
+
+            $separator_icon = '<i class="fa fa-angle-double-right"></i>';
+            $home_icon = '<i class="fa fa-home"></i>';
+            $trash_icon = '<i class="fa fa-trash"></i>';
+            $user_icon = '<i class="fa fa-user"></i>';
+            $globe_icon = '<i class="fa fa-globe"></i>';
+            $lock_icon = '<i class="fa fa-lock"></i>';
+
             wp_enqueue_style('font-awesome-4');
         }
+
+
+        $atts['icons'] = array(
+            'user_icon' => $user_icon,
+            'globe_icon' => $globe_icon,
+            'lock_icon' => $lock_icon,
+        );
+
+
+
+
+
+
+        wp_enqueue_style('wishlist-archive');
+        wp_enqueue_style('hint.css');
+
 
         ob_start();
         do_action('wishlist_archive', $atts);
@@ -79,7 +132,7 @@ class pickplugins_wl_Shortcodes {
 
 	public function wishlist_button_display( $atts ) {
 		
-		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', 'icon_active' => '',   ), $atts);
+		$atts = shortcode_atts( array( 'id' => '', 'show_count' => '', 'show_menu' => '', 'icon_active' => '', 'icon_inactive' => '', 'icon_loading' => '', ), $atts);
 
 		$atts = apply_filters('wishlist_button_atts', $atts);
 

@@ -32,7 +32,7 @@ $wishlist_settings_tab[] = array(
 
 $wishlist_settings_tab[] = array(
     'id' => 'style',
-    'title' => sprintf(__('%s Style','wishlist'),'<i class="fas fa-palette"></i>'),
+    'title' => sprintf(__('%s Button Style','wishlist'),'<i class="fas fa-palette"></i>'),
     'priority' => 20,
     'active' => ($current_tab == 'woo') ? true : false,
 );

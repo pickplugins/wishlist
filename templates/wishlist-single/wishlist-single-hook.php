@@ -77,7 +77,7 @@ function wishlist_single_wrap($atts){
             return;
         }
 
-        do_action('wishlist_single_main');
+        do_action('wishlist_single_main', $atts);
 
         ?>
 
@@ -100,7 +100,12 @@ function wishlist_single_wrap($atts){
 
 add_action('wishlist_single_main','wishlist_bredcrumb_display');
 
-function wishlist_bredcrumb_display(){
+function wishlist_bredcrumb_display($atts){
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+    $separator_icon = isset($icons['separator_icon']) ? $icons['separator_icon'] : '';
+    $home_icon = isset($icons['home_icon']) ? $icons['home_icon'] : '';
 
 
     $wishlist_settings = get_option('wishlist_settings');
@@ -113,8 +118,6 @@ function wishlist_bredcrumb_display(){
     $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
 
 
-
-
     $home_text = !empty( $breadcrumb_home_text ) ? $breadcrumb_home_text : __('Home', 'wishlist');
     $home_text = apply_filters( 'wishlist_bredcrumb_home_text', $home_text );
 
@@ -124,10 +127,10 @@ function wishlist_bredcrumb_display(){
     <?php if( $breadcrumb_enable == 'yes' ) : ?>
 
         <div class="wishlist-breadcrumb">
-            <a class="breadcrumb-item" href="<?php echo get_bloginfo('url'); ?>"><i class="fas fa-home"></i> <?php echo $home_text; ?></a>
-            <span class="breadcrumb-separator"><i class="fas fa-angle-double-right"></i> </span>
+            <a class="breadcrumb-item" href="<?php echo get_bloginfo('url'); ?>"><?php echo $home_icon; ?> <?php echo $home_text; ?></a>
+            <span class="breadcrumb-separator"><?php echo $separator_icon; ?> </span>
             <a class="breadcrumb-item" href="<?php echo get_permalink($archive_page_id); ?>"><?php echo get_the_title($archive_page_id); ?></a>
-            <span class="breadcrumb-separator"><i class="fas fa-angle-double-right"></i> </span>
+            <span class="breadcrumb-separator"><?php echo $separator_icon; ?> </span>
             <a class="breadcrumb-item" href="#"><?php echo get_the_title(); ?></a>
         </div>
 
@@ -145,7 +148,15 @@ function wishlist_bredcrumb_display(){
 
 add_action('wishlist_single_main','wishlist_single_status');
 
-function wishlist_single_status(){
+function wishlist_single_status($atts){
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+    $globe_icon = isset($icons['globe_icon']) ? $icons['globe_icon'] : '';
+    $lock_icon = isset($icons['lock_icon']) ? $icons['lock_icon'] : '';
+
+
+
 
     $wishlist_status = get_post_meta( get_the_id(), 'wishlist_status', true );
     $wishlist_status = empty( $wishlist_status ) ? $wishlist_status : 'public';
@@ -156,10 +167,10 @@ function wishlist_single_status(){
     ?>
         <span class="wishlist_status" title="<?php echo $all_status[$wishlist_status]; ?>"><?php
         if($wishlist_status == 'public'){
-            ?><i class="fas fa-globe-americas"></i> <?php
+            ?><?php echo $globe_icon; ?> <?php
 
         }elseif ($wishlist_status == 'private'){
-            ?><i class="fas fa-lock"></i> <?php
+            ?><?php echo $lock_icon; ?> <?php
         }
 
         echo $all_status[$wishlist_status];
@@ -185,7 +196,14 @@ function wishlist_content_display(){
 
 add_action('wishlist_single_main','wishlist_editing_display');
 
-function wishlist_editing_display(){
+function wishlist_editing_display($atts){
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+
+    $trash_icon = isset($icons['trash_icon']) ? $icons['trash_icon'] : '';
+    $pencil_icon = isset($icons['pencil_icon']) ? $icons['pencil_icon'] : '';
+
 
     $wishlist_settings = get_option('wishlist_settings');
     $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
@@ -200,8 +218,8 @@ function wishlist_editing_display(){
     <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $default_wishlist_id != $wishlist_id ) : ?>
 
         <div class="wishlist_editing">
-            <div class="button button_delete"><i class="fa fa-trash" aria-hidden="true"></i> <?php echo __("Delete", 'wishlist' ); ?></div>
-            <div class="button button_edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <?php echo __("Edit", 'wishlist' ); ?></div>
+            <div class="button button_delete"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></div>
+            <div class="button button_edit"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></div>
         </div>
 
     <?php elseif( is_user_logged_in() ) : ?>

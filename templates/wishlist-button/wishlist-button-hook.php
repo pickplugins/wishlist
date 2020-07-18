@@ -9,20 +9,49 @@ function wishlist_button_wrap($atts){
     $item_id 	= isset( $atts['id'] ) ? $atts['id'] : 0;
     $show_count = isset( $atts['show_count'] ) ? $atts['show_count'] : '';
     $show_menu = isset( $atts['show_menu'] ) ? $atts['show_menu'] : '';
-    $icon_active = isset( $atts['icon_active'] ) ? $atts['icon_active'] : '<i class="fas fa-heart"></i>';
-    $icon_inactive = isset( $atts['icon_inactive'] ) ? $atts['icon_inactive'] : '<i class="far fa-heart"></i>';
-    $icon_loading = isset( $atts['icon_loading'] ) ? $atts['icon_loading'] : '<i class="fas fa-spinner fa-spin"></i>';
+
 
     $wishlist_settings = get_option('wishlist_settings');
+
+    $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
+
+    if($font_aw_version == 'v_5'){
+        $icon_active =  '<i class="fas fa-heart"></i>';
+        $icon_inactive =  '<i class="far fa-heart"></i>';
+        $icon_loading =  '<i class="fas fa-spinner fa-spin"></i>';
+
+    }elseif ($font_aw_version == 'v_4'){
+        $icon_active =  '<i class="fa fa-heart"></i>';
+        $icon_inactive = '<i class="fa fa-heart-o"></i>';
+        $icon_loading = '<i class="fa fa-spinner fa-spin"></i>';
+
+    }else{
+        $icon_active =  '<i class="fas fa-heart"></i>';
+        $icon_inactive =  '<i class="far fa-heart"></i>';
+        $icon_loading =  '<i class="fas fa-spinner fa-spin"></i>';
+    }
+
+
+    $icon_active = isset($wishlist_settings['style']['icon_active']) ? $wishlist_settings['style']['icon_active'] : $icon_active;
+    $icon_inactive = isset($wishlist_settings['style']['icon_inactive']) ? $wishlist_settings['style']['icon_inactive'] : $icon_inactive;
+    $icon_loading = isset($wishlist_settings['style']['icon_loading']) ? $wishlist_settings['style']['icon_loading'] : $icon_loading;
+
+    //var_dump($icon_active);
+
+    $icon_active = !empty( $atts['icon_active'] ) ? $atts['icon_active'] : $icon_active;
+    $icon_inactive = !empty( $atts['icon_inactive'] ) ? $atts['icon_inactive'] : $icon_inactive;
+    $icon_loading = !empty( $atts['icon_loading'] ) ? $atts['icon_loading'] : $icon_loading;
+
+    //var_dump($icon_active);
 
     $style = isset($wishlist_settings['style']) ? $wishlist_settings['style'] : array();
     $font_size = isset($style['font_size']) ? $style['font_size'] : '14px';
     $color_idle = isset($style['color_idle']) ? $style['color_idle'] : '';
     $color_active = isset($style['color_active']) ? $style['color_active'] : '';
 
-    //echo '<pre>'.var_export($icon_active, true).'</pre>';
+    //echo '<pre>'.var_export($atts, true).'</pre>';
 
-    //var_dump($show_count);
+
 
 
 
@@ -53,7 +82,7 @@ function wishlist_button_wrap($atts){
 
                 $hint_text 	= apply_filters( "wishlist_save_label", __( 'Add to Favourites', 'wishlist' ), $item_id );
 
-                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_list_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_active)."</span></div>", $item_id );
+                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_list_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_inactive)."</span></div>", $item_id );
 
             }
 

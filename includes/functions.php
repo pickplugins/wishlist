@@ -22,21 +22,23 @@ function wishlist_display_on_content($content){
         $content_position = isset($post_types_display[$posttype]['content_position']) ? $post_types_display[$posttype]['content_position'] : '';
         $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : '';
         $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : '';
-        $icon = isset($post_types_display[$posttype]['icon']) ? $post_types_display[$posttype]['icon'] : '';
 
-        //echo '<pre>'.var_export($icon, true).'</pre>';
+        $icon_active = isset($post_types_display[$posttype]['icon_active']) ? $post_types_display[$posttype]['icon_active'] : '';
+        $icon_inactive = isset($post_types_display[$posttype]['icon_inactive']) ? $post_types_display[$posttype]['icon_inactive'] : '';
+        $icon_loading = isset($post_types_display[$posttype]['icon_loading']) ? $post_types_display[$posttype]['icon_loading'] : '';
+
 
         $html = '';
 
         if($content_position == 'before'){
 
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon="'.esc_attr($icon).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"  ]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon_active="'.esc_attr($icon_active).'"  icon_inactive="'.esc_attr($icon_inactive).'" icon_loading="'.esc_attr($icon_loading).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"  ]');
             $html .= $content;
 
         }elseif ($content_position == 'after'){
 
             $html .= $content;
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon="'.esc_attr($icon).'"  show_menu="'.$show_menu.'" show_count="'.$show_count.'" ]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon_active="'.esc_attr($icon_active).'" icon_inactive="'.esc_attr($icon_inactive).'" icon_loading="'.esc_attr($icon_loading).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'" ]');
 
         }else{
 
@@ -74,19 +76,23 @@ function wishlist_display_on_excerpt($excerpt){
         $excerpt_position = isset($post_types_display[$posttype]['excerpt_position']) ? $post_types_display[$posttype]['excerpt_position'] : 'none';
         $show_count = isset($post_types_display[$posttype]['show_count']) ? $post_types_display[$posttype]['show_count'] : 'yes';
         $show_menu = isset($post_types_display[$posttype]['show_menu']) ? $post_types_display[$posttype]['show_menu'] : 'yes';
-        $icon = isset($post_types_display[$posttype]['icon']) ? $post_types_display[$posttype]['icon'] : 'yes';
+
+        $icon_active = isset($post_types_display[$posttype]['icon_active']) ? $post_types_display[$posttype]['icon_active'] : '';
+        $icon_inactive = isset($post_types_display[$posttype]['icon_inactive']) ? $post_types_display[$posttype]['icon_inactive'] : '';
+        $icon_loading = isset($post_types_display[$posttype]['icon_loading']) ? $post_types_display[$posttype]['icon_loading'] : '';
+
 
         $html = '';
 
         if($excerpt_position == 'before'){
 
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'" icon="'.$icon.'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon_active="'.esc_attr($icon_active).'"  icon_inactive="'.esc_attr($icon_inactive).'" icon_loading="'.esc_attr($icon_loading).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"  ]');
             $html .= $excerpt;
 
         }elseif ($excerpt_position == 'after'){
 
             $html .= $excerpt;
-            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" show_menu="'.$show_menu.'" show_count="'.$show_count.'" icon="'.$icon.'"]');
+            $html .= do_shortcode('[wishlist_button id="'.get_the_id().'" icon_active="'.esc_attr($icon_active).'"  icon_inactive="'.esc_attr($icon_inactive).'" icon_loading="'.esc_attr($icon_loading).'" show_menu="'.$show_menu.'" show_count="'.$show_count.'"  ]');
 
         }else{
 
@@ -353,7 +359,15 @@ function pickplugins_wl_get_votes_count( $wishlist_id = 0 ){
 	return $vote_count;
 }
 
-function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
+function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0, $args ){
+
+    $atts = isset( $args['atts'] ) ? $args['atts'] : array();
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+    $globe_icon = isset($icons['globe_icon']) ? $icons['globe_icon'] : '';
+    $lock_icon = isset($icons['lock_icon']) ? $icons['lock_icon'] : '';
+    $user_icon = isset($icons['user_icon']) ? $icons['user_icon'] : '';
 
 
 	$wishlist_url = get_permalink( $wishlist_id );
@@ -364,7 +378,6 @@ function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
 
     $wishlist_settings = get_option('wishlist_settings');
     $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
-    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
 
 
 
@@ -372,16 +385,15 @@ function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
 	
 	$wishlisted_items 	= pickplugins_wl_get_wishlisted_items( $wishlist_id );
 	$total_items		= count( $wishlisted_items );
-	$item_url 			= basename( get_permalink( $wishlist_id ) );	
-	$item_slug 			= basename( parse_url($item_url, PHP_URL_PATH) );
-	$first_item 		= reset( $wishlisted_items );	
+	$first_item 		= reset( $wishlisted_items );
 	$bg_image_url		= isset( $first_item->post_id ) ? get_the_post_thumbnail_url( $first_item->post_id ) : "";
 	
 	$wishlist_status	= get_post_meta( get_the_ID(), 'wishlist_status', true );
+    $wishlist_status = !empty($wishlist_status) ? $wishlist_status : 'public';
 	$status_hint_text	= $wishlist_status == 'private' ? __('Private List', 'wishlist') : __('Public List', 'wishlist');
-	$status_class		= $wishlist_status == 'private' ? 'fa-lock' : 'fa-unlock-alt';
 
     ob_start();
+
 
     ?>
     <div class='item'>
@@ -405,12 +417,26 @@ function pickplugins_wl_get_single_wishlist_html( $wishlist_id = 0 ){
                 <?php
 
 
-                echo sprintf("<span>%s : %s</span>", __('Total', 'wishlist'), $total_items );
-                echo sprintf("<span class='hint--top' aria-label='%s'><span class='fa %s'></span></span>", $status_hint_text, $status_class );
-                echo sprintf("<span class='createdby hint--top' aria-label='%s'><i class='fa fa-user'></i> %s</span>",
-                    __('Created by', 'wishlist'), get_the_author_meta( 'display_name' ) )
+
 
                 ?>
+                <span><?php echo sprintf(__('Total: %s', 'wishlist'), $total_items); ?></span>
+                <span class='hint--top' aria-label='<?php echo $status_hint_text?>'>
+                    <?php
+
+                    if($wishlist_status == 'public'){
+                        echo $globe_icon;
+
+                    }elseif ($wishlist_status == 'private'){
+
+                        echo $lock_icon;
+                    }
+
+
+                    ?>
+                </span>
+                <span class='createdby hint--top' aria-label='<?php echo __('Created by', 'wishlist'); ?>'> <?php echo $user_icon; ?> <?php echo get_the_author_meta( 'display_name' )?></span>
+
             </div>
         </a>
     </div>

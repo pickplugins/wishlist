@@ -3,7 +3,7 @@
 Plugin Name: Wishlist
 Plugin URI: https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org
 Description: Add wish-list feature to your WooCommerce product or any post types.
-Version: 1.0.7
+Version: 1.0.8
 WC requires at least: 3.0.0
 WC tested up to: 4.2
 Text Domain: wishlist
@@ -45,6 +45,8 @@ class PickpluginsWishList{
 	public function _activation() {
 
         $wishlist_settings = get_option('wishlist_settings');
+        $pickplugins_wl_wishlist_page = get_option('pickplugins_wl_wishlist_page');
+        $pickplugins_wl_default_wishlist_id = get_option('pickplugins_wl_default_wishlist_id');
 
 	    if(empty($wishlist_settings)){
             wishlist_settings_migrate();
@@ -56,13 +58,19 @@ class PickpluginsWishList{
 
 
 		if( empty( $default_wishlist_id ) ) :
+
+            if(!empty($pickplugins_wl_default_wishlist_id)){
+                $wishlist_ID = $pickplugins_wl_default_wishlist_id;
+            }else{
+                $wishlist_ID = wp_insert_post( array(
+                    'post_title' 	=> __('Products I Love', 'wishlist'),
+                    'slug' 			=> 'products-i-love',
+                    'post_type' 	=> 'wishlist',
+                    'post_status' 	=> 'publish',
+                ) );
+            }
 			
-			$wishlist_ID = wp_insert_post( array(
-				'post_title' 	=> __('Products I Love', 'wishlist'),
-				'slug' 			=> 'products-i-love',
-				'post_type' 	=> 'wishlist',
-				'post_status' 	=> 'publish',
-			) );
+
 			
 			update_option( 'wishlist_settings', array('default_wishlist_id' => $wishlist_ID) );
 			
@@ -70,13 +78,19 @@ class PickpluginsWishList{
 
         if( empty( $archive_page_id ) ) :
 
-            $page_id = wp_insert_post( array(
-                'post_title' 	=> __('Wishlist archive', 'wishlist'),
-                'slug' 			=> 'wishlist-archive',
-                'post_type' 	=> 'page',
-                'post_status' 	=> 'publish',
-                'post_content' 	=> '[wishlist_archive]',
-            ) );
+            if(!empty($pickplugins_wl_wishlist_page)){
+                $page_id = $pickplugins_wl_wishlist_page;
+            }else{
+                $page_id = wp_insert_post( array(
+                    'post_title' 	=> __('Wishlist archive', 'wishlist'),
+                    'slug' 			=> 'wishlist-archive',
+                    'post_type' 	=> 'page',
+                    'post_status' 	=> 'publish',
+                    'post_content' 	=> '[wishlist_archive]',
+                ) );
+            }
+
+
 
             $wishlist_settings['archives']['page_id'] = $page_id;
 

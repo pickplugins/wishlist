@@ -32,6 +32,7 @@ function wishlist_archive_wrap($atts){
 
     $args = array();
     $args['view_type'] = $view_type;
+    $args['atts'] = $atts;
 
 
 
@@ -112,8 +113,10 @@ function wishlist_archive_user_logged($args){
             <?php
             //do_action('wishlist_archive_loop_top', $args);
 
-            if( !empty( $default_wishlist_id ) )
-                echo pickplugins_wl_get_single_wishlist_html( $default_wishlist_id );
+
+            if( !empty( $default_wishlist_id ) ){
+                echo pickplugins_wl_get_single_wishlist_html( $default_wishlist_id, $args );
+            }
 
             while ( $wishlist_query->have_posts() ) : $wishlist_query->the_post();
 
@@ -124,6 +127,8 @@ function wishlist_archive_user_logged($args){
                 //echo pickplugins_wl_get_single_wishlist_html( get_the_ID() );
 
             endwhile;
+
+
             ?>
         </div>
         <?php
@@ -132,6 +137,23 @@ function wishlist_archive_user_logged($args){
 
 
         wp_reset_query();
+
+    else:
+
+        ?>
+        <div class="items <?php echo $view_type; ?>">
+            <?php
+            if( !empty( $default_wishlist_id ) ){
+                echo pickplugins_wl_get_single_wishlist_html( $default_wishlist_id, $args );
+            }
+            ?>
+        </div>
+        <?php
+
+
+
+
+
     endif;
 
 
@@ -181,6 +203,15 @@ add_action('wishlist_archive_loop', 'wishlist_archive_loop');
 
 function wishlist_archive_loop($args){
 
+    $atts = isset( $args['atts'] ) ? $args['atts'] : array();
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+    $globe_icon = isset($icons['globe_icon']) ? $icons['globe_icon'] : '';
+    $lock_icon = isset($icons['lock_icon']) ? $icons['lock_icon'] : '';
+    $user_icon = isset($icons['user_icon']) ? $icons['user_icon'] : '';
+
+
     $wishlist_id = isset($args['wishlist_id']) ? $args['wishlist_id'] : '';
     $column = isset($atts['column']) ? $atts['column'] : '3';
     $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
@@ -198,7 +229,6 @@ function wishlist_archive_loop($args){
 
     $wishlist_status	= get_post_meta( get_the_ID(), 'wishlist_status', true );
     $status_hint_text	= $wishlist_status == 'private' ? __('Private List', 'wishlist') : __('Public List', 'wishlist');
-    $status_class		= $wishlist_status == 'private' ? 'fa-lock' : 'fa-unlock-alt';
 
 
     ?>
@@ -221,13 +251,24 @@ function wishlist_archive_loop($args){
             echo sprintf("<h3>%s</h3>", get_the_title( $wishlist_id ) );
             ?>
             <div class="meta-items">
+
+                <span><?php echo sprintf(__('Total: %s', 'wishlist'), $total_items); ?></span>
+                <span class='hint--top' aria-label='<?php echo $status_hint_text?>'>
+                    <?php
+
+                    if($wishlist_status == 'public'){
+                        echo $globe_icon;
+
+                    }elseif ($wishlist_status == 'private'){
+
+                        echo $lock_icon;
+                    }
+
+
+                    ?>
+                </span>
+                <span class='createdby hint--top' aria-label='<?php echo __('Created by', 'wishlist'); ?>'> <?php echo $user_icon; ?> <?php echo get_the_author_meta( 'display_name' )?></span>
                 <?php
-
-
-                echo sprintf("<span>%s : %s</span>", __('Total', 'wishlist'), $total_items );
-                echo sprintf("<span class='hint--top' aria-label='%s'><span class='fa %s'></span></span>", $status_hint_text, $status_class );
-                echo sprintf("<span class='createdby hint--top' aria-label='%s'><i class='fa fa-user'></i> %s</span>",
-                    __('Created by', 'wishlist'), get_the_author_meta( 'display_name' ) )
 
                 ?>
             </div>
