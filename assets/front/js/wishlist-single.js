@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
 			{
 		type: 'POST',
 		context: this,
-		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		url:wishlist_single_js.ajaxurl,
 		data: {
 			"action"		: "pickplugins_wl_ajax_wishlist_copy",
 			"wishlist_id" 	: wishlist_id,
@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
 			{
 		type: 'POST',
 		context: this,
-		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		url:wishlist_single_js.ajaxurl,
 		data: {
 			"action"		: "pickplugins_wl_ajax_update_vote",
 			"wishlist_id" 	: wishlist_id,
@@ -94,7 +94,7 @@ jQuery(document).ready(function($) {
 			{
 		type: 'POST',
 		context: this,
-		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		url:wishlist_single_js.ajaxurl,
 		data: {
 			"action"		: "pickplugins_wl_ajax_set_views",
 			"wishlist_id" 	: wishlist_id,
@@ -111,46 +111,55 @@ jQuery(document).ready(function($) {
 	
 	
 	
-	// Popup Delete Screen //
-	// ===== //
 
-	$(document).on('click', ".popup_delete .popup_delete_confirm", function() {
-		
-		wishlist_id		= $('.popup_delete').attr('wishlist_id');
-		
-		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
-
-		__HTML__ = $(this).html();
-		$(this).html("Deleting...");
-		
-		$.ajax(
-			{
-		type: 'POST',
-		context: this,
-		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
-		data: {
-			"action"		: "pickplugins_wl_ajax_update_wishlist",
-			"pickplugins_wl_action" 	: "delete",
-			"wishlist_id" 	: wishlist_id,
-		},
-		success: function(data) {
-			
-			window.location.replace( data );
-		}
-			});
-	})
 	
 	
 	
 	$(document).on('click', ".wishlist_editing .button_delete", function() {
-		$('.popup_delete').fadeIn();
+
+
+		confirm = $(this).attr('confirm');
+		confirmText = $(this).attr('confirmText');
+
+		if(confirm=='yes'){
+			console.log(confirm);
+
+			wishlist_id		= $(this).attr('wishlist_id');
+
+			if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 ) return;
+
+			__HTML__ = $(this).html();
+			$(this).html("Deleting...");
+
+			$.ajax(
+				{
+					type: 'POST',
+					context: this,
+					url:wishlist_single_js.ajaxurl,
+					data: {
+						"action"		: "pickplugins_wl_ajax_update_wishlist",
+						"pickplugins_wl_action" 	: "delete",
+						"wishlist_id" 	: wishlist_id,
+					},
+					success: function(data) {
+
+						window.location.replace( data );
+					}
+
+				});
+
+
+		}else{
+			$(this).attr('confirm', 'yes');
+			$(this).html(confirmText);
+
+		}
+
+
 	})
 	
 	
-	
-	$(document).on('click', ".popup_delete .popup_cancel", function() {
-		$('.popup_delete').fadeOut();
-	})
+
 	
 	
 	
@@ -174,7 +183,7 @@ jQuery(document).ready(function($) {
 			{
 		type: 'POST',
 		context: this,
-		url:pickplugins_wl_ajax.pickplugins_wl_ajaxurl,
+		url:wishlist_single_js.ajaxurl,
 		data: {
 			"action"				: "pickplugins_wl_ajax_update_wishlist",
 			"pickplugins_wl_action"	: "update",
