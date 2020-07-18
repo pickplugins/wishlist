@@ -113,14 +113,22 @@ function pickplugins_wl_ajax_update_wishlist(){
     $wishlist_settings = get_option('wishlist_settings');
     $archive_page_id = isset($wishlist_settings['archives']['page_id']) ? $wishlist_settings['archives']['page_id'] : '';
 
+    $wishlist_post_data = get_post($wishlist_id);
+    $wishlist_author_id = $wishlist_post_data->post_author;
+
+    $current_user_id = get_current_user_id();
+
+
+    if($wishlist_author_id != $current_user_id){
+        return;
+        die();
+    }
 	
 	if( $pickplugins_wl_action === "delete" ){
 
-
-
 		wp_delete_post( $wishlist_id, true );
 		
-		echo get_the_permalink( $wishlist_settings );
+		echo get_the_permalink( $archive_page_id );
 		die();
 	}
 	

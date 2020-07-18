@@ -34,6 +34,7 @@ class pickplugins_wl_Shortcodes {
             $pencil_icon = '<i class="far fa-edit"></i>';
             $globe_icon = '<i class="fas fa-globe-asia"></i>';
             $lock_icon = '<i class="fas fa-lock"></i>';
+            $check_icon = '<i class="fas fa-check"></i>';
 
             wp_enqueue_style('font-awesome-5');
         }elseif ($font_aw_version == 'v_4'){
@@ -44,6 +45,7 @@ class pickplugins_wl_Shortcodes {
             $pencil_icon = '<i class="fa fa-pencil-square-o"></i>';
             $globe_icon = '<i class="fa fa-globe"></i>';
             $lock_icon = '<i class="fa fa-lock"></i>';
+            $check_icon = '<i class="fa fa-check"></i>';
 
             wp_enqueue_style('font-awesome-4');
         }
@@ -55,6 +57,8 @@ class pickplugins_wl_Shortcodes {
             'pencil_icon' => $pencil_icon,
             'globe_icon' => $globe_icon,
             'lock_icon' => $lock_icon,
+            'check_icon' => $check_icon,
+
         );
 
         ob_start();

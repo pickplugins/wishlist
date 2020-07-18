@@ -203,6 +203,7 @@ function wishlist_editing_display($atts){
 
     $trash_icon = isset($icons['trash_icon']) ? $icons['trash_icon'] : '';
     $pencil_icon = isset($icons['pencil_icon']) ? $icons['pencil_icon'] : '';
+    $check_icon = isset($icons['check_icon']) ? $icons['check_icon'] : '';
 
 
     $wishlist_settings = get_option('wishlist_settings');
@@ -212,13 +213,15 @@ function wishlist_editing_display($atts){
     $wishlist_id = get_the_id();
     $current_user_id 		= get_current_user_id();
 
+
+
     ?>
     <!-- Editing Buttons -->
 
     <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $default_wishlist_id != $wishlist_id ) : ?>
 
         <div class="wishlist_editing">
-            <div class="button button_delete"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></div>
+            <div class="button button_delete" wishlist_id="<?php echo $wishlist_id; ?>" confirmText="<?php echo esc_attr(sprintf(__('%s Confirm','wishlist'), $check_icon)); ?>"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></div>
             <div class="button button_edit"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></div>
         </div>
 
@@ -233,32 +236,8 @@ function wishlist_editing_display($atts){
 
 
 
-add_action('wishlist_single_main','wishlist_delete_form_display');
-
-function wishlist_delete_form_display(){
-    $wishlist_id = get_the_id();
-    ?>
-    <!-- Popup Delete Screen Start -->
-    <!-- ===== ***** ===== -->
 
 
-    <div class="wl_popup_wrap popup_delete" wishlist_id="<?php echo $wishlist_id; ?>">
-        <div class="popup_box">
-            <div class='popup_delete_message'>
-
-                <p class='del_message'><?php echo __('Please confirm to delete?'); ?></p>
-            </div>
-
-
-            <div class="pickplugins_wl_popup_btn popup_cancel"><i class="fa fa-times" aria-hidden="true"></i> <?php echo __("No, Cancel", 'wishlist' ); ?></div>
-            <div class="pickplugins_wl_popup_btn popup_delete_confirm"><i class="fa fa-trash" aria-hidden="true"></i> <?php echo __("Yes, Delete", 'wishlist' ); ?></div>
-
-
-        </div>
-
-    </div>
-    <?php
-}
 add_action('wishlist_single_main','wishlist_edit_form_display');
 
 function wishlist_edit_form_display(){

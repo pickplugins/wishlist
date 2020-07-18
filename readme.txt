@@ -4,7 +4,7 @@
 	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, Bookmark, Favorites, WP Wishlist, Product Wishlist
 	Requires at least: 3.8
 	Tested up to: 5.4
-	Stable tag: 1.0.8
+	Stable tag: 1.0.9
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,6 +97,13 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 
 
 == Changelog ==
+
+	= 1.0.9 =
+    * 2020-07-18 update - check user permission on delete wishlist
+    * 2020-07-18 add - default active icon for wishlist button
+    * 2020-07-18 add - default inactive icon for wishlist button
+    * 2020-07-18 add - default loading icon for wishlist button
+
 
 	= 1.0.8 =
     * 2020-07-15 remove - remove wishlist tags
