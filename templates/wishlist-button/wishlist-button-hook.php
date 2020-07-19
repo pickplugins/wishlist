@@ -12,6 +12,7 @@ function wishlist_button_wrap($atts){
 
 
     $wishlist_settings = get_option('wishlist_settings');
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
 
     $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
 
@@ -52,10 +53,6 @@ function wishlist_button_wrap($atts){
     //echo '<pre>'.var_export($atts, true).'</pre>';
 
 
-
-
-
-    $default_list_id		= get_option( 'pickplugins_wl_default_wishlist_id' );
     $wishlisted_array 		= pickplugins_wl_is_wishlisted( $item_id );
 
     ?>
@@ -82,7 +79,7 @@ function wishlist_button_wrap($atts){
 
                 $hint_text 	= apply_filters( "wishlist_save_label", __( 'Add to Favourites', 'wishlist' ), $item_id );
 
-                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_list_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_inactive)."</span></div>", $item_id );
+                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_wishlist_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_inactive)."</span></div>", $item_id );
 
             }
 

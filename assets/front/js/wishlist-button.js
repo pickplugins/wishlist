@@ -74,16 +74,14 @@ jQuery(document).ready(function($) {
 		item_id = $(this).parent().attr( 'item_id' );
 		is_loaded = $(this).attr( 'is_loaded');
 
-		$(this).toggleClass('active');
+
 
 
 
 		if(is_loaded == 'yes'){
-
+			$(this).toggleClass('active');
 		}else{
 			$(this).children('.wishlist_button_menu_icon').html(icon_loading);
-            $(this).children('.menu_items').html('<li class="menu_item"> '+icon_loading+'</li>');
-			console.log(item_id);
 
 
 			$.ajax(
@@ -97,13 +95,15 @@ jQuery(document).ready(function($) {
 					},
 					success: function(data) {
 
+						console.log(data);
+
+						$(this).toggleClass('active');
 						$(this).children('.wishlist_button_menu_icon').html("<i class='fa fa-bars' ></i>");
 						$(this).children('.menu_items').html(data);
 						$(this).children('.menu_items').fadeIn('fast');
 
 						$(this).attr('is_loaded', 'yes');
-						//$(this).parent().find('.menu_items').html( data );
-						//$(this).parent().find('.menu_items').fadeIn('fast');
+
 					}
 				});
 		}
@@ -150,6 +150,12 @@ jQuery(document).ready(function($) {
 	$(document).on('click', ".wishlist-button-wrap .menu_items .menu_item", function(e) {
 
 		e.stopPropagation();
+
+		icon_active = $(this).parent().parent().parent().attr( 'icon_active' );
+		icon_inactive = $(this).parent().parent().parent().attr( 'icon_inactive' );
+		icon_loading = $(this).parent().parent().parent().attr( 'icon_loading' );
+
+
 
 
 		if( $(this).hasClass( 'add_new' ) ) return;
@@ -199,13 +205,18 @@ jQuery(document).ready(function($) {
 							if( $( this ).hasClass('wishlist_saved') ) pickplugins_wl_stll_saved = true;
 						});
 
-						if( ! pickplugins_wl_stll_saved ) $( '.wishlist_save_' + item_id ).removeClass( 'wishlist_saved' );
+						if( ! pickplugins_wl_stll_saved ){
+							$( '.wishlist_save_' + item_id ).removeClass( 'wishlist_saved' );
+							$( '.wishlist_save_' + item_id ).children('.wishlist_save_icon').html( icon_inactive );
+						}
 
 					}
 
 					if( status == 'added' ) {
 
 						$( '.wishlist_save_' + item_id ).addClass( 'wishlist_saved' );
+						$( '.wishlist_save_' + item_id ).children('.wishlist_save_icon').html( icon_active );
+
 						$(this).addClass( 'wishlist_saved' );
 					}
 

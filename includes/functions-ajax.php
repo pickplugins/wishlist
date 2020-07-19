@@ -191,22 +191,25 @@ add_action('wp_ajax_nopriv_pickplugins_wl_ajax_update_wishlist', 'pickplugins_wl
 /* ===== === ===== */
 
 function pickplugins_wl_ajax_get_wishlist_menu_items(){
-	
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
 	$item_id 	 		= isset( $_POST['item_id'] ) ? sanitize_text_field($_POST['item_id']) : 0;
 	$current_user_id 	= get_current_user_id();
-	$default_list_id	= get_option( 'pickplugins_wl_default_wishlist_id' );
 	$wishlisted_array 	= pickplugins_wl_is_wishlisted( $item_id );
 	
-	$total_items 		= " (". count( pickplugins_wl_get_wishlisted_items( $default_list_id, -1, 1, true ) ) .")";
+	$total_items 		= " (". count( pickplugins_wl_get_wishlisted_items( $default_wishlist_id, -1, 1, true ) ) .")";
 	
-	if( !empty( $default_list_id ) && in_array( $default_list_id, $wishlisted_array ) )
-		echo "<li class='menu_item wishlist_saved' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
-	else echo "<li class='menu_item' wishlist='$default_list_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_list_id)." $total_items</li>";
+	if( !empty( $default_wishlist_id ) && in_array( $default_wishlist_id, $wishlisted_array ) )
+		echo "<li class='menu_item wishlist_saved' wishlist='$default_wishlist_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_wishlist_id)." $total_items</li>";
+	else echo "<li class='menu_item' wishlist='$default_wishlist_id'><i class='fa fa-heart' aria-hidden='true'></i> ".get_the_title($default_wishlist_id)." $total_items</li>";
 	
 	$wishlist_array = get_posts( array(
 		'post_type' => 'wishlist',
 		'author' => $current_user_id,
-		'post__not_in' => array( $default_list_id ),
+		'post__not_in' => array( $default_wishlist_id ),
 		'posts_per_page' => -1,
 	) );
 		

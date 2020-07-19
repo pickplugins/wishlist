@@ -268,13 +268,19 @@ function pickplugins_wl_get_wishlisted_items( $wishlist_id = 0, $item_per_page =
 	
 	$current_user_id = get_current_user_id();
 	if( $wishlist_id == 0 ) return false;
-	
-	$wishlist_status = get_post_meta( $wishlist_id, 'wishlist_status', true );
+
+    $wishlist_settings = get_option('wishlist_settings');
+
+    $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+
+
+
+    $wishlist_status = get_post_meta( $wishlist_id, 'wishlist_status', true );
 	if( empty( $wishlist_status ) ) $wishlist_status = "public";
 
 	if( is_user_logged_in() ){
 
-		if( get_option('pickplugins_wl_default_wishlist_id') == $wishlist_id ) {
+		if( $default_wishlist_id == $wishlist_id ) {
 			$query_append = "AND user_id = $current_user_id";
 		}
 		else {
