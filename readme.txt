@@ -1,19 +1,18 @@
 === Wishlist  ===
 	Contributors: pickplugins
 	Donate link: http://pickplugins.com
-	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, Bookmark, Favorites, WP Wishlist, Product Wishlist
+	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, product wishlist, Wishlist plugin
 	Requires at least: 3.8
 	Tested up to: 5.4
 	Stable tag: 1.0.9
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-	Add wish-list feature to your WooCommerce product or any post types.
+	Add wishlist feature to your WooCommerce product or any post types.
 
 == Description ==
 
-Wishlist is elegant plugin to enhance your shop website to allow user to add product to wish list, so the can purchase in later, wishlist can be public or private so this is useful for other visitor to find some useful product on your site from existing wishlist.
-
+Wishlist is one of the most wanted feature for all kind of eCommerce website, if you running WooCommerce store this Wishlist plugin might help you better way to display wishlist button and generate loyal customers on your site. it's also help to increase sales and search engine ranking. we have added ready support for WooCommerce wishlist features so you can display wishlist button under product page and shop page under any elements. our wishlist plugin can be use as post favoirates, bookmark and similar way. user can create public or private wishlist.
 
 ### Wishlist by http://pickplugins.com
 
@@ -23,27 +22,38 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 * [Documentation &raquo;](https://pickplugins.com/documentation/wishlist/?ref=wordpress.org)
 
 
-**Features**
+**Any post type support**
+You can display wishlist button under any post types automatically under post content or post excerpt, also you can display anywhere under post loop via shortcodes.
 
-* Any post type support.
-* Ready WooCommerce support
-* Elegant design wishlist button.
-* Unlimited wishlist by any user.
-* Public or private wishlist.
-* User can edit wishlist.
-* User can delete wishlist.
-* Pagination support.
-* Total wishlisted count by post id.
+**Ready for WooCommerce**
+WooCommerce wishlist features also added and ready to use. you can display wishlist button automatically under single product page or shop page under any elements.
+
+**Unlimited wishlist**
+There is no limit for creating wishlist, any user can create unlimited wishlist.
+
+**Public or private wishlist**
+User can create public or private wishlist, public wishlist will have access to any user and private wishlist only accessed by its creator. we also plan to added shared wishlist so only shared user can access to wishlist.
+
+**Wishlist manage**
+User can edit or delete their wishlist from account. they can also update their wishlist info like descriptions, public or private status and etc.
+
+**wishlist archive**
+User can see all their wishlist via archive page, you can customize wishlist archive post loop layout as you want via action hook. there is pagination support for wishlist archive available.
 
 
-**Pro features**
 
-* Wishlist search.
-* Single wishlist view count.
-* Single wishlist vote count.
-* Single wishlist social share.
-* Copy to duplicate others user wishlist.
-* Wishlist search via shortcode.
+
+
+### Pro features
+
+**Wishlist search**
+User can search for public wishlist, so that your visitors will get quickly others wishlist.
+
+**Customizable single wishlist page**
+You can customize single wishlist page by action hook and filter hook available, there is already view count, vote, social share features available in single wishlist page.
+
+**Copy or duplicate wishlist**
+User can copy or duplicate other public wishlist. so useful or popular wishlist can copy any user to their account. its also great way to increase sale and product view.
 
 
 
