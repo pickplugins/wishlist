@@ -78,24 +78,6 @@ add_action('wp_ajax_nopriv_pickplugins_wl_ajax_update_vote', 'pickplugins_wl_aja
 
 
 
-/* Update Wishlist from Popup */
-/* ===== === ===== */
-
-function pickplugins_wl_ajax_set_views(){
-	
-	$wishlist_id 			= isset( $_POST['wishlist_id'] ) ? sanitize_text_field( $_POST['wishlist_id'] ) : "";
-	$pickplugins_wl_views 	= get_post_meta( $wishlist_id, 'pickplugins_wl_views', true );
-	
-	if( empty( $pickplugins_wl_views ) ) $pickplugins_wl_views = 0;
-	
-	$pickplugins_wl_views++;
-	
-	echo update_post_meta( $wishlist_id, 'pickplugins_wl_views', $pickplugins_wl_views );
-	
-	die();
-}
-add_action('wp_ajax_pickplugins_wl_ajax_set_views', 'pickplugins_wl_ajax_set_views');
-add_action('wp_ajax_nopriv_pickplugins_wl_ajax_set_views', 'pickplugins_wl_ajax_set_views');	
 
 
 

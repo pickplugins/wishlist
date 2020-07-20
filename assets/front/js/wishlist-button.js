@@ -263,7 +263,7 @@ jQuery(document).ready(function($) {
 					wishlist_id = data['wishlist_id'];
 
 
-					wishlist_item = '<li style="background: #ffebd3" class="menu_item wishlist_saved" wishlist="'+wishlist_id+'"><i class="fa fa-heart" aria-hidden="true"></i> '+wishlist_name+'</li>';
+					wishlist_item = '<li style="background: #ffebd3" class="menu_item wishlist_saved" wishlist="'+wishlist_id+'"><i class="fa fa-heart" ></i> '+wishlist_name+'</li>';
 
 					//if( data.length == 0 ){
 

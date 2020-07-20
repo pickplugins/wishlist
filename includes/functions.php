@@ -144,37 +144,6 @@ function pickplugins_wl_before_delete_wishlist_function( $wishlist_id ){
 add_action( 'delete_post', 'pickplugins_wl_before_delete_wishlist_function', 10, 1 );
 
 
-function pickplugins_wl_get_social_platforms(){
-	
-	return apply_filters( 'pickplugins_wl_filter_social_platforms', array(
-	
-		'facebook' => array( 
-			'title' => 'Facebook',
-			'url' 	=> 'http://www.facebook.com/sharer.php?u=',
-		),
-		'google-plus' => array( 
-			'title' => 'Google Plus',
-			'url' 	=> 'https://plus.google.com/share?url=',
-		),
-		'twitter' => array( 
-			'title' => 'Twiter',
-			'url' 	=> 'https://twitter.com/intent/tweet/?url=',
-		),
-		'pinterest' => array( 
-			'title' => 'Pinterest',
-			'url' 	=> 'https://www.pinterest.com/pin/create/button/?url=',
-		),
-		'linkedin' => array( 
-			'title' => 'Linkedin',
-			'url' 	=> 'https://www.linkedin.com/shareArticle?mini=true&url=',
-		),
-		'reddit' => array( 
-			'title' => 'Reddit',
-			'url' 	=> 'http://www.reddit.com/submit/?url=',
-		)
-	) );
-}
-
 
 
 
@@ -326,11 +295,11 @@ function pickplugins_wl_get_wishlist_count( $item_id = 0 ){
 	");
 }
 
-function pickplugins_wl_get_all_status(){
+function wishlist_all_status(){
 
 	return apply_filters( 'pickplugins_wl_filters_all_status', array(
-		'public' => __('Public - Show to everyone', 'wishlist'),
-		'private' => __('Private - Show only to you', 'wishlist'),
+		'public' => array('label' => __('Public', 'wishlist'), 'description' => __('Show to everyone.', 'wishlist')),
+        'private' => array('label' => __('Private', 'wishlist'), 'description' => __('Show only to you.', 'wishlist')),
 	) );
 }
 

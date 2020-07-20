@@ -76,38 +76,7 @@ jQuery(document).ready(function($) {
 	})
 	
 	
-	
-	// Update wishlist views //
-	// ===== //
 
-	$(document).on('pickplugins_wl_set_views', function(event, wishlist_id) {
-		
-		if( typeof wishlist_id === "undefined" || wishlist_id.length == 0 || wishlist_id == 0 ) return; 
-		
-		pickplugins_wl_views_counted 	= localStorage.getItem( 'pickplugins_wl_views_counted' );
-		views_counted_array 			= JSON.parse( pickplugins_wl_views_counted );
-		
-		if( typeof views_counted_array === "undefined" || views_counted_array == null ) views_counted_array = [];
-		if( views_counted_array.indexOf( wishlist_id ) !== -1 ) return;
-		
-		$.ajax(
-			{
-		type: 'POST',
-		context: this,
-		url:wishlist_single_js.ajaxurl,
-		data: {
-			"action"		: "pickplugins_wl_ajax_set_views",
-			"wishlist_id" 	: wishlist_id,
-		},
-		success: function(data) {
-			
-			console.log( data );
-			
-			views_counted_array.push( wishlist_id );
-			localStorage.setItem( 'pickplugins_wl_views_counted',  JSON.stringify( views_counted_array ) );
-		}
-			});
-	})
 	
 	
 	

@@ -35,6 +35,9 @@ class pickplugins_wl_Shortcodes {
             $globe_icon = '<i class="fas fa-globe-asia"></i>';
             $lock_icon = '<i class="fas fa-lock"></i>';
             $check_icon = '<i class="fas fa-check"></i>';
+            $eye_icon = '<i class="fas fa-eye"></i>';
+            $clone_icon = '<i class="far fa-clone"></i>';
+
 
             wp_enqueue_style('font-awesome-5');
         }elseif ($font_aw_version == 'v_4'){
@@ -46,6 +49,9 @@ class pickplugins_wl_Shortcodes {
             $globe_icon = '<i class="fa fa-globe"></i>';
             $lock_icon = '<i class="fa fa-lock"></i>';
             $check_icon = '<i class="fa fa-check"></i>';
+            $eye_icon = '<i class="fa fa-eye"></i>';
+            $clone_icon = '<i class="fa fa-clone" ></i>
+';
 
             wp_enqueue_style('font-awesome-4');
         }
@@ -58,6 +64,8 @@ class pickplugins_wl_Shortcodes {
             'globe_icon' => $globe_icon,
             'lock_icon' => $lock_icon,
             'check_icon' => $check_icon,
+            'eye_icon' => $eye_icon,
+            'clone_icon' => $clone_icon,
 
         );
 
@@ -67,7 +75,7 @@ class pickplugins_wl_Shortcodes {
         do_action('wishlist_single', $atts);
 
         wp_enqueue_style('single-wishlist');
-
+        wp_enqueue_style('hint.css');
 
 
         wp_enqueue_script('wishlist_single_js');

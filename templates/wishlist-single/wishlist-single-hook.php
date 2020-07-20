@@ -146,39 +146,6 @@ function wishlist_bredcrumb_display($atts){
 
 
 
-add_action('wishlist_single_main','wishlist_single_status');
-
-function wishlist_single_status($atts){
-
-    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
-
-    $globe_icon = isset($icons['globe_icon']) ? $icons['globe_icon'] : '';
-    $lock_icon = isset($icons['lock_icon']) ? $icons['lock_icon'] : '';
-
-
-
-
-    $wishlist_status = get_post_meta( get_the_id(), 'wishlist_status', true );
-    $wishlist_status = empty( $wishlist_status ) ? $wishlist_status : 'public';
-    $all_status = pickplugins_wl_get_all_status();
-
-
-
-    ?>
-        <span class="wishlist_status" title="<?php echo $all_status[$wishlist_status]; ?>"><?php
-        if($wishlist_status == 'public'){
-            ?><?php echo $globe_icon; ?> <?php
-
-        }elseif ($wishlist_status == 'private'){
-            ?><?php echo $lock_icon; ?> <?php
-        }
-
-        echo $all_status[$wishlist_status];
-        ?></span>
-
-    <?php
-
-}
 
 
 
@@ -192,11 +159,62 @@ function wishlist_content_display(){
     <?php
 }
 
+add_action('wishlist_single_main','wishlist_single_meta');
+
+function wishlist_single_meta($atts){
+
+    ?>
+    <div class="meta">
+    <?php
+    do_action('wishlist_single_meta',$atts);
+    ?>
+    </div>
+    <?php
+
+}
 
 
-add_action('wishlist_single_main','wishlist_editing_display');
 
-function wishlist_editing_display($atts){
+add_action('wishlist_single_meta','wishlist_single_meta_status', 5);
+
+function wishlist_single_meta_status($atts){
+
+    $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
+
+    $globe_icon = isset($icons['globe_icon']) ? $icons['globe_icon'] : '';
+    $lock_icon = isset($icons['lock_icon']) ? $icons['lock_icon'] : '';
+
+
+
+    $wishlist_status	= get_post_meta( get_the_ID(), 'wishlist_status', true );
+    $wishlist_status = !empty( $wishlist_status ) ? $wishlist_status : 'public';
+    $all_status = wishlist_all_status();
+
+
+    //var_dump($wishlist_status);
+
+    ?>
+        <span class="wishlist_status meta-item hint--top" aria-label="<?php echo $all_status[$wishlist_status]['description']; ?>"><?php
+        if($wishlist_status == 'public'){
+            ?><?php echo $globe_icon; ?> <?php
+
+        }elseif ($wishlist_status == 'private'){
+            ?><?php echo $lock_icon; ?> <?php
+        }
+
+        echo $all_status[$wishlist_status]['label'];
+        ?></span>
+
+    <?php
+
+}
+
+
+
+
+add_action('wishlist_single_meta','wishlist_single_editing', 10);
+
+function wishlist_single_editing($atts){
 
     $icons = isset( $atts['icons'] ) ? $atts['icons'] : array();
 
@@ -221,18 +239,21 @@ function wishlist_editing_display($atts){
     <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $default_wishlist_id != $wishlist_id ) : ?>
 
         <div class="wishlist_editing">
-            <div class="button button_delete" wishlist_id="<?php echo $wishlist_id; ?>" confirmText="<?php echo esc_attr(sprintf(__('%s Confirm','wishlist'), $check_icon)); ?>"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></div>
-            <div class="button button_edit"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></div>
+            <span class="button_delete meta-item" wishlist_id="<?php echo $wishlist_id; ?>" confirmText="<?php echo esc_attr(sprintf(__('%s Confirm','wishlist'), $check_icon)); ?>"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></span>
+            <span class="button_edit meta-item"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></span>
         </div>
-
-    <?php elseif( is_user_logged_in() ) : ?>
-
-
-
     <?php endif; ?>
     <!-- Editing Buttons End -->
     <?php
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -281,7 +302,7 @@ function wishlist_edit_form_display(){
                 <h5 class="section_title"><?php echo __('Wishlist Status', 'wishlist'); ?></h5>
                 <select class="wishlist_status">
 
-                    <?php foreach( pickplugins_wl_get_all_status() as $status => $label ) : ?>
+                    <?php foreach( wishlist_all_status() as $status => $label ) : ?>
                         <option value="<?php echo $status; ?>" <?php selected( $wishlist_status, $status ); ?>><?php echo $label; ?></option>
                     <?php endforeach; ?>
                 </select>
@@ -290,9 +311,9 @@ function wishlist_edit_form_display(){
 
 
 
-            <div class="pickplugins_wl_popup_btn popup_cancel"><i class="fa fa-times" aria-hidden="true"></i> <?php echo __("Cancel", 'wishlist' ); ?></div>
+            <div class="pickplugins_wl_popup_btn popup_cancel"><i class="fa fa-times" ></i> <?php echo __("Cancel", 'wishlist' ); ?></div>
 
-            <div class="pickplugins_wl_popup_btn pickplugins_wl_popup_save"><i class="fa fa-check" aria-hidden="true"></i> <?php echo __("Save Changes", 'wishlist' ); ?></div>
+            <div class="pickplugins_wl_popup_btn pickplugins_wl_popup_save"><i class="fa fa-check" ></i> <?php echo __("Save Changes", 'wishlist' ); ?></div>
 
         </div>
 

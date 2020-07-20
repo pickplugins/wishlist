@@ -63,7 +63,7 @@ function wishlist_button_wrap($atts){
             ?>
             <?php if($show_menu == 'yes'): ?>
                 <div class="wishlist_button_menu hint--top" aria-label="<?php echo apply_filters( 'wishlist_menu_label', __( 'Save in...', 'wishlist' ) ); ?>">
-                    <span class="wishlist_button_menu_icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                    <span class="wishlist_button_menu_icon"><i class="fa fa-bars" ></i></span>
                     <ul class='menu_items' item_id="<?php echo $item_id; ?>"></ul>
                 </div>
             <?php endif; ?>

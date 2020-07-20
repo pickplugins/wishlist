@@ -28,59 +28,36 @@
     font-size: 14px;
 }
 
+.single-wishlist .meta{
+    margin: 20px 0;
+}
 
-
-
-
-
-
-.single-wishlist .pickplugins_wl_meta {
+.single-wishlist .meta-item{
     display: inline-block;
-    float: right;
-	margin-bottom: 10px;
-}
-.single-wishlist .pickplugins_wl_meta .wl_meta {
-	display: inline-block;
-    background: #f5daa9;
-    color: #696969;
-    padding: 5px 10px;
-    margin-right: 10px;
-    border-radius: 3px;
-}
-
-.single-wishlist .pickplugins_wl_meta .wl_meta .wl_vote_confirm {
-	cursor: pointer;
-}
-
-.single-wishlist .pickplugins_wl_meta .wl_meta .wl_share {
-    font-size: 18px;
+    margin: 0 15px 0 0;
     cursor: pointer;
-    margin-right: 5px;
-    line-height: normal;
+    font-size: 13px;
 }
-.single-wishlist .pickplugins_wl_meta .wl_meta .wl_share:hover,
-.single-wishlist .pickplugins_wl_meta .wl_meta .dashicons:hover {
-    color: #171717;
+
+.single-wishlist .meta-item .wl_share {
+    font-size: 22px;
+    margin: 0 2px;
+    cursor: pointer;
 }
+
+
+
+
+
+
+
+
 
 /* Editing Start */
 .wishlist_editing {
-    margin-bottom: 20px;
     display: inline-block;
 }
-.wishlist_editing .button {
-    background: #e0e0e0;
-    float: left;
-    padding: 5px 20px;
-    border-radius: 3px;
-    font-size: 13px;
-    min-width: 50px;
-    text-align: center;
-    cursor: pointer;
-    margin-right: 8px;
-    font-weight: 600;
-    color: #696969;
-}
+
 /* Editing End */
 
 
@@ -260,13 +237,7 @@
     display: table;
 }
 
-.single-wishlist .wishlist_status {
-    font-size: 15px;
-    font-weight: normal;
-    display: block;
-    margin: 10px 0;
-    font-style: italic;
-}
+
 
 
 
