@@ -109,7 +109,8 @@ User can copy or duplicate other public wishlist. so useful or popular wishlist 
 == Changelog ==
 
 	= 1.0.10 =
-    * 2020-07-19 fix - active icon update issue fixed.
+    * 2020-07-20 fix - active icon update issue fixed.
+    * 2020-07-20 fix - creating multiplease wishlist on same issue fixed.
 
 	= 1.0.9 =
     * 2020-07-18 update - check user permission on delete wishlist

@@ -157,10 +157,9 @@ function pickplugins_wl_wishlist_buttons_html(){
 
             <h2 class='wishlist-create-title'><?php echo __('Create your wishlist', 'wishlist' ); ?></h2>
 
-            <div>
-                <input type='text' class='wishlist_name' placeholder='<?php echo __( 'Wishlist Name', 'wishlist' ); ?>'>
-                <input type='hidden' class='item_id' value=''>
-            </div>
+            <input type='text' class='wishlist_name' placeholder='<?php echo __( 'Wishlist Name', 'wishlist' ); ?>'>
+            <input type='hidden' class='item_id' value=''>
+
 
             <div class='wl-button wishlist-create-cancel'><?php echo __( 'Cancel', 'wishlist' ); ?></div>
             <div class='wl-button wishlist-create-save'><?php echo __( 'Create Wishlist', 'wishlist' ); ?></div>

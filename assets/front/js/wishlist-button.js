@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
 					},
 					success: function(data) {
 
-						console.log(data);
+						//console.log(data);
 
 						$(this).toggleClass('active');
 						$(this).children('.wishlist_button_menu_icon').html("<i class='fa fa-bars' ></i>");
@@ -234,9 +234,8 @@ jQuery(document).ready(function($) {
 
 		e.stopPropagation();
 
-
-		wishlist_name 	= $('.wishlist-create-wrap .wishlist_name').val();
-		item_id 		= $('.wishlist-create-wrap .item_id').val();
+		wishlist_name 	= $(this).parent().children('.wishlist_name').val();
+		item_id 		= $(this).parent().children('.item_id').val();
 
 
 
@@ -244,7 +243,7 @@ jQuery(document).ready(function($) {
 		if( typeof wishlist_name === "undefined" || wishlist_name.length == 0 ) return;
 
 		__HTML__ = $(this).html();
-		$(this).html("<i class='fa fa-cog fa-spin' ></i> Saving...");
+		$(this).html("Saving...");
 
 		$.ajax(
 			{
