@@ -133,6 +133,7 @@ class PickpluginsWishList{
         require_once( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single-hook.php');
 
         require_once( wishlist_plugin_dir . 'templates/wishlist-archive/wishlist-archive-hook.php');
+        require_once( wishlist_plugin_dir . 'templates/my-wishlists/my-wishlists-hook.php');
 
 
         require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
@@ -200,6 +201,7 @@ class PickpluginsWishList{
         wp_localize_script( 'wishlist_single_js', 'wishlist_single_js', array( 'ajaxurl' => admin_url( 'admin-ajax.php')));
 
         wp_register_style('wishlist-archive', wishlist_plugin_url.'assets/front/css/wishlist-archive.css');
+        wp_register_style('my-wishlists', wishlist_plugin_url.'assets/front/css/my-wishlists.css');
 
 
         wp_register_style('font-awesome-4', wishlist_plugin_url.'assets/global/css/font-awesome-4.css');

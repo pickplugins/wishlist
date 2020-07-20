@@ -2,9 +2,9 @@
 if ( ! defined('ABSPATH')) exit;  // if direct access 
 
 
-add_action('wishlist_archive', 'wishlist_archive_wrap');
+add_action('my_wishlists', 'my_wishlists_wrap');
 
-function wishlist_archive_wrap($atts){
+function my_wishlists_wrap($atts){
 
     $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
 
@@ -39,17 +39,18 @@ function wishlist_archive_wrap($atts){
 
     ?>
 
-    <div class="wishlist-archive pick">
+    <div class="my-wishlists pick">
+
 
 
         <?php
         if( is_user_logged_in() ) {
 
-            do_action('wishlist_archive_user_logged', $args);
+            do_action('my_wishlists_user_logged', $args);
 
         }else{
 
-            do_action('wishlist_archive_user_not_logged', $args);
+            do_action('my_wishlists_user_not_logged', $args);
 
         }
     ?>
@@ -67,9 +68,9 @@ function wishlist_archive_wrap($atts){
 
 }
 
-add_action('wishlist_archive_user_logged', 'wishlist_archive_user_logged');
+add_action('my_wishlists_user_logged', 'my_wishlists_user_logged');
 
-function wishlist_archive_user_logged($args){
+function my_wishlists_user_logged($args){
 
     //$view_type = $args['view_type'];
     $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
@@ -93,6 +94,7 @@ function wishlist_archive_user_logged($args){
     $wishlist_query = new WP_Query( array (
         'post_type' 	=> 'wishlist',
         'post_status' 	=> array( 'publish' ),
+        'author' 		=> $current_user_id,
         'post__not_in' 	=> array( $default_wishlist_id ),
         'posts_per_page'=> $posts_per_page,
         'paged' 		=> $paged,
@@ -105,12 +107,12 @@ function wishlist_archive_user_logged($args){
     if ( $wishlist_query->have_posts() ) :
 
 
-        do_action('wishlist_archive_before_loop', $args);
+        do_action('my_wishlists_before_loop', $args);
 
         ?>
         <div class="items <?php echo $view_type; ?>">
             <?php
-            //do_action('wishlist_archive_loop_top', $args);
+            //do_action('my_wishlists_loop_top', $args);
 
 
             if( !empty( $default_wishlist_id ) ){
@@ -121,7 +123,7 @@ function wishlist_archive_user_logged($args){
 
                 $args['wishlist_id'] = get_the_ID();
 
-                do_action('wishlist_archive_loop', $args);
+                do_action('my_wishlists_loop', $args);
 
                 //echo pickplugins_wl_get_single_wishlist_html( get_the_ID() );
 
@@ -131,7 +133,7 @@ function wishlist_archive_user_logged($args){
             ?>
         </div>
         <?php
-        do_action('wishlist_archive_after_loop', $args, $wishlist_query);
+        do_action('my_wishlists_after_loop', $args, $wishlist_query);
 
 
 
@@ -168,9 +170,9 @@ function wishlist_archive_user_logged($args){
 
 
 
-add_action('wishlist_archive_after_loop', 'wishlist_archive_after_loop', 10, 2);
+add_action('my_wishlists_after_loop', 'my_wishlists_after_loop', 10, 2);
 
-function wishlist_archive_after_loop($args, $wishlist_query){
+function my_wishlists_after_loop($args, $wishlist_query){
 
     if ( get_query_var('paged') ) { $paged = get_query_var('paged');}
     elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
@@ -198,9 +200,9 @@ function wishlist_archive_after_loop($args, $wishlist_query){
 
 
 
-add_action('wishlist_archive_loop', 'wishlist_archive_loop');
+add_action('my_wishlists_loop', 'my_wishlists_loop');
 
-function wishlist_archive_loop($args){
+function my_wishlists_loop($args){
 
     $atts = isset( $args['atts'] ) ? $args['atts'] : array();
 
@@ -293,9 +295,9 @@ function wishlist_archive_loop($args){
 
 
 
-add_action('wishlist_archive_user_not_logged', 'wishlist_archive_user_not_logged');
+add_action('my_wishlists_user_not_logged', 'my_wishlists_user_not_logged');
 
-function wishlist_archive_user_not_logged($args){
+function my_wishlists_user_not_logged($args){
 
     ?>
     <p class='notice error'>
@@ -307,9 +309,9 @@ function wishlist_archive_user_not_logged($args){
 }
 
 
-add_action('wishlist_archive_loop', 'wishlist_archive_script');
+add_action('my_wishlists_loop', 'my_wishlists_script');
 
-function wishlist_archive_script($args){
+function my_wishlists_script($args){
 
     $wishlist_id = isset($args['wishlist_id']) ? $args['wishlist_id'] : '';
     $column = isset($atts['column']) ? $atts['column'] : '3';
@@ -327,12 +329,12 @@ function wishlist_archive_script($args){
     ?>
 
     <style type="text/css">
-        .wishlist-archive .paginate .page-numbers {
+        .my-wishlists .paginate .page-numbers {
             background: <?php echo $pagination_color_idle; ?> !important;
             color: <?php echo $pagination_color; ?> !important;
             font-size: <?php echo $pagination_font_size; ?> !important;
         }
-        .wishlist-archive .paginate .current, .wishlist-archive .paginate .page-numbers:hover {
+        .my-wishlists .paginate .current, .my-wishlists .paginate .page-numbers:hover {
             background: <?php echo $pagination_color_active; ?> !important;
         }
 

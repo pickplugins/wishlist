@@ -226,6 +226,8 @@ function wishlist_single_editing($atts){
 
     $wishlist_settings = get_option('wishlist_settings');
     $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+    $enable_delete = isset($wishlist_settings['wishlist_page']['enable_delete']) ? $wishlist_settings['wishlist_page']['enable_delete'] : 'yes';
+    $enable_edit = isset($wishlist_settings['wishlist_page']['enable_edit']) ? $wishlist_settings['wishlist_page']['enable_edit'] : 'yes';
 
 
     $wishlist_id = get_the_id();
@@ -239,8 +241,13 @@ function wishlist_single_editing($atts){
     <?php if( get_post_field( 'post_author', $wishlist_id ) == $current_user_id && $default_wishlist_id != $wishlist_id ) : ?>
 
         <div class="wishlist_editing">
-            <span class="button_delete meta-item" wishlist_id="<?php echo $wishlist_id; ?>" confirmText="<?php echo esc_attr(sprintf(__('%s Confirm','wishlist'), $check_icon)); ?>"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></span>
-            <span class="button_edit meta-item"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></span>
+
+            <?php if($enable_delete == 'yes'): ?>
+            <span class="button_delete meta-item hint--top" aria-label="<?php echo __('Delete this wishlist.',''); ?>" wishlist_id="<?php echo $wishlist_id; ?>" confirmText="<?php echo esc_attr(sprintf(__('%s Confirm','wishlist'), $check_icon)); ?>"><?php echo sprintf(__("%s Delete", 'wishlist' ), $trash_icon); ?></span>
+            <?php endif; ?>
+            <?php if($enable_edit == 'yes'): ?>
+            <span class="button_edit meta-item hint--top" aria-label="<?php echo __('Edit this wishlist.',''); ?>"><?php echo sprintf(__("%s Edit", 'wishlist' ), $pencil_icon); ?></span>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     <!-- Editing Buttons End -->
@@ -263,9 +270,11 @@ add_action('wishlist_single_main','wishlist_edit_form_display');
 
 function wishlist_edit_form_display(){
 
-        $wishlist_settings = get_option('wishlist_settings');
+    $wishlist_settings = get_option('wishlist_settings');
+    $enable_edit = isset($wishlist_settings['wishlist_page']['enable_edit']) ? $wishlist_settings['wishlist_page']['enable_edit'] : 'yes';
 
 
+    if($enable_edit != 'yes') return;
 
 
 
@@ -273,7 +282,7 @@ function wishlist_edit_form_display(){
     $wishlist_status = get_post_meta( $wishlist_id, 'wishlist_status', true );
     if( empty( $wishlist_status ) ) $wishlist_status = "public";
 
-
+    $wishlist_all_status = wishlist_all_status();
 
     ?>
 
@@ -302,8 +311,16 @@ function wishlist_edit_form_display(){
                 <h5 class="section_title"><?php echo __('Wishlist Status', 'wishlist'); ?></h5>
                 <select class="wishlist_status">
 
-                    <?php foreach( wishlist_all_status() as $status => $label ) : ?>
-                        <option value="<?php echo $status; ?>" <?php selected( $wishlist_status, $status ); ?>><?php echo $label; ?></option>
+                    <?php
+                    if(!empty($wishlist_all_status))
+                    foreach( $wishlist_all_status as $index => $status ) :
+
+                    //var_dump($index);
+
+                    $label = isset($status['label']) ? $status['label'] : '';
+
+                    ?>
+                        <option value="<?php echo $index; ?>" <?php selected( $wishlist_status, $index ); ?>><?php echo $label; ?></option>
                     <?php endforeach; ?>
                 </select>
 

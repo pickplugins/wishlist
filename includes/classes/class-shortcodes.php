@@ -7,6 +7,8 @@ class pickplugins_wl_Shortcodes {
 	function __construct() {
 		add_shortcode( 'wishlist_button', array( $this, 'wishlist_button_display' ) );
 		add_shortcode( 'wishlist_archive', array( $this, 'wishlist_archive_display' ) );
+        add_shortcode( 'wishlist_my_wishlists', array( $this, 'wishlist_my_wishlists_display' ) );
+
 		add_shortcode( 'wishlist_single', array( $this, 'wishlist_single_display' ) );
 		add_shortcode( 'wishlist_count_by_post', array( $this, 'wishlist_count_by_post_display' ) );
 
@@ -135,6 +137,56 @@ class pickplugins_wl_Shortcodes {
 		return ob_get_clean();
 	}
 
+    public function wishlist_my_wishlists_display( $atts ) {
+
+        $atts = shortcode_atts( array('view_type' => 'grid', 'column' => '3', ), $atts);
+        $wishlist_settings = get_option('wishlist_settings');
+
+        $font_aw_version = isset($wishlist_settings['general']['font_aw_version']) ? $wishlist_settings['general']['font_aw_version'] : 'v_5';
+
+        if($font_aw_version == 'v_5'){
+            $separator_icon = '<i class="fas fa-angle-double-right"></i>';
+            $home_icon = '<i class="fas fa-home"></i>';
+            $trash_icon = '<i class="fas fa-trash"></i>';
+            $user_icon = '<i class="fas fa-user"></i>';
+            $globe_icon = '<i class="fas fa-globe-asia"></i>';
+            $lock_icon = '<i class="fas fa-lock"></i>';
+
+            wp_enqueue_style('font-awesome-5');
+        }elseif ($font_aw_version == 'v_4'){
+
+            $separator_icon = '<i class="fa fa-angle-double-right"></i>';
+            $home_icon = '<i class="fa fa-home"></i>';
+            $trash_icon = '<i class="fa fa-trash"></i>';
+            $user_icon = '<i class="fa fa-user"></i>';
+            $globe_icon = '<i class="fa fa-globe"></i>';
+            $lock_icon = '<i class="fa fa-lock"></i>';
+
+            wp_enqueue_style('font-awesome-4');
+        }
+
+
+        $atts['icons'] = array(
+            'user_icon' => $user_icon,
+            'globe_icon' => $globe_icon,
+            'lock_icon' => $lock_icon,
+        );
+
+
+
+
+
+
+        wp_enqueue_style('my-wishlists');
+        wp_enqueue_style('hint.css');
+
+
+        ob_start();
+        do_action('my_wishlists', $atts);
+
+
+        return ob_get_clean();
+    }
 
 
 	/*
