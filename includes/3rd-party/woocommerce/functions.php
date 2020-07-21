@@ -212,24 +212,23 @@ add_action( 'init', 'pickplugins_wl_show_wishlist_section' );
 
 
 /* Add custom menu item and endpoint to WooCommerce My-Account page */
-add_action( 'init','_myaccount_endpoints'  );
-add_filter( 'query_vars', '_myaccount_query_vars', 0 );
-add_action( 'after_switch_theme', '_myaccount_flush' );
-add_filter( 'query_vars', '_myaccount_query_vars',  0 );
-add_filter( 'woocommerce_account_menu_items', '_myaccount_menu_items', 10 );
-add_action( 'woocommerce_account_my_wishlist_endpoint', '_myaccount_endpoint_content'  );
+add_action( 'init','wishlist_myaccount_endpoints'  );
+add_filter( 'query_vars', 'wishlist_myaccount_query_vars', 0 );
+add_action( 'after_switch_theme', 'wishlist_myaccount_flush' );
+add_filter( 'woocommerce_account_menu_items', 'wishlist_myaccount_menu_items', 10 );
+add_action( 'woocommerce_account_my_wishlist_endpoint', 'wishlist_myaccount_endpoint_content'  );
 
 
 
 
 
 
-function _myaccount_endpoints() {
+function wishlist_myaccount_endpoints() {
     add_rewrite_endpoint( 'my_wishlist', EP_ROOT | EP_PAGES );
 }
 
 
-function _myaccount_query_vars( $vars ) {
+function wishlist_myaccount_query_vars( $vars ) {
     $vars[] = 'my_wishlist';
 
     return $vars;
@@ -237,11 +236,11 @@ function _myaccount_query_vars( $vars ) {
 
 
 
-function _myaccount_flush() {
+function wishlist_myaccount_flush() {
     flush_rewrite_rules();
 }
 
-function _myaccount_menu_items( $items ) {
+function wishlist_myaccount_menu_items( $items ) {
 
     $logout = $items['customer-logout'];
     unset( $items['customer-logout'] );
@@ -255,9 +254,9 @@ function _myaccount_menu_items( $items ) {
 
 
 
-function _myaccount_endpoint_content() {
+function wishlist_myaccount_endpoint_content() {
 
-    echo do_shortcode('[wishlist_my_wishlists]');
+    echo do_shortcode('[my_wishlist]');
     ?>
     <?php
 

@@ -9,7 +9,7 @@ $wishlist_settings_tab = array();
 $wishlist_settings_tab[] = array(
     'id' => 'general',
     'title' => sprintf(__('%s General','wishlist'),'<i class="fas fa-cogs"></i>'),
-    'priority' => 1,
+    'priority' => 5,
     'active' => ($current_tab == 'general') ? true : false,
 );
 
@@ -17,14 +17,21 @@ $wishlist_settings_tab[] = array(
 $wishlist_settings_tab[] = array(
     'id' => 'archives',
     'title' => sprintf(__('%s Archives','wishlist'),'<i class="far fa-list-alt"></i>'),
-    'priority' => 5,
+    'priority' => 10,
     'active' => ($current_tab == 'archives') ? true : false,
+);
+
+$wishlist_settings_tab[] = array(
+    'id' => 'my_wishlist',
+    'title' => sprintf(__('%s My wishlist\'s','wishlist'),'<i class="fas fa-clipboard-list"></i>'),
+    'priority' => 15,
+    'active' => ($current_tab == 'my_wishlist') ? true : false,
 );
 
 $wishlist_settings_tab[] = array(
     'id' => 'wishlist_page',
     'title' => sprintf(__('%s Wishlist page','wishlist'),'<i class="far fa-heart"></i>'),
-    'priority' => 10,
+    'priority' => 20,
     'active' => ($current_tab == 'wishlist_page') ? true : false,
 );
 
@@ -33,7 +40,7 @@ $wishlist_settings_tab[] = array(
 $wishlist_settings_tab[] = array(
     'id' => 'style',
     'title' => sprintf(__('%s Button Style','wishlist'),'<i class="fas fa-palette"></i>'),
-    'priority' => 20,
+    'priority' => 25,
     'active' => ($current_tab == 'woo') ? true : false,
 );
 

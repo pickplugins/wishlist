@@ -2,7 +2,7 @@
 if ( ! defined('ABSPATH')) exit;  // if direct access 
 
 
-add_action('my_wishlists', 'my_wishlists_wrap');
+add_action('my_wishlist', 'my_wishlists_wrap');
 
 function my_wishlists_wrap($atts){
 
@@ -39,7 +39,7 @@ function my_wishlists_wrap($atts){
 
     ?>
 
-    <div class="my-wishlists pick">
+    <div class="my-wishlist pick">
 
 
 
@@ -76,8 +76,8 @@ function my_wishlists_user_logged($args){
     $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
 
     $wishlist_settings = get_option('wishlist_settings');
-    $posts_per_page = isset($wishlist_settings['archives']['pagination_per_page']) ? $wishlist_settings['archives']['pagination_per_page'] : '10';
     $default_wishlist_id = isset($wishlist_settings['default_wishlist_id']) ? $wishlist_settings['default_wishlist_id'] : '';
+    $posts_per_page = isset($wishlist_settings['my_wishlist']['posts_per_page']) ? $wishlist_settings['my_wishlist']['posts_per_page'] : '10';
 
     $current_user_id = get_current_user_id();
 
@@ -319,22 +319,22 @@ function my_wishlists_script($args){
 
     $wishlist_settings = get_option('wishlist_settings');
 
-    $pagination_font_size = isset($wishlist_settings['archives']['pagination_font_size']) ? $wishlist_settings['archives']['pagination_font_size'] : '';
-    $pagination_color_idle = isset($wishlist_settings['archives']['pagination_color_idle']) ? $wishlist_settings['archives']['pagination_color_idle'] : '';
-    $pagination_color_active = isset($wishlist_settings['archives']['pagination_color_active']) ? $wishlist_settings['archives']['pagination_color_active'] : '';
+    $pagination_font_size = isset($wishlist_settings['my_wishlist']['pagination_font_size']) ? $wishlist_settings['my_wishlist']['pagination_font_size'] : '';
+    $pagination_color_idle = isset($wishlist_settings['my_wishlist']['pagination_color_idle']) ? $wishlist_settings['my_wishlist']['pagination_color_idle'] : '';
+    $pagination_color_active = isset($wishlist_settings['my_wishlist']['pagination_color_active']) ? $wishlist_settings['my_wishlist']['pagination_color_active'] : '';
 
-    $pagination_color = isset($wishlist_settings['archives']['pagination_color']) ? $wishlist_settings['archives']['pagination_color'] : '';
+    $pagination_color = isset($wishlist_settings['my_wishlist']['pagination_color']) ? $wishlist_settings['my_wishlist']['pagination_color'] : '';
 
 
     ?>
 
     <style type="text/css">
-        .my-wishlists .paginate .page-numbers {
+        .my-wishlist .paginate .page-numbers {
             background: <?php echo $pagination_color_idle; ?> !important;
             color: <?php echo $pagination_color; ?> !important;
             font-size: <?php echo $pagination_font_size; ?> !important;
         }
-        .my-wishlists .paginate .current, .my-wishlists .paginate .page-numbers:hover {
+        .my-wishlist .paginate .current, .my-wishlist .paginate .page-numbers:hover {
             background: <?php echo $pagination_color_active; ?> !important;
         }
 

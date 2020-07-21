@@ -1,13 +1,13 @@
 @charset "utf-8";
 /* CSS Document */
 
-.my-wishlists{}
+.my-wishlist{}
 
-.my-wishlists .items {
+.my-wishlist .items {
     text-align: center;
 }
 
-.my-wishlists .item {
+.my-wishlist .item {
     /* float: left; */
     /* position: relative; */
     width: 232px;
@@ -16,7 +16,7 @@
     display: inline-block;
 }
 
-.my-wishlists .item a.item_inside {
+.my-wishlist .item a.item_inside {
     background-color: #fff;
     display: block;
     /* position: absolute; */
@@ -34,15 +34,15 @@
 }
 
 
-.my-wishlists .item:hover a.item_inside{
+.my-wishlist .item:hover a.item_inside{
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.14);
 
 }
-.my-wishlists .item:hover::before{transform: rotate(10deg);}
+.my-wishlist .item:hover::before{transform: rotate(10deg);}
 .item:hover::after{transform: rotate(5deg);}
 
 
-.my-wishlists .item .item_img {
+.my-wishlist .item .item_img {
     background-color: #e3e3e3;
     display: block;
     width: 208px;
@@ -55,7 +55,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
-.my-wishlists .item a.item_inside h3 {
+.my-wishlist .item a.item_inside h3 {
     font-size: 16px;
     line-height: 22px;
     font-weight: 700;
@@ -82,7 +82,7 @@
 }
 
 
-.my-wishlists .notice{
+.my-wishlist .notice{
     background: rgba(241, 241, 241, 0.84);
     margin: 0 0 20px 0;
     padding: 10px;
@@ -92,17 +92,17 @@
     color: #696969;
     clear: both;
 }
-.my-wishlists .notice a{
+.my-wishlist .notice a{
     font-weight: 600;
     color: inherit;
 }
-.my-wishlists .notice.error{
+.my-wishlist .notice.error{
     border-left: 5px solid #8e0303;
 }
-.my-wishlists .notice.warning{
+.my-wishlist .notice.warning{
     border-left: 5px solid #bd9218;
 }
-.my-wishlists .notice.success{
+.my-wishlist .notice.success{
     border-left: 5px solid #138E77;
 }
 
@@ -111,12 +111,12 @@
 
 /* Paginate Start */
 
-.my-wishlists .paginate {
+.my-wishlist .paginate {
     clear: both;
     margin: 20px 0 0 0;
     text-align: center;
 }
-.my-wishlists .paginate .page-numbers {
+.my-wishlist .paginate .page-numbers {
     background: #717171 none repeat scroll 0 0;
     margin: 5px;
     padding: 5px 13px;
@@ -125,9 +125,9 @@
     border-radius: 3px;
     display: inline-block;
 }
-.my-wishlists .paginate .current{
+.my-wishlist .paginate .current{
     background: #ddd none repeat scroll 0 0;
 }
-.my-wishlists .paginate .pre {}
-.my-wishlists .paginate .next {}
+.my-wishlist .paginate .pre {}
+.my-wishlist .paginate .next {}
 /* Paginate End */

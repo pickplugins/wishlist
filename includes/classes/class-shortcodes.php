@@ -7,7 +7,7 @@ class pickplugins_wl_Shortcodes {
 	function __construct() {
 		add_shortcode( 'wishlist_button', array( $this, 'wishlist_button_display' ) );
 		add_shortcode( 'wishlist_archive', array( $this, 'wishlist_archive_display' ) );
-        add_shortcode( 'wishlist_my_wishlists', array( $this, 'wishlist_my_wishlists_display' ) );
+        add_shortcode( 'my_wishlist', array( $this, 'my_wishlist_display' ) );
 
 		add_shortcode( 'wishlist_single', array( $this, 'wishlist_single_display' ) );
 		add_shortcode( 'wishlist_count_by_post', array( $this, 'wishlist_count_by_post_display' ) );
@@ -137,7 +137,7 @@ class pickplugins_wl_Shortcodes {
 		return ob_get_clean();
 	}
 
-    public function wishlist_my_wishlists_display( $atts ) {
+    public function my_wishlist_display( $atts ) {
 
         $atts = shortcode_atts( array('view_type' => 'grid', 'column' => '3', ), $atts);
         $wishlist_settings = get_option('wishlist_settings');
@@ -177,12 +177,12 @@ class pickplugins_wl_Shortcodes {
 
 
 
-        wp_enqueue_style('my-wishlists');
+        wp_enqueue_style('my-wishlist');
         wp_enqueue_style('hint.css');
 
 
         ob_start();
-        do_action('my_wishlists', $atts);
+        do_action('my_wishlist', $atts);
 
 
         return ob_get_clean();
