@@ -7,9 +7,9 @@ Wishlist is elegant plugin to enhance your shop website to allow user to add pro
 ### Wishlist by [http://pickplugins.com](http://pickplugins.com)
 
 * [Buy premium &raquo;](https://www.pickplugins.com/item/woocommerce-wishlist/?ref=github.com)
-* [Support &raquo;](http://www.pickplugins.com/questions/?ref=github.com)
-* [Demo &raquo;](http://www.pickplugins.com/demo/wishlist/?ref=github.com)
-* [Documentation &raquo;](https://pickplugins.com/docs/documentation/wishlist/?ref=github.com)
+* [Support &raquo;](https://www.pickplugins.com/questions/?ref=github.com)
+* [Demo &raquo;](https://www.pickplugins.com/demo/wishlist/?ref=github.com)
+* [Documentation &raquo;](https://www.pickplugins.com/documentation/wishlist/?ref=github.com)
 
 
 # Features

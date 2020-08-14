@@ -16,9 +16,9 @@ Wishlist is one of the most wanted feature for all kind of eCommerce website, if
 
 ### Wishlist by http://pickplugins.com
 
-* [Live demo &raquo;](http://www.pickplugins.com/demo/wishlist/?ref=wordpress.org)
+* [Live demo &raquo;](https://www.pickplugins.com/demo/wishlist/?ref=wordpress.org)
 * [Buy Premium &raquo;](https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org)
-* [Support &raquo;](http://www.pickplugins.com/questions/?ref=wordpress.org)
+* [Support &raquo;](https://www.pickplugins.com/questions/?ref=wordpress.org)
 * [Documentation &raquo;](https://pickplugins.com/documentation/wishlist/?ref=wordpress.org)
 
 
