@@ -87,16 +87,19 @@ function wishlist_archive_user_logged($args){
 
 
 
-
-
-
-    $wishlist_query = new WP_Query( array (
+    $wishlist_query_args = array (
         'post_type' 	=> 'wishlist',
         'post_status' 	=> array( 'publish' ),
         'post__not_in' 	=> array( $default_wishlist_id ),
         'posts_per_page'=> $posts_per_page,
         'paged' 		=> $paged,
-    ) );
+    );
+
+
+    $wishlist_query_args = apply_filters('wishlist_archive_query_args', $wishlist_query_args);
+
+
+    $wishlist_query = new WP_Query( $wishlist_query_args);
 
 
 

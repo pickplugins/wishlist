@@ -35,7 +35,7 @@ class Wishlist_Column{
 			$all_items 		= pickplugins_wl_get_wishlisted_items( $post_id );
 			$total_items 	= count( $all_items );
 			
-			echo sprintf( "<center><i><strong>%d</strong> <span>%s</span></i></center>", $total_items, __('Items on this List', 'wishlist') );
+			echo $total_items;
 		}
 		
 	}
