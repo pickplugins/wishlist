@@ -43,33 +43,19 @@ function wishlist_archive_wrap($atts){
 
 
         <?php
-        if( is_user_logged_in() ) {
 
-            do_action('wishlist_archive_user_logged', $args);
+        do_action('wishlist_archive_main', $args);
 
-        }else{
-
-            do_action('wishlist_archive_user_not_logged', $args);
-
-        }
-    ?>
-
-
-
-
-    <?php
-
-
-    ?>
+        ?>
 
     </div>
     <?php
 
 }
 
-add_action('wishlist_archive_user_logged', 'wishlist_archive_user_logged');
+add_action('wishlist_archive_main', 'wishlist_archive_main');
 
-function wishlist_archive_user_logged($args){
+function wishlist_archive_main($args){
 
     //$view_type = $args['view_type'];
     $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
@@ -108,7 +94,7 @@ function wishlist_archive_user_logged($args){
     if ( $wishlist_query->have_posts() ) :
 
 
-        do_action('wishlist_archive_before_loop', $args);
+        do_action('wishlist_archive_before_loop', $args, $wishlist_query);
 
         ?>
         <div class="items <?php echo $view_type; ?>">
@@ -124,7 +110,14 @@ function wishlist_archive_user_logged($args){
 
                 $args['wishlist_id'] = get_the_ID();
 
-                do_action('wishlist_archive_loop', $args);
+                ?>
+                <div class=' <?php echo apply_filters('wishlist_archive_loop_item_class', 'item')?>'>
+                    <?php
+                    do_action('wishlist_archive_loop', $args);
+                    ?>
+                </div>
+                <?php
+
 
                 //echo pickplugins_wl_get_single_wishlist_html( get_the_ID() );
 
@@ -152,16 +145,7 @@ function wishlist_archive_user_logged($args){
         </div>
         <?php
 
-
-
-
-
     endif;
-
-
-
-
-
 
     ?>
 
@@ -174,6 +158,7 @@ function wishlist_archive_user_logged($args){
 add_action('wishlist_archive_after_loop', 'wishlist_archive_after_loop', 10, 2);
 
 function wishlist_archive_after_loop($args, $wishlist_query){
+
 
     if ( get_query_var('paged') ) { $paged = get_query_var('paged');}
     elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
@@ -234,49 +219,47 @@ function wishlist_archive_loop($args){
 
 
     ?>
-    <div class='item'>
 
-        <a href='<?php echo $wishlist_url; ?>' class='item_inside'>
+    <a href='<?php echo $wishlist_url; ?>' class='item_inside'>
+        <?php
+
+        if( $total_items > 0 ){
+            ?>
+            <span class='item_img' style='background-image:url(<?php echo $bg_image_url; ?>);'></span>
+            <?php
+        }
+        else{
+            ?>
+            <span class='item_img'><i class='fa fa-heart' aria-hidden='true'></i></span>
+            <?php
+        }
+
+        echo sprintf("<h3>%s</h3>", get_the_title( $wishlist_id ) );
+        ?>
+        <div class="meta-items">
+
+            <span><?php echo sprintf(__('Total: %s', 'wishlist'), $total_items); ?></span>
+            <span class='hint--top' aria-label='<?php echo $status_hint_text?>'>
+                <?php
+
+                if($wishlist_status == 'public'){
+                    echo $globe_icon;
+
+                }elseif ($wishlist_status == 'private'){
+
+                    echo $lock_icon;
+                }
+
+
+                ?>
+            </span>
+            <span class='createdby hint--top' aria-label='<?php echo __('Created by', 'wishlist'); ?>'> <?php echo $user_icon; ?> <?php echo get_the_author_meta( 'display_name' )?></span>
             <?php
 
-            if( $total_items > 0 ){
-                ?>
-                <span class='item_img' style='background-image:url(<?php echo $bg_image_url; ?>);'></span>
-                <?php
-            }
-            else{
-                ?>
-                <span class='item_img'><i class='fa fa-heart' aria-hidden='true'></i></span>
-                <?php
-            }
-
-            echo sprintf("<h3>%s</h3>", get_the_title( $wishlist_id ) );
             ?>
-            <div class="meta-items">
+        </div>
+    </a>
 
-                <span><?php echo sprintf(__('Total: %s', 'wishlist'), $total_items); ?></span>
-                <span class='hint--top' aria-label='<?php echo $status_hint_text?>'>
-                    <?php
-
-                    if($wishlist_status == 'public'){
-                        echo $globe_icon;
-
-                    }elseif ($wishlist_status == 'private'){
-
-                        echo $lock_icon;
-                    }
-
-
-                    ?>
-                </span>
-                <span class='createdby hint--top' aria-label='<?php echo __('Created by', 'wishlist'); ?>'> <?php echo $user_icon; ?> <?php echo get_the_author_meta( 'display_name' )?></span>
-                <?php
-
-                ?>
-            </div>
-        </a>
-
-    </div>
     <?php
 
 
@@ -296,21 +279,9 @@ function wishlist_archive_loop($args){
 
 
 
-add_action('wishlist_archive_user_not_logged', 'wishlist_archive_user_not_logged');
-
-function wishlist_archive_user_not_logged($args){
-
-    ?>
-    <p class='notice error'>
-        <?php echo sprintf(__('You must <a href="%s">Logged</a> in to see wishlist\'s','wishlist'), wp_login_url( get_permalink() )); ?>
-    </p>
-
-    <?php
-
-}
 
 
-add_action('wishlist_archive_loop', 'wishlist_archive_script');
+add_action('wishlist_archive', 'wishlist_archive_script');
 
 function wishlist_archive_script($args){
 

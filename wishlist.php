@@ -3,7 +3,7 @@
 Plugin Name: Wishlist
 Plugin URI: https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org
 Description: Add wish-list feature to your WooCommerce product or any post types.
-Version: 1.0.10
+Version: 1.0.11
 WC requires at least: 3.0.0
 WC tested up to: 4.2
 Text Domain: wishlist
@@ -162,6 +162,7 @@ class PickpluginsWishList{
 
         require_once( wishlist_plugin_dir . 'includes/3rd-party/3rd-party.php');
         require_once( wishlist_plugin_dir . 'includes/functions-migrate.php');
+        require_once( wishlist_plugin_dir . 'includes/functions-dummy.php');
 
 
 

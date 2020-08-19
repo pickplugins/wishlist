@@ -71,7 +71,7 @@ function my_wishlist_user_logged($args){
     if ( $wishlist_query->have_posts() ) :
 
 
-        do_action('my_wishlist_before_loop', $args);
+        do_action('my_wishlist_before_loop', $args, $wishlist_query);
 
         ?>
         <div class="items <?php echo $view_type; ?>">
@@ -87,7 +87,14 @@ function my_wishlist_user_logged($args){
 
                 $args['wishlist_id'] = get_the_ID();
 
-                do_action('my_wishlist_loop', $args);
+                ?>
+                <div class='item'>
+                    <?php
+                    do_action('my_wishlist_loop', $args);
+                    ?>
+                </div>
+                <?php
+
 
                 //echo pickplugins_wl_get_single_wishlist_html( get_the_ID() );
 
@@ -197,7 +204,6 @@ function my_wishlist_loop($args){
 
 
     ?>
-    <div class='item'>
 
         <a href='<?php echo $wishlist_url; ?>' class='item_inside'>
             <?php
@@ -239,7 +245,6 @@ function my_wishlist_loop($args){
             </div>
         </a>
 
-    </div>
     <?php
 
 

@@ -71,6 +71,11 @@ class pickplugins_wl_Shortcodes {
 
         );
 
+
+        $atts = apply_filters('wishlist_single_atts', $atts);
+
+
+
         ob_start();
 		//include( wishlist_plugin_dir . 'templates/wishlist-single/wishlist-single.php');
 
@@ -121,6 +126,7 @@ class pickplugins_wl_Shortcodes {
         );
 
 
+        $atts = apply_filters('wishlist_archive_atts', $atts);
 
 
 
@@ -173,6 +179,7 @@ class pickplugins_wl_Shortcodes {
         );
 
 
+        $atts = apply_filters('my_wishlist_atts', $atts);
 
 
 

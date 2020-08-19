@@ -62,7 +62,7 @@ function wishlist_button_wrap($atts){
 
             ?>
             <?php if($show_menu == 'yes'): ?>
-                <div class="wishlist_button_menu hint--top" aria-label="<?php echo apply_filters( 'wishlist_menu_label', __( 'Save in...', 'wishlist' ) ); ?>">
+                <div class="wishlist_button_menu hint--top" aria-label="<?php echo apply_filters( 'wishlist_button_menu_label', __( 'Save in...', 'wishlist' ) ); ?>">
                     <span class="wishlist_button_menu_icon"><i class="fa fa-bars" ></i></span>
                     <ul class='menu_items' item_id="<?php echo $item_id; ?>"></ul>
                 </div>
@@ -72,20 +72,20 @@ function wishlist_button_wrap($atts){
 
                 $saved_in 	= isset($wishlisted_array[count($wishlisted_array)-1]) ? $wishlisted_array[count($wishlisted_array)-1] : "";
 
-                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id wishlist_saved hint--top' aria-label='Saved in ".get_the_title( $saved_in )."' wishlist_id='$saved_in'><span class='wishlist_save_icon'>".html_entity_decode($icon_active)."</span></div>", $item_id );
+                echo apply_filters( "wishlist_button_save_html", "<div class='wishlist_save wishlist_save_$item_id wishlist_saved hint--top' aria-label='Saved in ".get_the_title( $saved_in )."' wishlist_id='$saved_in'><span class='wishlist_save_icon'>".html_entity_decode($icon_active)."</span></div>", $item_id );
 
 
             } else {
 
-                $hint_text 	= apply_filters( "wishlist_save_label", __( 'Add to Favourites', 'wishlist' ), $item_id );
+                $hint_text 	= apply_filters( "wishlist_button_save_label", __( 'Add to Favourites', 'wishlist' ), $item_id );
 
-                echo apply_filters( "wishlist_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_wishlist_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_inactive)."</span></div>", $item_id );
+                echo apply_filters( "wishlist_button_save_html", "<div class='wishlist_save wishlist_save_$item_id hint--top' aria-label='$hint_text' wishlist_id='$default_wishlist_id'> <span class='wishlist_save_icon'>".html_entity_decode($icon_inactive)."</span></div>", $item_id );
 
             }
 
         else: ?>
 
-            <div class="wishlist_save hint--top not-logged-in" aria-label="<?php echo apply_filters( 'wishlist_save_login_label', __( 'Please Login', 'wishlist' ) ); ?>"><span class="wishlist_save_icon"><i class='fa fa-heart' aria-hidden='true'></i></span></div>
+            <div class="wishlist_save hint--top not-logged-in" aria-label="<?php echo apply_filters( 'wishlist_button_save_login_label', __( 'Please Login', 'wishlist' ) ); ?>"><span class="wishlist_save_icon"><i class='fa fa-heart' aria-hidden='true'></i></span></div>
 
         <?php endif; ?>
 

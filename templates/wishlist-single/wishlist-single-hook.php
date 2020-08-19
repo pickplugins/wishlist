@@ -22,7 +22,7 @@ function wishlist_single_display($content){
 add_filter('the_content','wishlist_single_display');
 
 
-add_action('wishlist_single', 'wishlist_single_wrap');
+add_action('wishlist_single', 'wishlist_single_wrap', 5);
 
 function wishlist_single_wrap($atts){
 
@@ -40,48 +40,30 @@ function wishlist_single_wrap($atts){
 
     $wishlist_author_id = get_post_field( 'post_author', $wishlist_id );
 
-    //var_dump($wishlist_status);
-
-
-
-
-
-    $wishlist_page = isset($wishlist_settings['wishlist_page']) ? $wishlist_settings['wishlist_page'] : array();
-    $pagination_per_page = isset($wishlist_page['pagination_per_page']) ? $wishlist_page['pagination_per_page'] : 10;
-    $pagination_font_size = isset($wishlist_page['pagination_font_size']) ? $wishlist_page['pagination_font_size'] : '';
-    $pagination_color_idle = isset($wishlist_page['pagination_color_idle']) ? $wishlist_page['pagination_color_idle'] : '';
-    $pagination_color_active = isset($wishlist_page['pagination_color_active']) ? $wishlist_page['pagination_color_active'] : '';
-
-
-
-
     ?>
 
     <div class="single-wishlist pick woocommerce">
 
-    <div class="pickplugins_wl_wishlist_single pick woocommerce">
-
-
-        <?php
-
-        if( ($wishlist_status == 'private') && ($wishlist_author_id != $current_user_id) && ($wishlist_id != $default_wishlist_id) ) {
-            ?>
-            <p class='pick_notice pick_error'><?php echo __("Sorry, You are not authorize to view this wishlist.", 'wishlist' ); ?></p>
-            <?php return;
-        }
-
-        if( !is_user_logged_in() && $wishlist_status == 'private' ) {
-            ?>
-            <p class='pick_notice pick_error'><?php echo sprintf(__('You must <a href="%s">Logged</a> in to see Wishlists','wishlist'), wp_login_url( get_permalink() )); ?></p>
             <?php
-            return;
-        }
 
-        do_action('wishlist_single_main', $atts);
+            if( ($wishlist_status == 'private') && ($wishlist_author_id != $current_user_id) && ($wishlist_id != $default_wishlist_id) ) {
+                ?>
+                <p class='pick_notice pick_error'><?php echo __("Sorry, You are not authorize to view this wishlist.", 'wishlist' ); ?></p>
+                <?php return;
+            }
 
-        ?>
+            if( !is_user_logged_in() && $wishlist_status == 'private' ) {
+                ?>
+                <p class='pick_notice pick_error'><?php echo sprintf(__('You must <a href="%s">Logged</a> in to see Wishlists','wishlist'), wp_login_url( get_permalink() )); ?></p>
+                <?php
+                return;
+            }
 
-    </div>
+            do_action('wishlist_single_main', $atts);
+
+            ?>
+
+        </div>
 
     <?php
 
@@ -89,16 +71,7 @@ function wishlist_single_wrap($atts){
 
 
 
-
-
-
-
-
-
-
-
-
-add_action('wishlist_single_main','wishlist_bredcrumb_display');
+add_action('wishlist_single_main','wishlist_bredcrumb_display', 5);
 
 function wishlist_bredcrumb_display($atts){
 
@@ -119,7 +92,7 @@ function wishlist_bredcrumb_display($atts){
 
 
     $home_text = !empty( $breadcrumb_home_text ) ? $breadcrumb_home_text : __('Home', 'wishlist');
-    $home_text = apply_filters( 'wishlist_bredcrumb_home_text', $home_text );
+    $home_text = apply_filters( 'wishlist_single_bredcrumb_home_text', $home_text );
 
     ?>
     <!-- Bredcrumb -->
@@ -150,7 +123,7 @@ function wishlist_bredcrumb_display($atts){
 
 
 
-add_action('wishlist_single_main','wishlist_content_display');
+add_action('wishlist_single_main','wishlist_content_display', 10);
 
 function wishlist_content_display(){
 
@@ -159,7 +132,7 @@ function wishlist_content_display(){
     <?php
 }
 
-add_action('wishlist_single_main','wishlist_single_meta');
+add_action('wishlist_single_main','wishlist_single_meta', 15);
 
 function wishlist_single_meta($atts){
 
@@ -266,7 +239,7 @@ function wishlist_single_editing($atts){
 
 
 
-add_action('wishlist_single_main','wishlist_edit_form_display');
+add_action('wishlist_single_main','wishlist_edit_form_display', 20);
 
 function wishlist_edit_form_display(){
 
@@ -339,7 +312,7 @@ function wishlist_edit_form_display(){
     <?php
 }
 
-add_action('wishlist_single_main','wishlist_items_display');
+add_action('wishlist_single_main','wishlist_items_display', 25);
 
 function wishlist_items_display(){
     $wishlist_id = get_the_id();
@@ -475,13 +448,9 @@ function wishlist_single_loop_end( $item_id, $wishlist_id ){
 
 
 
-add_action('wishlist_single', 'wishlist_single_main_script');
+add_action('wishlist_single', 'wishlist_single_main_script', 10);
 
 function wishlist_single_main_script($args){
-
-    $wishlist_id = isset($args['wishlist_id']) ? $args['wishlist_id'] : '';
-    $column = isset($atts['column']) ? $atts['column'] : '3';
-    $view_type = isset($atts['view_type']) ? $atts['view_type'] : 'grid';
 
     $wishlist_settings = get_option('wishlist_settings');
 
@@ -493,7 +462,6 @@ function wishlist_single_main_script($args){
 
 
     ?>
-
     <style type="text/css">
         .single-wishlist .paginate .page-numbers {
             background: <?php echo $pagination_color_idle; ?> !important;
@@ -503,10 +471,6 @@ function wishlist_single_main_script($args){
         .single-wishlist .paginate .current, .single-wishlist .paginate .page-numbers:hover {
             background: <?php echo $pagination_color_active; ?> !important;
         }
-
-
-
     </style>
     <?php
-
 }

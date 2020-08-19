@@ -4,7 +4,7 @@
 	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, product wishlist, Wishlist plugin
 	Requires at least: 3.8
 	Tested up to: 5.4
-	Stable tag: 1.0.10
+	Stable tag: 1.0.11
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,9 @@ User can copy or duplicate other public wishlist. so useful or popular wishlist 
 
 
 == Changelog ==
+
+	= 1.0.11 =
+    * 2020-08-19 add - add extra arguments for some action hooks
 
 	= 1.0.10 =
     * 2020-07-20 fix - active icon update issue fixed.
