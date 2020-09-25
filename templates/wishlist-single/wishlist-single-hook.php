@@ -398,7 +398,7 @@ add_action( 'wishlist_single_loop', 'wishlist_single_loop_thumb', 10, 2 );
 
 function wishlist_single_loop_thumb( $item_id, $wishlist_id ){
 
-	$item_thumb_url = get_the_post_thumbnail_url( $item_id );
+    $item_thumb_url = get_the_post_thumbnail_url( $item_id,'full' );
 
 	?>
 	<a class='wl-thumb' href='<?php echo get_the_permalink( $item_id ); ?>'>
