@@ -1,0 +1,342 @@
+@charset "utf-8";
+/* CSS Document */
+
+.single-wishlist {}
+
+.single-wishlist .wishlist-title {}
+
+.single-wishlist .wishlist-breadcrumb {
+    font-size: 13px;
+    display: block;
+    clear: both;
+}
+
+.single-wishlist .wishlist-breadcrumb .breadcrumb-item {
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    float: none;
+}
+
+.single-wishlist .wishlist-breadcrumb .breadcrumb-separator {
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.single-wishlist .wishlist-description {
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.single-wishlist .meta {
+    margin: 20px 0;
+}
+
+.single-wishlist .meta-item {
+    display: inline-block;
+    margin: 0 15px 0 0;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.single-wishlist .meta-item .wl_share {
+    font-size: 22px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* Editing Start */
+.wishlist_editing {
+    display: inline-block;
+}
+
+/* Editing End */
+
+
+/* Pick Error Start */
+
+.pick {}
+
+.pick .pick_notice {
+    background: rgba(241, 241, 241, 0.84);
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    font-size: 14px;
+    color: #696969;
+    clear: both;
+}
+
+.pick .pick_notice a {
+    font-weight: 600;
+    color: inherit;
+}
+
+.pick .pick_notice.pick_error {
+    border-left: 5px solid #8e0303;
+}
+
+.pick .pick_notice.pick_warning {
+    border-left: 5px solid #bd9218;
+}
+
+.pick .pick_notice.pick_success {
+    border-left: 5px solid #138E77;
+}
+
+/* Pick Error End */
+
+
+
+
+/* Popup Style - Edit Screen Start */
+.wl_popup_wrap {
+    background: none repeat scroll 0 0 rgba(93, 93, 93, 0.06);
+    display: none;
+    /* height: 100%; */
+    /* left: 0; */
+    /* position: fixed; */
+    /* text-align: center; */
+    /* top: 0; */
+    /* width: 100%; */
+    /* z-index: 999999; */
+    /* -webkit-user-select: none; */
+    margin: 15px 0;
+}
+
+.wl_popup_wrap .popup_box {
+    /* background: none repeat scroll 0 0 rgb(255, 255, 255); */
+    /* height: auto; */
+    /* margin: 0 auto; */
+    padding: 20px;
+    /* position: relative; */
+    /* text-align: center; */
+    /* top: 20%; */
+    /* min-width: 280px; */
+    /* width: 40%; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 10px 8px rgba(100, 100, 100, 0.9); */
+}
+
+.wl_popup_wrap .popup_box .popup_title {
+    font-size: 20px;
+    border-bottom: 1px solid #a1a1a1;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.wl_popup_wrap .popup_box .popup_section {
+    text-align: left;
+    margin: 0 20px;
+}
+
+.wl_popup_wrap .popup_box .popup_section .section_title {
+    margin: 0;
+}
+
+.wl_popup_wrap .popup_box input[type=text],
+.wl_popup_wrap .popup_box input[type=text]:focus,
+.wl_popup_wrap .popup_box input[type=text]:hover,
+
+.wl_popup_wrap .popup_box textarea,
+.wl_popup_wrap .popup_box textarea:focus,
+.wl_popup_wrap .popup_box textarea:hover,
+
+.wl_popup_wrap .popup_box select,
+.wl_popup_wrap .popup_box select:focus,
+.wl_popup_wrap .popup_box select:hover {
+    margin: 15px 0;
+    width: 95%;
+    max-width: 95%;
+    min-width: 220px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+
+.wl_popup_wrap .popup_box .pickplugins_wl_popup_btn {
+    background: #e0e0e0;
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-size: 13px;
+    min-width: 50px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px 10px 8px;
+    font-weight: 600;
+    color: #696969;
+    display: inline-block;
+}
+
+
+
+
+.wl_popup_wrap .popup_delete_message .del_message {
+    font-size: 16px;
+}
+
+/* Popup Style - Edit Screen End */
+
+
+.wishlist-items {}
+
+.wishlist-items .wl-single-item {
+    display: inline-block;
+    width: 220px;
+    margin: 15px;
+    vertical-align: top;
+}
+
+.wishlist-items .wl-single-item .wl-thumb span {
+    background-color: #e3e3e3;
+    display: block;
+    width: 220px;
+    height: 150px;
+    overflow: hidden;
+    text-align: center;
+    color: #9c9c9c;
+    font-size: 125px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.wishlist-items .wl-single-item .wl-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0 0;
+    display: inherit;
+}
+
+
+.wishlist-items .wl-single-item .wl-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px 0 0;
+    display: inherit;
+}
+
+
+.wishlist-items .wl-single-item .remove {
+
+    background: #f97e7e;
+    border-radius: 5px;
+    padding: 6px 20px;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    border: 2px solid transparent;
+
+}
+
+.wishlist-items .wl-single-item .remove:hover {
+
+    border: 2px solid #6b1d1d;
+
+
+
+
+}
+
+
+
+
+.wishlist-items .wl-single-item .confirm {
+
+    background: #ff1717;
+
+
+}
+
+
+/* WooCommerece Design */
+.wishlist-items .wl-single-item .add_to_cart_inline {
+    border: none !important;
+    padding: 0 !important;
+    margin: 10px 0;
+}
+
+.wishlist-items .wl-single-item .add_to_cart_inline .add_to_cart_button {
+    margin: 10px 0;
+    display: table;
+}
+
+
+
+
+
+/* Paginate Start */
+
+.single-wishlist .paginate {
+    clear: both;
+    margin: 20px 0 0 0;
+    text-align: center;
+}
+
+.single-wishlist .paginate .page-numbers {
+    background: #717171 none repeat scroll 0 0;
+    margin: 5px;
+    padding: 5px 13px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.single-wishlist .paginate .current {
+    background: #ddd none repeat scroll 0 0;
+}
+
+/* Paginate End */
+
+#offline-wishlist {}
+
+#offline-wishlist .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 2em;
+    row-gap: 2em;
+
+}
+
+.offline-title {
+
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+
+#offline-wishlist .items .item-title {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+#offline-wishlist .items .item-thumb {}
+
+.offline-export {
+
+    display: inline-block;
+    padding: 10px 25px;
+    background: #ddd;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.offline-export:hover {
+
+
+    background: #eee;
+
+}

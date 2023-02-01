@@ -1,0 +1,214 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+
+
+
+
+
+
+
+/* Popup Style - Edit Screen Start */
+.wl_popup_wrap {
+    background: none repeat scroll 0 0 rgba(93, 93, 93, 0.06);
+    display: none;
+    /* height: 100%; */
+    /* left: 0; */
+    /* position: fixed; */
+    /* text-align: center; */
+    /* top: 0; */
+    /* width: 100%; */
+    /* z-index: 999999; */
+    /* -webkit-user-select: none; */
+    margin: 15px 0;
+}
+.wl_popup_wrap .popup_box {
+    /* background: none repeat scroll 0 0 rgb(255, 255, 255); */
+    /* height: auto; */
+    /* margin: 0 auto; */
+    padding: 20px;
+    /* position: relative; */
+    /* text-align: center; */
+    /* top: 20%; */
+    /* min-width: 280px; */
+    /* width: 40%; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 10px 8px rgba(100, 100, 100, 0.9); */
+}
+
+.wl_popup_wrap .popup_box .popup_title {
+    font-size: 20px;
+    border-bottom: 1px solid #a1a1a1;
+    margin: 0;
+    padding: 10px 0;
+}
+.wl_popup_wrap .popup_box .popup_section {
+    text-align: left;
+    margin: 0 20px;
+}
+.wl_popup_wrap .popup_box .popup_section .section_title{
+	margin: 0;
+}
+.wl_popup_wrap .popup_box input[type=text],
+.wl_popup_wrap .popup_box input[type=text]:focus,
+.wl_popup_wrap .popup_box input[type=text]:hover,
+
+.wl_popup_wrap .popup_box textarea,
+.wl_popup_wrap .popup_box textarea:focus,
+.wl_popup_wrap .popup_box textarea:hover,
+
+.wl_popup_wrap .popup_box select,
+.wl_popup_wrap .popup_box select:focus,
+.wl_popup_wrap .popup_box select:hover
+
+
+
+{
+    margin: 15px 0;
+    width: 95%;
+    max-width: 95%;
+    min-width: 220px;
+    box-shadow: none;
+    border: 1px solid #ddd;
+	outline: none;
+}
+
+
+.wl_popup_wrap .popup_box .pickplugins_wl_popup_btn{
+    background: #e0e0e0;
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-size: 13px;
+    min-width: 50px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px 10px 8px;
+    font-weight: 600;
+    color: #696969;
+    display: inline-block;
+}
+
+
+
+
+.wl_popup_wrap .popup_delete_message .del_message {
+    font-size: 16px;
+}
+
+/* Popup Style - Edit Screen End */
+
+
+
+
+
+
+.dashicons.dashicons-spin {
+   animation: dashicons-spin 1s infinite;
+   animation-timing-function: linear;
+}
+
+@keyframes dashicons-spin {
+   0% {
+      transform: rotate( 0deg );
+   }
+   100% {
+      transform: rotate( 360deg );
+   }
+}
+
+
+
+
+
+
+/* Pick Error Start */
+
+.pick{
+	
+}
+.pick .pick_notice{
+	background: rgba(241, 241, 241, 0.84);
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+	font-size:14px;
+	color: #696969;
+	clear: both;
+}
+.pick .pick_notice a{
+	font-weight: 600;
+    color: inherit;
+}
+.pick .pick_notice.pick_error{
+    border-left: 5px solid #8e0303;
+}
+.pick .pick_notice.pick_warning{
+    border-left: 5px solid #bd9218;
+}
+.pick .pick_notice.pick_success{
+    border-left: 5px solid #138E77;
+}
+/* Pick Error End */
+
+
+
+
+
+
+/* Editing Start */
+.wishlist_editing {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.wishlist_editing .button {
+    background: #e0e0e0;
+    float: left;
+    padding: 5px 20px;
+    border-radius: 3px;
+    font-size: 13px;
+    min-width: 50px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #696969;
+}
+/* Editing End */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* wishlist search */
+
+form.pickplugins_wl_search_form {
+    clear: both;
+    margin: 15px 0 25px 0;
+}
+
+form.pickplugins_wl_search_form > input[type='text'] {
+    margin-right: 10px;
+	width:70%;
+	min-width:220px;
+}
+
+
+
+
+
+
+
+
+
+
