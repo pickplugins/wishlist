@@ -3,7 +3,7 @@
 Plugin Name: Wishlist for WooCommerce and Custom Post Types
 Plugin URI: https://www.pickplugins.com/item/woocommerce-wishlist/?ref=wordpress.org
 Description: Add wish-list feature to your WooCommerce product or any post types.
-Version: 1.0.38
+Version: 1.0.39
 WC requires at least: 3.0.0
 WC tested up to: 7.2.0
 Text Domain: wishlist

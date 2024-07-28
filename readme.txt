@@ -3,8 +3,8 @@
 	Donate link: http://pickplugins.com
 	Tags: Wishlist, Wish list, Wish-list, WooCommerce Wishlist, product wishlist, Wishlist plugin
 	Requires at least: 3.8
-	Tested up to: 6.1.1
-	Stable tag: 1.0.38
+	Tested up to: 6.2
+	Stable tag: 1.0.39
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -122,6 +122,10 @@ User can copy or duplicate other public wishlist. so useful or popular wishlist 
 
 
 == Changelog ==
+
+
+	= 1.0.39 =
+    * 2023-07-23 fix - post per page item issue fixed.
 
 	= 1.0.38 =
     * 2023-02-01 fix - new wishlist creating private issue fixed.

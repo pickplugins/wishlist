@@ -371,12 +371,8 @@ function wishlist_items_display()
 
     $wishlist_id = get_the_id();
 
-    $wishlist_settings = get_option('wishlist_settings');
-    $pagination_per_page = !empty( $wishlist_settings['archives']['pagination_per_page']) ?  $wishlist_settings['archives']['pagination_per_page'] : 10;
+    $pickplugins_wl_list_items_per_page = get_option('pickplugins_wl_list_items_per_page', 10);
 
-
-
-    $pickplugins_wl_list_items_per_page = $pagination_per_page;
 
 
 
